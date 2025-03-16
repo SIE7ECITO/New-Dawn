@@ -1,0 +1,61 @@
+﻿@model NewDawn.Models.Usuario
+
+@{
+    ViewData["Title"] = "Registrarse";
+}
+
+<h1>Registrarse</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="RegisterUser" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Ccusuario" class="control-label"></label>
+                <input asp-for="Ccusuario" class="form-control" />
+                <span asp-validation-for="Ccusuario" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NombreUsuario" class="control-label"></label>
+                <input asp-for="NombreUsuario" class="form-control" />
+                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Apellido" class="control-label"></label>
+                <input asp-for="Apellido" class="form-control" />
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Correo" class="control-label"></label>
+                <input asp-for="Correo" class="form-control" type="email" />
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ContraseñaUsuario" class="control-label"></label>
+                <input asp-for="ContraseñaUsuario" class="form-control" type="password" />
+                <span asp-validation-for="ContraseñaUsuario" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Idrol" class="control-label"></label>
+                <select asp-for="Idrol" class="form-control" asp-items="ViewBag.Idrol"></select>
+                <span asp-validation-for="Idrol" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Registrarse" class="btn btn-primary" />
+                <a asp-action="Login" class="btn btn-secondary">Iniciar sesión</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

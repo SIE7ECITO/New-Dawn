@@ -1,0 +1,13 @@
+﻿namespace New@{
+    ViewData["Title"] = "Restablecer Contraseña";
+}
+
+<h2>Restablecer Contraseña</h2>
+
+<form asp-action="Restablecer" method="post">
+    <div class="form-group">
+        <label for="NuevaContraseña">Nueva Contraseña</label>
+        <input type="password" class="form-control" name="NuevaContraseña" required>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar Contraseña</button>
+</form>

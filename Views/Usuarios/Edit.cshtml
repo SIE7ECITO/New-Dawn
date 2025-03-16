@@ -1,0 +1,64 @@
+﻿@model NewDawn.Models.Usuario
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Idusuario" />
+            <div class="form-group">
+                <label asp-for="Ccusuario" class="control-label"></label>
+                <input asp-for="Ccusuario" class="form-control" />
+                <span asp-validation-for="Ccusuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreUsuario" class="control-label"></label>
+                <input asp-for="NombreUsuario" class="form-control" />
+                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellido" class="control-label"></label>
+                <input asp-for="Apellido" class="form-control" />
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Correo" class="control-label"></label>
+                <input asp-for="Correo" class="form-control" />
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContraseñaUsuario" class="control-label"></label>
+                <input asp-for="ContraseñaUsuario" class="form-control" />
+                <span asp-validation-for="ContraseñaUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="EstadoUsuario" /> @Html.DisplayNameFor(model => model.EstadoUsuario)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Idrol" class="control-label"></label>
+                <select asp-for="Idrol" class="form-control" asp-items="ViewBag.Idrol"></select>
+                <span asp-validation-for="Idrol" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

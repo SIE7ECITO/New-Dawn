@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Recuperar Contraseña";
+}
+
+<h2>Recuperar Contraseña</h2>
+
+<form asp-action="Recuperar" method="post">
+    <div class="form-group">
+        <label for="Correo">Correo Electrónico</label>
+        <input type="email" class="form-control" name="Correo" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar Código</button>
+</form>

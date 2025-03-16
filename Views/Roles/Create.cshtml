@@ -1,0 +1,62 @@
+﻿@model NewDawn.Models.Rol
+
+@{
+    ViewData["Title"] = "Create";
+    var Permisos = ViewBag.Permisos as List<NewDawn.Models.Permiso> ?? new List<NewDawn.Models.Permiso>();
+}
+
+<h1>Crear Rol</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="NombreRol" class="control-label"></label>
+                <input asp-for="NombreRol" class="form-control" />
+                <span asp-validation-for="NombreRol" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" asp-for="EstadoRol" id="EstadoRolCheck" />
+                <label class="form-check-label" for="EstadoRolCheck">Activo</label>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Permisos</label>
+                <div>
+                    @foreach (var permiso in Permisos)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="Permiso-@permiso.Idpermisos" name="Permitidos" value="@permiso.Idpermisos" />
+                            <label class="form-check-label" for="Permiso-@permiso.Idpermisos">@permiso.NombrePermiso</label>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.querySelector("form").addEventListener("submit", function () {
+            let permisosSeleccionados = [];
+            document.querySelectorAll("input[name='Permitidos']:checked").forEach((checkbox) => {
+                permisosSeleccionados.push(checkbox.value);
+            });
+            console.log("Permisos seleccionados:", permisosSeleccionados);
+        });
+    </script>
+}

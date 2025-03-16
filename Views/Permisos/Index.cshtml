@@ -1,0 +1,53 @@
+﻿@model IEnumerable<NewDawn.Models.Permiso>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombrePermiso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescripcionPermiso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoPermisos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCambio)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombrePermiso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionPermiso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoPermisos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCambio)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Idpermisos">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Idpermisos">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Idpermisos">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

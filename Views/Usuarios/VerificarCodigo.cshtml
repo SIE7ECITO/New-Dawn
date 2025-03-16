@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Verificar Código";
+}
+
+<h2>Ingrese el Código de Recuperación</h2>
+
+@if (ViewData["Codigo"] != null)
+{
+    <script>
+        alert("Tu código de recuperación es: @ViewData["Codigo"]");
+    </script>
+}
+
+<form asp-action="VerificarCodigo" method="post">
+    <div class="form-group">
+        <label for="CodigoIngresado">Código de Recuperación</label>
+        <input type="number" class="form-control" name="CodigoIngresado" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Verificar</button>
+</form>
+
+@if (ViewData["Error"] != null)
+{
+    <p class="text-danger">@ViewData["Error"]</p>
+}
