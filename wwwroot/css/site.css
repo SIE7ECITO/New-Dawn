@@ -1,31 +1,185 @@
-html {
-  font-size: 14px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+/* Reset y Configuración Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  margin-bottom: 60px;
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* Estilos Generales */
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* =================== */
+/*        NAVBAR       */
+/* =================== */
+nav {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: rgb(86, 86, 255);
+    box-shadow: 0 0 10px rgba(86, 86, 255, 0.8);
+    padding: 0 20px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    width: auto;
+    gap: 20px;
+}
+
+.link_nav {
+    display: flex;
+    gap: 40px;
+}
+
+.iniciar {
+    font-weight: bold;
+    border: 1px solid grey;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+    .iniciar:hover {
+        background-color: rgba(202, 201, 253, 0.5);
+    }
+
+/* Enlaces de navegación */
+.links_a a {
+    color: black;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+    .links_a a:hover {
+        color: blue;
+    }
+
+/* Logo o Branding */
+.links_new {
+    position: absolute;
+    left: 5%;
+}
+
+    .links_new a {
+        color: black;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+/* =================== */
+/*       LOGIN         */
+/* =================== */
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    padding: 2rem;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid grey;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.login h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Inputs del formulario */
+.login .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+    .login .form-group label {
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .login .form-group input {
+        padding: 8px;
+        outline: none;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: border 0.3s ease-in-out;
+    }
+
+        .login .form-group input:focus {
+            border-color: rgb(86, 86, 255);
+        }
+
+/* Botón */
+.login button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(86, 86, 255);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+    .login button:hover {
+        background-color: rgb(60, 60, 200);
+    }
+
+/* =================== */
+/*   RESPONSIVE FIXES  */
+/* =================== */
+@media screen and (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 0;
+    }
+
+    .link_nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .links_new {
+        position: static;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .login {
+        padding: 1rem;
+    }
+
+    form {
+        padding: 30px;
+    }
 }

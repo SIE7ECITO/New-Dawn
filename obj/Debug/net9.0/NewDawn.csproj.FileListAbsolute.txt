@@ -141,7 +141,6 @@ C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\NewDawn.RazorAssemblyInfo
 C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\scopedcss\bundle\NewDawn.styles.css
 C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\scopedcss\projectbundle\NewDawn.bundle.scp.css
-C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\compressed\apwdh3ao9f-b9sayid5wm.gz
 C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\compressed\sejph0lg4o-61n19gt1b8.gz
 C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\compressed\zw6y58xqfw-xtxxf3hu2r.gz
 C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\compressed\m168hy0mcb-bqjiyaj88i.gz
@@ -339,3 +338,5 @@ C:\Users\usuario\source\repos\NewDawn\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAna
 C:\Users\usuario\source\repos\NewDawn\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\usuario\source\repos\NewDawn\bin\Debug\net9.0\BCrypt.Net-Next.dll
 C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\NewDawn.sourcelink.json
+C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\compressed\apwdh3ao9f-mvzwkqzezq.gz
