@@ -1,0 +1,65 @@
+﻿@model NewDawn.Models.Servicio
+
+@{
+    ViewData["Title"] = "Editar Servicio";
+}
+
+<h1 class="mb-4">Editar Servicio</h1>
+
+<div class="card shadow-lg p-4">
+    <h4 class="mb-3">Información del Servicio</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <input type="hidden" asp-for="Idservicio" />
+
+                <div class="mb-3">
+                    <label asp-for="NombreServicio" class="form-label fw-bold"></label>
+                    <input asp-for="NombreServicio" class="form-control" />
+                    <span asp-validation-for="NombreServicio" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DescripcionServicio" class="form-label fw-bold"></label>
+                    <textarea asp-for="DescripcionServicio" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="DescripcionServicio" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ValorServicio" class="form-label fw-bold"></label>
+                    <input asp-for="ValorServicio" type="number" class="form-control" min="0" step="0.01" />
+                    <span asp-validation-for="ValorServicio" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="FechaCreacion" class="form-label fw-bold"></label>
+                    <input asp-for="FechaCreacion" type="date" class="form-control" />
+                    <span asp-validation-for="FechaCreacion" class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" asp-for="EstadoServicio" />
+                    <label class="form-check-label fw-bold" asp-for="EstadoServicio"></label>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Volver a la lista
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

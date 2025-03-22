@@ -21,7 +21,9 @@ public partial class Usuario
 
     public int Idrol { get; set; }
 
-    public virtual Rol? IdrolNavigation  { get; set; } 
+    public string NumeroTelUsuario { get; set; } = null!;
+
+    public virtual Rol? IdrolNavigation { get; set; } = null!;
 
     public virtual ICollection<Pago> Pagos { get; set; } = new List<Pago>();
 

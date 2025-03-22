@@ -97,47 +97,75 @@ namespace NewDawn.Controllers
                 return NotFound();
             }
 
-            var rol = await _context.Rols.FindAsync(id);
+            var rol = await _context.Rols
+                .Include(r => r.RolPermisos) // Cargar los permisos actuales del rol
+                .FirstOrDefaultAsync(r => r.Idrol == id);
+
             if (rol == null)
             {
                 return NotFound();
             }
+
+            ViewBag.Permisos = await _context.Permisos.ToListAsync();
+            ViewBag.Permitidos = rol.RolPermisos.Select(rp => rp.Idpermisos).ToList(); // Permisos actuales del rol
+
             return View(rol);
         }
 
         // POST: Roles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idrol,NombreRol,EstadoRol")] Rol rol)
+        public async Task<IActionResult> Edit(int id, Rol rol, int[] Permitidos)
         {
             if (id != rol.Idrol)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            ViewBag.Permisos = await _context.Permisos.ToListAsync();
+
+            if (!ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(rol);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RolExists(rol.Idrol))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("", "Error: No se pudo actualizar el rol.");
+                return View(rol);
             }
-            return View(rol);
+
+            try
+            {
+                // Actualizar el rol
+                _context.Update(rol);
+                await _context.SaveChangesAsync();
+
+                // Actualizar permisos del rol
+                var permisosActuales = _context.RolPermisos.Where(rp => rp.Idrol == rol.Idrol);
+                _context.RolPermisos.RemoveRange(permisosActuales); // Eliminar permisos antiguos
+
+                if (Permitidos != null && Permitidos.Length > 0)
+                {
+                    var nuevosPermisos = Permitidos.Select(idPermiso => new RolPermiso
+                    {
+                        Idrol = rol.Idrol,
+                        Idpermisos = idPermiso
+                    }).ToList();
+
+                    _context.RolPermisos.AddRange(nuevosPermisos);
+                }
+
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RolExists(rol.Idrol))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Roles/Delete/5

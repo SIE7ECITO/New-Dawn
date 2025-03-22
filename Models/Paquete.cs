@@ -18,4 +18,6 @@ public partial class Paquete
     public virtual ICollection<PaqueteHabitacion> PaqueteHabitacions { get; set; } = new List<PaqueteHabitacion>();
 
     public virtual ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
+
+    public virtual ICollection<ServicioPaquete> ServicioPaquetes { get; set; } = new List<ServicioPaquete>();
 }

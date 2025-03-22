@@ -15,6 +15,10 @@ public partial class Habitacion
 
     public bool EnPaquete { get; set; }
 
+    public int Capacidad { get; set; }
+
+    public virtual ICollection<HabitacionComodidade> HabitacionComodidades { get; set; } = new List<HabitacionComodidade>();
+
     public virtual ICollection<HabitacionReserva> HabitacionReservas { get; set; } = new List<HabitacionReserva>();
 
     public virtual ICollection<PaqueteHabitacion> PaqueteHabitacions { get; set; } = new List<PaqueteHabitacion>();

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<NewDawn.Models.Paquete>
+
+@{
+    ViewData["Title"] = "Lista de Paquetes";
+}
+
+<h2>Lista de Paquetes</h2>
+<a asp-action="Create" class="btn btn-primary">Crear Nuevo Paquete</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NombrePaquete</td>
+                <td>@item.Descripcion</td>
+                <td>@item.Precio.ToString("C")</td>
+                <td>@(item.EstadoPaquete ? "Activo" : "Inactivo")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Idpaquete" class="btn btn-info">Detalles</a>
+                    <a asp-action="Edit" asp-route-id="@item.Idpaquete" class="btn btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.Idpaquete" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

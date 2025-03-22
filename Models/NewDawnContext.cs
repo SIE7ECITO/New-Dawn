@@ -15,7 +15,13 @@ public partial class NewDawnContext : DbContext
     {
     }
 
+    public virtual DbSet<Comodidade> Comodidades { get; set; }
+
+    
+
     public virtual DbSet<Habitacion> Habitacions { get; set; }
+
+    public virtual DbSet<HabitacionComodidade> HabitacionComodidades { get; set; }
 
     public virtual DbSet<HabitacionReserva> HabitacionReservas { get; set; }
 
@@ -39,14 +45,33 @@ public partial class NewDawnContext : DbContext
 
     public virtual DbSet<Servicio> Servicios { get; set; }
 
+    public virtual DbSet<ServicioPaquete> ServicioPaquetes { get; set; }
+
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-5TDB56R\\SQLEXPRESS;Database=NewDawn;Trusted_Connection=True;TrustServerCertificate=True;");
+
+        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=NewDawn; Integrated security=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Comodidade>(entity =>
+        {
+            entity.HasKey(e => e.IdComodidades).HasName("PK__Comodida__A95B74EAEBFAC6CB");
+
+            entity.Property(e => e.IdComodidades).HasColumnName("idComodidades");
+            entity.Property(e => e.DescripcionComodidad)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("descripcionComodidad");
+            entity.Property(e => e.EstadoComodidad).HasColumnName("estadoComodidad");
+            entity.Property(e => e.NombreComodidades)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+        });
+
+       
+
         modelBuilder.Entity<Habitacion>(entity =>
         {
             entity.HasKey(e => e.Idhabitacion).HasName("PK__Habitaci__6B4757DA6CE77C5C");
@@ -58,6 +83,27 @@ public partial class NewDawnContext : DbContext
             entity.Property(e => e.TipoHabitacion)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<HabitacionComodidade>(entity =>
+        {
+            entity.HasKey(e => e.IdHabitacionComodidades).HasName("PK__Habitaci__7F71298BAFDC4AEA");
+
+            entity.ToTable("Habitacion_Comodidades");
+
+            entity.Property(e => e.IdHabitacionComodidades).HasColumnName("idHabitacion_comodidades");
+            entity.Property(e => e.IdComodidades).HasColumnName("idComodidades");
+            entity.Property(e => e.IdHabitacion).HasColumnName("idHabitacion");
+
+            entity.HasOne(d => d.IdComodidadesNavigation).WithMany(p => p.HabitacionComodidades)
+                .HasForeignKey(d => d.IdComodidades)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Habitacion_Comodidades_Comodidades");
+
+            entity.HasOne(d => d.IdHabitacionNavigation).WithMany(p => p.HabitacionComodidades)
+                .HasForeignKey(d => d.IdHabitacion)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Habitacion_Comodidades_Habitacion");
         });
 
         modelBuilder.Entity<HabitacionReserva>(entity =>
@@ -278,6 +324,27 @@ public partial class NewDawnContext : DbContext
             entity.Property(e => e.ValorServicio).HasColumnType("decimal(18, 2)");
         });
 
+        modelBuilder.Entity<ServicioPaquete>(entity =>
+        {
+            entity.HasKey(e => e.IdservicioPaquete).HasName("PK__Servicio__C0383A8F3CAD24C0");
+
+            entity.ToTable("Servicio_Paquete");
+
+            entity.Property(e => e.IdservicioPaquete).HasColumnName("IDServicio_Paquete");
+            entity.Property(e => e.Idpaquete).HasColumnName("IDPaquete");
+            entity.Property(e => e.Idservicio).HasColumnName("IDServicio");
+
+            entity.HasOne(d => d.IdpaqueteNavigation).WithMany(p => p.ServicioPaquetes)
+                .HasForeignKey(d => d.Idpaquete)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ServicioPaquete_Paquete");
+
+            entity.HasOne(d => d.IdservicioNavigation).WithMany(p => p.ServicioPaquetes)
+                .HasForeignKey(d => d.Idservicio)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ServicioPaquete_Servicio");
+        });
+
         modelBuilder.Entity<Usuario>(entity =>
         {
             entity.HasKey(e => e.Idusuario).HasName("PK__Usuarios__52311169888DEFB5");
@@ -298,6 +365,9 @@ public partial class NewDawnContext : DbContext
             entity.Property(e => e.Idrol).HasColumnName("IDRol");
             entity.Property(e => e.NombreUsuario)
                 .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.NumeroTelUsuario)
+                .HasMaxLength(15)
                 .IsUnicode(false);
 
             entity.HasOne(d => d.IdrolNavigation).WithMany(p => p.Usuarios)

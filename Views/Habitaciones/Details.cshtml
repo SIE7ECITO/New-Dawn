@@ -1,0 +1,74 @@
+﻿@model NewDawn.Models.Habitacion
+
+@{
+    ViewData["Title"] = "Detalles de Habitación";
+}
+
+<h1>Detalles de Habitación</h1>
+
+<div>
+    <h4>Información General</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.TipoHabitacion)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.TipoHabitacion)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.EstadoHabitacion)
+        </dt>
+        <dd class="col-sm-9">
+            @(Model.EstadoHabitacion ? "Disponible" : "No Disponible")
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.PrecioNoche)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.PrecioNoche.ToString("C") <!-- Formato de moneda -->
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.EnPaquete)
+        </dt>
+        <dd class="col-sm-9">
+            @(Model.EnPaquete ? "Sí" : "No")
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Capacidad)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Capacidad) Personas
+        </dd>
+    </dl>
+
+    <!-- Sección de Comodidades -->
+    <h4>Comodidades</h4>
+    <hr />
+    <div>
+        @if (Model.HabitacionComodidades != null && Model.HabitacionComodidades.Any())
+        {
+            <ul class="list-group">
+                @foreach (var item in Model.HabitacionComodidades)
+                {
+                    <li class="list-group-item">
+                        <i class="bi bi-check-circle-fill text-success"></i> @item.IdComodidadesNavigation.DescripcionComodidad
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <span class="text-muted">No hay comodidades asociadas.</span>
+        }
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.Idhabitacion" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+</div>

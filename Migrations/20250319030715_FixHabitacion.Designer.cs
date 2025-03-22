@@ -12,8 +12,8 @@ using NewDawn.Models;
 namespace NewDawn.Migrations
 {
     [DbContext(typeof(NewDawnContext))]
-    [Migration("20250313203229_AddTokenRecuperacion")]
-    partial class AddTokenRecuperacion
+    [Migration("20250319030715_FixHabitacion")]
+    partial class FixHabitacion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,35 @@ namespace NewDawn.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("NewDawn.Models.Comodidade", b =>
+                {
+                    b.Property<int>("IdComodidades")
+                        .HasColumnType("int")
+                        .HasColumnName("idComodidades");
+
+                    b.Property<string>("DescripcionComodidad")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("descripcionComodidad");
+
+                    b.Property<bool>("EstadoComodidad")
+                        .HasColumnType("bit")
+                        .HasColumnName("estadoComodidad");
+
+                    b.Property<string>("NombreComodidades")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("IdComodidades")
+                        .HasName("PK__Comodida__A95B74EAF535EB14");
+
+                    b.ToTable("Comodidades");
+                });
+
             modelBuilder.Entity("NewDawn.Models.Habitacion", b =>
                 {
                     b.Property<int>("Idhabitacion")
@@ -33,6 +62,9 @@ namespace NewDawn.Migrations
                         .HasColumnName("IDHabitacion");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Idhabitacion"));
+
+                    b.Property<int>("Capacidad")
+                        .HasColumnType("int");
 
                     b.Property<bool>("EnPaquete")
                         .HasColumnType("bit");
@@ -53,6 +85,30 @@ namespace NewDawn.Migrations
                         .HasName("PK__Habitaci__6B4757DA6CE77C5C");
 
                     b.ToTable("Habitacion", (string)null);
+                });
+
+            modelBuilder.Entity("NewDawn.Models.HabitacionComodidade", b =>
+                {
+                    b.Property<int>("IdHabitacionComodidades")
+                        .HasColumnType("int")
+                        .HasColumnName("idHabitacion_comodidades");
+
+                    b.Property<int?>("IdComodidades")
+                        .HasColumnType("int")
+                        .HasColumnName("idComodidades");
+
+                    b.Property<int?>("IdHabitacion")
+                        .HasColumnType("int")
+                        .HasColumnName("idHabitacion");
+
+                    b.HasKey("IdHabitacionComodidades")
+                        .HasName("PK__Habitaci__7F71298B4564AD85");
+
+                    b.HasIndex("IdComodidades");
+
+                    b.HasIndex("IdHabitacion");
+
+                    b.ToTable("Habitacion_Comodidades", (string)null);
                 });
 
             modelBuilder.Entity("NewDawn.Models.HabitacionReserva", b =>
@@ -451,12 +507,6 @@ namespace NewDawn.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<DateTime?>("TokenExpiracion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TokenRecuperacion")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Idusuario")
                         .HasName("PK__Usuarios__52311169888DEFB5");
 
@@ -484,6 +534,23 @@ namespace NewDawn.Migrations
                     b.HasIndex("Idservicio");
 
                     b.ToTable("Reserva_Servicio", (string)null);
+                });
+
+            modelBuilder.Entity("NewDawn.Models.HabitacionComodidade", b =>
+                {
+                    b.HasOne("NewDawn.Models.Comodidade", "IdComodidadesNavigation")
+                        .WithMany("HabitacionComodidades")
+                        .HasForeignKey("IdComodidades")
+                        .HasConstraintName("FK_Comodidades");
+
+                    b.HasOne("NewDawn.Models.Habitacion", "IdHabitacionNavigation")
+                        .WithMany("HabitacionComodidades")
+                        .HasForeignKey("IdHabitacion")
+                        .HasConstraintName("FK_Habitacion");
+
+                    b.Navigation("IdComodidadesNavigation");
+
+                    b.Navigation("IdHabitacionNavigation");
                 });
 
             modelBuilder.Entity("NewDawn.Models.HabitacionReserva", b =>
@@ -632,8 +699,15 @@ namespace NewDawn.Migrations
                         .HasConstraintName("FK__Reserva_S__IDSer__6B24EA82");
                 });
 
+            modelBuilder.Entity("NewDawn.Models.Comodidade", b =>
+                {
+                    b.Navigation("HabitacionComodidades");
+                });
+
             modelBuilder.Entity("NewDawn.Models.Habitacion", b =>
                 {
+                    b.Navigation("HabitacionComodidades");
+
                     b.Navigation("HabitacionReservas");
 
                     b.Navigation("PaqueteHabitacions");

@@ -1,0 +1,61 @@
+﻿@model NewDawn.Models.Servicio
+
+@{
+    ViewData["Title"] = "Crear Servicio";
+}
+
+<h1 class="mb-4">Crear Servicio</h1>
+
+<div class="card shadow-lg p-4">
+    <h4 class="mb-3">Ingrese los detalles del servicio</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="mb-3">
+                    <label asp-for="NombreServicio" class="form-label fw-bold"></label>
+                    <input asp-for="NombreServicio" class="form-control" placeholder="Ingrese el nombre del servicio" required />
+                    <span asp-validation-for="NombreServicio" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DescripcionServicio" class="form-label fw-bold"></label>
+                    <textarea asp-for="DescripcionServicio" class="form-control" rows="3" placeholder="Ingrese la descripción del servicio"></textarea>
+                    <span asp-validation-for="DescripcionServicio" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ValorServicio" class="form-label fw-bold"></label>
+                    <input asp-for="ValorServicio" type="number" class="form-control" placeholder="Ingrese el valor del servicio" required min="0" step="0.01" />
+                    <span asp-validation-for="ValorServicio" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="FechaCreacion" class="form-label fw-bold"></label>
+                    <input asp-for="FechaCreacion" type="date" class="form-control" required />
+                    <span asp-validation-for="FechaCreacion" class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" asp-for="EstadoServicio" />
+                    <label class="form-check-label fw-bold">
+                        @Html.DisplayNameFor(model => model.EstadoServicio)
+                    </label>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

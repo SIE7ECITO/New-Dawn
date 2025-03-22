@@ -33,6 +33,7 @@ namespace NewDawn
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+           
 
             app.UseHttpsRedirection();
             app.UseRouting();

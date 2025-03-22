@@ -6,11 +6,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NewDawn.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTokenRecuperacion : Migration
+    public partial class FixHabitacion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Comodidades",
+                columns: table => new
+                {
+                    idComodidades = table.Column<int>(type: "int", nullable: false),
+                    descripcionComodidad = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
+                    estadoComodidad = table.Column<bool>(type: "bit", nullable: false),
+                    NombreComodidades = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__Comodida__A95B74EAF535EB14", x => x.idComodidades);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Habitacion",
                 columns: table => new
@@ -20,7 +34,8 @@ namespace NewDawn.Migrations
                     TipoHabitacion = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     EstadoHabitacion = table.Column<bool>(type: "bit", nullable: false),
                     PrecioNoche = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    EnPaquete = table.Column<bool>(type: "bit", nullable: false)
+                    EnPaquete = table.Column<bool>(type: "bit", nullable: false),
+                    Capacidad = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,6 +121,29 @@ namespace NewDawn.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Habitacion_Comodidades",
+                columns: table => new
+                {
+                    idHabitacion_comodidades = table.Column<int>(type: "int", nullable: false),
+                    idHabitacion = table.Column<int>(type: "int", nullable: true),
+                    idComodidades = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__Habitaci__7F71298B4564AD85", x => x.idHabitacion_comodidades);
+                    table.ForeignKey(
+                        name: "FK_Comodidades",
+                        column: x => x.idComodidades,
+                        principalTable: "Comodidades",
+                        principalColumn: "idComodidades");
+                    table.ForeignKey(
+                        name: "FK_Habitacion",
+                        column: x => x.idHabitacion,
+                        principalTable: "Habitacion",
+                        principalColumn: "IDHabitacion");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Paquete_Habitacion",
                 columns: table => new
                 {
@@ -166,9 +204,7 @@ namespace NewDawn.Migrations
                     Correo = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
                     ContraseñaUsuario = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
                     EstadoUsuario = table.Column<bool>(type: "bit", nullable: false),
-                    IDRol = table.Column<int>(type: "int", nullable: false),
-                    TokenRecuperacion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TokenExpiracion = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    IDRol = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -314,6 +350,16 @@ namespace NewDawn.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Habitacion_Comodidades_idComodidades",
+                table: "Habitacion_Comodidades",
+                column: "idComodidades");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Habitacion_Comodidades_idHabitacion",
+                table: "Habitacion_Comodidades",
+                column: "idHabitacion");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Habitacion_Reservas_IDHabitacion",
                 table: "Habitacion_Reservas",
                 column: "IDHabitacion");
@@ -405,6 +451,9 @@ namespace NewDawn.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Habitacion_Comodidades");
+
+            migrationBuilder.DropTable(
                 name: "Habitacion_Reservas");
 
             migrationBuilder.DropTable(
@@ -418,6 +467,9 @@ namespace NewDawn.Migrations
 
             migrationBuilder.DropTable(
                 name: "Rol_Permisos");
+
+            migrationBuilder.DropTable(
+                name: "Comodidades");
 
             migrationBuilder.DropTable(
                 name: "Huesped");

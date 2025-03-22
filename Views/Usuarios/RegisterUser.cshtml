@@ -4,42 +4,54 @@
     ViewData["Title"] = "Registrarse";
 }
 
-<h1>Registrarse</h1>
+<h1 class="text-center">Registrarse</h1>
 <hr />
 
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-6">
         <form asp-action="RegisterUser" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
 
             <div class="form-group">
                 <label asp-for="Ccusuario" class="control-label"></label>
-                <input asp-for="Ccusuario" class="form-control" />
+                <input asp-for="Ccusuario" class="form-control" placeholder="Ingrese su cédula" />
                 <span asp-validation-for="Ccusuario" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="NombreUsuario" class="control-label"></label>
-                <input asp-for="NombreUsuario" class="form-control" />
+                <input asp-for="NombreUsuario" class="form-control" placeholder="Ingrese su nombre" />
                 <span asp-validation-for="NombreUsuario" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Apellido" class="control-label"></label>
-                <input asp-for="Apellido" class="form-control" />
+                <input asp-for="Apellido" class="form-control" placeholder="Ingrese su apellido" />
                 <span asp-validation-for="Apellido" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Correo" class="control-label"></label>
-                <input asp-for="Correo" class="form-control" type="email" />
+                <input asp-for="Correo" class="form-control" type="email" placeholder="Ingrese su correo" autocomplete="off" />
                 <span asp-validation-for="Correo" class="text-danger"></span>
             </div>
 
             <div class="form-group">
+                <label asp-for="NumeroTelUsuario" class="control-label"></label>
+                <input asp-for="NumeroTelUsuario" class="form-control" type="tel" placeholder="Ingrese su número de teléfono" />
+                <span asp-validation-for="NumeroTelUsuario" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="ContraseñaUsuario" class="control-label"></label>
-                <input asp-for="ContraseñaUsuario" class="form-control" type="password" />
+                <input asp-for="ContraseñaUsuario" class="form-control" type="password" placeholder="Ingrese su contraseña" autocomplete="off" />
                 <span asp-validation-for="ContraseñaUsuario" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="ConfirmarContraseña" class="control-label">Confirmar Contraseña</label>
+                <input id="ConfirmarContraseña" name="ConfirmarContraseña" class="form-control" type="password" placeholder="Confirme su contraseña" autocomplete="off" />
+                <span class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -48,9 +60,9 @@
                 <span asp-validation-for="Idrol" class="text-danger"></span>
             </div>
 
-            <div class="form-group mt-3">
-                <input type="submit" value="Registrarse" class="btn btn-primary" />
-                <a asp-action="Login" class="btn btn-secondary">Iniciar sesión</a>
+            <div class="form-group mt-3 text-center">
+                <input type="submit" value="Registrarse" class="btn btn-primary btn-lg" />
+                <a asp-action="Login" class="btn btn-secondary btn-lg">Iniciar sesión</a>
             </div>
         </form>
     </div>

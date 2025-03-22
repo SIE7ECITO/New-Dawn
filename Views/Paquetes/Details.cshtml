@@ -1,0 +1,30 @@
+﻿@model NewDawn.Models.Paquete
+
+@{
+    ViewData["Title"] = "Detalles del Paquete";
+}
+
+<h2>Detalles del Paquete</h2>
+
+<p><strong>Nombre:</strong> @Model.NombrePaquete</p>
+<p><strong>Descripción:</strong> @Model.Descripcion</p>
+<p><strong>Precio:</strong> @Model.Precio.ToString("C")</p>
+<p><strong>Estado:</strong> @(Model.EstadoPaquete ? "Activo" : "Inactivo")</p>
+
+<h4>Habitaciones Incluidas</h4>
+<ul>
+    @foreach (var hab in Model.PaqueteHabitacions)
+    {
+        <li>@hab.IdhabitacionNavigation.TipoHabitacion - Capacidad: @hab.IdhabitacionNavigation.Capacidad</li>
+    }
+</ul>
+
+<h4>Servicios Incluidos</h4>
+<ul>
+    @foreach (var serv in Model.ServicioPaquetes)
+    {
+        <li>@serv.IdservicioNavigation.NombreServicio - @serv.IdservicioNavigation.ValorServicio.ToString("C")</li>
+    }
+</ul>
+
+<a asp-action="Index" class="btn btn-secondary">Volver</a>

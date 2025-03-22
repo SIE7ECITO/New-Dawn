@@ -1,0 +1,46 @@
+﻿@model NewDawn.Models.Servicio
+
+@{
+    ViewData["Title"] = "Detalles del Servicio";
+}
+
+<h1 class="mb-4">Detalles del Servicio</h1>
+
+<div class="card shadow-lg p-4">
+    <h4 class="mb-3">Información del Servicio</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.NombreServicio)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.NombreServicio)</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.DescripcionServicio)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.DescripcionServicio)</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.ValorServicio)</dt>
+        <dd class="col-sm-9">$@Html.DisplayFor(model => model.ValorServicio)</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.FechaCreacion)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaCreacion)</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.EstadoServicio)</dt>
+        <dd class="col-sm-9">
+            @if (Model.EstadoServicio)
+            {
+                <span class="badge bg-success">Activo</span>
+            }
+            else
+            {
+                <span class="badge bg-danger">Inactivo</span>
+            }
+        </dd>
+    </dl>
+
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model?.Idservicio" class="btn btn-primary">
+            <i class="fas fa-edit"></i> Editar
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver a la lista
+        </a>
+    </div>
+</div>

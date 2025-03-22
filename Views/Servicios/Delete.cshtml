@@ -1,0 +1,50 @@
+﻿@model NewDawn.Models.Servicio
+
+@{
+    ViewData["Title"] = "Eliminar Servicio";
+}
+
+<h1 class="mb-4 text-danger">Eliminar Servicio</h1>
+
+<div class="alert alert-warning">
+    <h4 class="alert-heading">¡Atención!</h4>
+    <p>¿Está seguro de que desea eliminar este servicio? Esta acción no se puede deshacer.</p>
+</div>
+
+<div class="card shadow-lg p-4">
+    <h4 class="mb-3">Detalles del Servicio</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.NombreServicio)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.NombreServicio)</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.DescripcionServicio)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.DescripcionServicio)</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.ValorServicio)</dt>
+        <dd class="col-sm-9">$@Html.DisplayFor(model => model.ValorServicio)</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.FechaCreacion)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaCreacion)</dd>
+
+        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.EstadoServicio)</dt>
+        <dd class="col-sm-9">
+            @if (Model.EstadoServicio)
+            {
+                <span class="badge bg-success">Activo</span>
+            }
+            else
+            {
+                <span class="badge bg-danger">Inactivo</span>
+            }
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Idservicio" />
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
+            <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancelar</a>
+        </div>
+    </form>
+</div>

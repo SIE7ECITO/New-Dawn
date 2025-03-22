@@ -1,0 +1,60 @@
+﻿@model NewDawn.Models.Paquete
+
+@{
+    ViewData["Title"] = "Eliminar Paquete";
+}
+<h2>¿Estás seguro de que deseas eliminar este paquete?</h2>
+
+@if (Model != null)
+{
+    <div class="alert alert-danger">
+        <p><strong>Nombre:</strong> @Model.NombrePaquete</p>
+        <p><strong>Descripción:</strong> @Model.Descripcion</p>
+        <p><strong>Precio:</strong> @Model.Precio.ToString("C")</p>
+        <p><strong>Estado:</strong> @(Model.EstadoPaquete ? "Activo" : "Inactivo")</p>
+
+        <h4>Habitaciones Incluidas</h4>
+        @if (Model.PaqueteHabitacions != null && Model.PaqueteHabitacions.Any())
+        {
+            <ul>
+                @foreach (var hab in Model.PaqueteHabitacions)
+                {
+                    <li>@hab.IdhabitacionNavigation?.TipoHabitacion - Capacidad: @hab.IdhabitacionNavigation?.Capacidad</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No hay habitaciones asociadas a este paquete.</p>
+        }
+
+        <h4>Servicios Incluidos</h4>
+        @if (Model.ServicioPaquetes != null && Model.ServicioPaquetes.Any())
+        {
+            <ul>
+                @foreach (var serv in Model.ServicioPaquetes)
+                {
+                    <li>@serv.IdservicioNavigation?.NombreServicio - @serv.IdservicioNavigation?.ValorServicio.ToString("C")</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No hay servicios asociados a este paquete.</p>
+        }
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Idpaquete" />
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+}
+else
+{
+    <div class="alert alert-warning">
+        <p>El paquete no fue encontrado. Es posible que ya haya sido eliminado.</p>
+        <a asp-action="Index" class="btn btn-primary">Volver a la lista</a>
+    </div>
+}
+

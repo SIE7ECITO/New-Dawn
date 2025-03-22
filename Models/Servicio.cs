@@ -17,5 +17,7 @@ public partial class Servicio
 
     public bool EstadoServicio { get; set; }
 
+    public virtual ICollection<ServicioPaquete> ServicioPaquetes { get; set; } = new List<ServicioPaquete>();
+
     public virtual ICollection<Reserva> Idreservas { get; set; } = new List<Reserva>();
 }

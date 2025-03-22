@@ -1,39 +1,65 @@
 ﻿@model NewDawn.Models.Rol
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Rol";
+    var Permisos = ViewBag.Permisos as List<NewDawn.Models.Permiso> ?? new List<NewDawn.Models.Permiso>();
+    var PermisosSeleccionados = ViewBag.Permitidos as List<int> ?? new List<int>();
 }
 
-<h1>Edit</h1>
-
-<h4>Rol</h4>
+<h1>Editar Rol</h1>
 <hr />
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Idrol" />
+
             <div class="form-group">
                 <label asp-for="NombreRol" class="control-label"></label>
                 <input asp-for="NombreRol" class="form-control" />
                 <span asp-validation-for="NombreRol" class="text-danger"></span>
             </div>
+
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EstadoRol" /> @Html.DisplayNameFor(model => model.EstadoRol)
-                </label>
+                <input type="checkbox" class="form-check-input" asp-for="EstadoRol" id="EstadoRolCheck" />
+                <label class="form-check-label" for="EstadoRolCheck">Activo</label>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <label class="control-label">Permisos</label>
+                <div>
+                    @foreach (var permiso in Permisos)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="Permiso-@permiso.Idpermisos"
+                                   name="Permitidos" value="@permiso.Idpermisos"
+                            @(PermisosSeleccionados.Contains(permiso.Idpermisos) ? "checked" : "") />
+                            <label class="form-check-label" for="Permiso-@permiso.Idpermisos">@permiso.NombrePermiso</label>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.querySelector("form").addEventListener("submit", function () {
+            let permisosSeleccionados = [];
+            document.querySelectorAll("input[name='Permitidos']:checked").forEach((checkbox) => {
+                permisosSeleccionados.push(checkbox.value);
+            });
+            console.log("Permisos seleccionados:", permisosSeleccionados);
+        });
+    </script>
 }

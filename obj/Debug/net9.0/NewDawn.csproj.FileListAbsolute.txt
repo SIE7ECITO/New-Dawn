@@ -339,4 +339,4 @@ C:\Users\usuario\source\repos\NewDawn\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAna
 C:\Users\usuario\source\repos\NewDawn\bin\Debug\net9.0\BCrypt.Net-Next.dll
 C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\NewDawn.sourcelink.json
-C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\compressed\apwdh3ao9f-mvzwkqzezq.gz
+C:\Users\usuario\source\repos\NewDawn\obj\Debug\net9.0\compressed\apwdh3ao9f-h5dsgvwjxg.gz

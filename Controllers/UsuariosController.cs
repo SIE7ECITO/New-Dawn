@@ -36,7 +36,7 @@ namespace NewDawn.Controllers
         // POST: Usuarios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idusuario,Ccusuario,NombreUsuario,Apellido,Correo,ContraseñaUsuario,EstadoUsuario,Idrol")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Idusuario,Ccusuario,NombreUsuario,Apellido,NumeroTelUsuario,Correo,ContraseñaUsuario,EstadoUsuario,Idrol")] Usuario usuario)
         {
             if (!ModelState.IsValid)
             {
@@ -100,7 +100,7 @@ namespace NewDawn.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idusuario,Ccusuario,NombreUsuario,Apellido,Correo,ContraseñaUsuario,EstadoUsuario,Idrol")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Idusuario,Ccusuario,NombreUsuario,Apellido,NumeroTelUsuario,Correo,ContraseñaUsuario,EstadoUsuario,Idrol")] Usuario usuario)
         {
             if (id != usuario.Idusuario)
             {
@@ -181,7 +181,7 @@ namespace NewDawn.Controllers
         // POST: Usuarios/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Ccusuario,NombreUsuario,Apellido,Correo,ContraseñaUsuario,EstadoUsuario,Idrol")] Usuario usuario)
+        public async Task<IActionResult> Register([Bind("Ccusuario,NombreUsuario,Apellido,NumeroTelUsuario,Correo,ContraseñaUsuario,EstadoUsuario,Idrol")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {

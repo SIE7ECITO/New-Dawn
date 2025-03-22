@@ -1,0 +1,53 @@
+﻿@model NewDawn.Models.Habitacion
+
+@{
+    ViewData["Title"] = "Eliminar Habitación";
+}
+
+<h1>Eliminar Habitación</h1>
+
+<h3>¿Estás seguro de que deseas eliminar esta habitación?</h3>
+<div>
+    <h4>Detalles de la Habitación</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.TipoHabitacion)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.TipoHabitacion)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.EstadoHabitacion)</dt>
+        <dd class="col-sm-10">@(Model.EstadoHabitacion ? "Activo" : "Inactivo")</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.PrecioNoche)</dt>
+        <dd class="col-sm-10">$@Html.DisplayFor(model => model.PrecioNoche)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.EnPaquete)</dt>
+        <dd class="col-sm-10">@(Model.EnPaquete ? "Sí" : "No")</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Capacidad)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Capacidad) personas</dd>
+
+        <!-- Sección de Comodidades -->
+        <dt class="col-sm-2">Comodidades</dt>
+        <dd class="col-sm-10">
+            @if (Model.HabitacionComodidades != null && Model.HabitacionComodidades.Any())
+            {
+                <ul>
+                    @foreach (var item in Model.HabitacionComodidades)
+                    {
+                        <li>@item.IdComodidadesNavigation.NombreComodidades</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span>No hay comodidades asociadas.</span>
+            }
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Idhabitacion" />
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
