@@ -146,17 +146,25 @@ namespace NewDawn.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (!id.HasValue)
-                return NotFound();
+                return RedirectToAction(nameof(Index));
 
             var habitacion = await _context.Habitacions
                 .Include(h => h.HabitacionComodidades)
+                    .ThenInclude(hc => hc.IdComodidadesNavigation) // Incluye la relación con Comodidades
+                .Include(h => h.PaqueteHabitacions) // Si hay paquetes asociados
                 .FirstOrDefaultAsync(m => m.Idhabitacion == id);
 
             if (habitacion == null)
-                return NotFound();
+                return RedirectToAction(nameof(Index));
+
+            if (habitacion.PaqueteHabitacions.Any())
+            {
+                ViewBag.ErrorMessage = "No se puede eliminar la habitación porque está asociada a un paquete. Primero elimínela del paquete.";
+            }
 
             return View(habitacion);
         }
+
 
         // POST: Habitaciones/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -165,21 +173,24 @@ namespace NewDawn.Controllers
         {
             var habitacion = await _context.Habitacions
                 .Include(h => h.HabitacionComodidades)
+                .Include(h => h.PaqueteHabitacions)
                 .FirstOrDefaultAsync(h => h.Idhabitacion == id);
 
-            if (habitacion != null)
+            if (habitacion == null)
+                return RedirectToAction(nameof(Index));
+
+            if (habitacion.PaqueteHabitacions.Any())
             {
-                _context.HabitacionComodidades.RemoveRange(habitacion.HabitacionComodidades);
-                _context.Habitacions.Remove(habitacion);
-                await _context.SaveChangesAsync();
+                TempData["ErrorMessage"] = "No se puede eliminar la habitación porque está asociada a un paquete. Primero elimínela del paquete.";
+                return RedirectToAction(nameof(Delete), new { id });
             }
+
+            _context.HabitacionComodidades.RemoveRange(habitacion.HabitacionComodidades);
+            _context.Habitacions.Remove(habitacion);
+            await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
 
-        private bool HabitacionExists(int id)
-        {
-            return _context.Habitacions.Any(e => e.Idhabitacion == id);
-        }
     }
 }

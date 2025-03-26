@@ -54,6 +54,11 @@ namespace NewDawn.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        private bool ComodidadeExists(int id)
+        {
+            return _context.Comodidades.Any(e => e.IdComodidades == id);
+        }
+
 
         // GET: Comodidades/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -107,24 +112,28 @@ namespace NewDawn.Controllers
             return View(comodidade);
         }
 
-        // POST: Comodidades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var comodidade = await _context.Comodidades.FirstOrDefaultAsync(m => m.IdComodidades == id);
-            if (comodidade != null)
+            var comodidade = await _context.Comodidades.FindAsync(id);
+            if (comodidade == null)
+            {
+                return NotFound();
+            }
+
+            try
             {
                 _context.Comodidades.Remove(comodidade);
                 await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-
-            return RedirectToAction(nameof(Index));
+            catch (DbUpdateException)
+            {
+                TempData["ErrorMessage"] = "No se puede eliminar la comodidad porque está asociada a una habitación. Primero desvincúlela de las habitaciones.";
+                return RedirectToAction(nameof(Delete), new { id });
+            }
         }
 
-        private bool ComodidadeExists(int id)
-        {
-            return _context.Comodidades.Any(e => e.IdComodidades == id);
-        }
     }
 }

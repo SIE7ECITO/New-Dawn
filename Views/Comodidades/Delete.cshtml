@@ -6,6 +6,13 @@
 
 <h1 class="text-uppercase text-danger">Eliminar Comodidad</h1>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <h3 class="text-warning">¿Está seguro de que desea eliminar esta comodidad?</h3>
 
 <div class="card p-3 shadow-sm">
