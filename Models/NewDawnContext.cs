@@ -51,7 +51,7 @@ public partial class NewDawnContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
-        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=NewDawn; Integrated security=True;");
+        => optionsBuilder.UseSqlServer("Server=tcp:new-dawn.database.windows.net,1433;Initial Catalog=NewDawn;Persist Security Info=False;User ID=newdawnadmin;Password=New123dawnAdmin;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
