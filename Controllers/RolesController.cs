@@ -171,17 +171,12 @@ namespace NewDawn.Controllers
         // GET: Roles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
+            if (!id.HasValue)
                 return NotFound();
-            }
 
-            var rol = await _context.Rols
-                .FirstOrDefaultAsync(m => m.Idrol == id);
+            var rol = await _context.Rols.FirstOrDefaultAsync(m => m.Idrol == id);
             if (rol == null)
-            {
                 return NotFound();
-            }
 
             return View(rol);
         }
@@ -192,18 +187,27 @@ namespace NewDawn.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var rol = await _context.Rols.FindAsync(id);
-            if (rol != null)
+            if (rol == null)
+                return NotFound();
+
+            try
             {
                 _context.Rols.Remove(rol);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch (DbUpdateException)
+            {
+                TempData["ErrorMessage"] = "No se puede eliminar el rol porque está asociado a uno o más usuarios. Primero desvincúlelo de los usuarios.";
+                return RedirectToAction(nameof(Delete), new { id });
+            }
         }
 
+        // Método auxiliar para verificar si el rol existe
         private bool RolExists(int id)
         {
             return _context.Rols.Any(e => e.Idrol == id);
         }
+
     }
 }

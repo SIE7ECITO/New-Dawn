@@ -1,0 +1,91 @@
+﻿@model NewDawn.Models.Reserva
+
+@{
+    ViewData["Title"] = "Edit Reservation";
+}
+
+<h1>Edit Reservation</h1>
+
+<h4>Reserva</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Idusuario" class="control-label"></label>
+                <select asp-for="Idusuario" class="form-control" asp-items="ViewBag.Idusuario"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Idhabitacion" class="control-label"></label>
+                <select asp-for="Idhabitacion" class="form-control" asp-items="ViewBag.Idhabitacion"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Idpaquete" class="control-label"></label>
+                <select asp-for="Idpaquete" class="form-control" asp-items="ViewBag.Idpaquete"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Idpago" class="control-label"></label>
+                <select asp-for="Idpago" class="form-control" asp-items="ViewBag.Idpago"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FechaReserva" class="control-label"></label>
+                <input asp-for="FechaReserva" class="form-control" />
+                <span asp-validation-for="FechaReserva" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FechaComienzo" class="control-label"></label>
+                <input asp-for="FechaComienzo" class="form-control" />
+                <span asp-validation-for="FechaComienzo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FechaFin" class="control-label"></label>
+                <input asp-for="FechaFin" class="form-control" />
+                <span asp-validation-for="FechaFin" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="EstadoReserva" /> @Html.DisplayNameFor(model => model.EstadoReserva)
+                </label>
+            </div>
+
+            <!-- Servicios para el paquete (si está seleccionado) -->
+            @if (Model.Idpaquete != null)
+            {
+                <div class="form-group">
+                    <label>Servicios Adicionales:</label>
+                    @foreach (var servicio in ViewBag.AllServices) // Aquí deberías tener la lista de servicios disponibles
+                    {
+                        <div>
+                            <input type="checkbox" name="selectedServices" value="@servicio.Idservicio"
+                            @(ViewBag.SelectedServices != null && ViewBag.SelectedServices.Contains(servicio.Idservicio) ? "checked" : "") />
+                            @servicio.Nombre
+                        </div>
+                    }
+                </div>
+            }
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,67 @@
+﻿@model NewDawn.Models.Reserva
+
+@{
+    ViewData["Title"] = "Reservation Details";
+}
+
+<h1>Reservation Details</h1>
+
+<h4>Reserva</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Usuario:</label>
+            <p>@Model.IdusuarioNavigation.NombreUsuario</p>
+        </div>
+
+        <div class="form-group">
+            <label>Habitación:</label>
+            <p>@Model.IdhabitacionNavigation.TipoHabitacion</p>
+        </div>
+
+        <div class="form-group">
+            <label>Paquete:</label>
+            <p>@Model.IdpaqueteNavigation.NombrePaquete</p>
+        </div>
+
+       
+
+        <div class="form-group">
+            <label>Fecha de Reserva:</label>
+            <p>@Model.FechaReserva.ToString("dd/MM/yyyy")</p>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha de Comienzo:</label>
+            <p>@Model.FechaComienzo.ToString("dd/MM/yyyy")</p>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha de Fin:</label>
+            <p>@Model.FechaFin.ToString("dd/MM/yyyy")</p>
+        </div>
+
+        <div class="form-group">
+            <label>Estado de la Reserva:</label>
+            <p>@Model.EstadoReserva</p>
+        </div>
+
+        @if (Model.Idpaquete != null)
+        {
+            <div class="form-group">
+                <label>Servicios Adicionales:</label>
+                <ul>
+                    @foreach (var servicio in ViewBag.Servicios as List<NewDawn.Models.Servicio>)
+                    {
+                        <li>@servicio?.NombreServicio</li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

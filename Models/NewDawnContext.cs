@@ -15,6 +15,7 @@ public partial class NewDawnContext : DbContext
     {
     }
 
+
     public virtual DbSet<Comodidade> Comodidades { get; set; }
 
     
@@ -46,6 +47,7 @@ public partial class NewDawnContext : DbContext
     public virtual DbSet<Servicio> Servicios { get; set; }
 
     public virtual DbSet<ServicioPaquete> ServicioPaquetes { get; set; }
+    public virtual DbSet<ReservaServicio> ReservaServicios { get; set; }
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
@@ -55,7 +57,38 @@ public partial class NewDawnContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Comodidade>(entity =>
+       
+        base.OnModelCreating(modelBuilder); // Mantener otras configuraciones si existen
+
+        // Definir clave primaria compuesta para ReservaServicio
+        modelBuilder.Entity<ReservaServicio>()
+            .HasKey(rs => new { rs.Idreserva, rs.Idservicio });
+
+        // Asegurar que los nombres de columnas coincidan con la BD
+        modelBuilder.Entity<ReservaServicio>()
+            .Property(rs => rs.Idreserva)
+            .HasColumnName("IDReserva");
+
+        modelBuilder.Entity<ReservaServicio>()
+            .Property(rs => rs.Idservicio)
+            .HasColumnName("IDServicio");
+
+        // Relación con Reserva (1 Reserva -> N ReservaServicios)
+        modelBuilder.Entity<ReservaServicio>()
+            .HasOne(rs => rs.IdreservaNavigation)
+            .WithMany(r => r.ReservaServicios)
+            .HasForeignKey(rs => rs.Idreserva)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Relación con Servicio (1 Servicio -> N ReservaServicios)
+        modelBuilder.Entity<ReservaServicio>()
+            .HasOne(rs => rs.IdservicioNavigation)
+            .WithMany(s => s.ReservaServicios)
+            .HasForeignKey(rs => rs.Idservicio)
+            .OnDelete(DeleteBehavior.Cascade);
+    
+
+    modelBuilder.Entity<Comodidade>(entity =>
         {
             entity.HasKey(e => e.IdComodidades).HasName("PK__Comodida__A95B74EAEBFAC6CB");
 
