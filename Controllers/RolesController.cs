@@ -56,7 +56,7 @@ namespace NewDawn.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idrol,NombreRol,EstadoRol")] Rol rol, int[] Permitidos)
+        public async Task<IActionResult> Create([Bind("Idrol,NombreRol")] Rol rol, int[] Permitidos)
         {
             var Permisos = await _context.Permisos.ToListAsync();
             ViewBag.Permisos = Permisos;
@@ -66,7 +66,7 @@ namespace NewDawn.Controllers
                 ModelState.AddModelError("", "Error: El rol no pudo ser creado.");
                 return View(rol);
             }
-
+            rol.EstadoRol = true;
             // Agregar el rol a la base de datos
             _context.Add(rol);
             await _context.SaveChangesAsync();

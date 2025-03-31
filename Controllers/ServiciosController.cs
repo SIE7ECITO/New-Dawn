@@ -42,13 +42,15 @@ namespace NewDawn.Controllers
         // POST: Servicios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idservicio,NombreServicio,DescripcionServicio,ValorServicio,FechaCreacion,EstadoServicio")] Servicio servicio)
+        public async Task<IActionResult> Create([Bind("Idservicio,NombreServicio,DescripcionServicio,ValorServicio,FechaCreacion")] Servicio servicio)
         {
             if (!ModelState.IsValid)
                 return View(servicio);
 
             try
             {
+                servicio.EstadoServicio = true; 
+
                 _context.Add(servicio);
                 await _context.SaveChangesAsync();
                 TempData["Success"] = "Servicio creado exitosamente.";
@@ -129,11 +131,12 @@ namespace NewDawn.Controllers
                 var servicio = await _context.Servicios.FindAsync(id);
                 if (servicio == null)
                     return NotFound();
-
-                _context.Servicios.Remove(servicio);
-                await _context.SaveChangesAsync();
-                TempData["Success"] = "Servicio eliminado correctamente.";
-                return RedirectToAction(nameof(Index));
+                else { 
+                    _context.Servicios.Remove(servicio);
+                    await _context.SaveChangesAsync();
+                    TempData["Success"] = "Servicio eliminado correctamente.";
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch (Exception ex)
             {
