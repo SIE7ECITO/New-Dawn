@@ -21,6 +21,8 @@ public partial class Reserva
 
     public DateOnly FechaFin { get; set; }
 
+    public double ValorTotal { get; set; }
+
     public bool EstadoReserva { get; set; }
 
     public virtual ICollection<HabitacionReserva> HabitacionReservas { get; set; } = new List<HabitacionReserva>();

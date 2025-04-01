@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace NewDawn.Models;
-
+[Table("Reserva_Servicio", Schema = "dbc")]
 public partial class ReservaServicio
 {
 

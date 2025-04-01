@@ -1,67 +1,72 @@
 ﻿@model NewDawn.Models.Reserva
 
 @{
-    ViewData["Title"] = "Reservation Details";
+    ViewData["Title"] = "Detalles de la Reserva";
 }
 
-<h1>Reservation Details</h1>
-
-<h4>Reserva</h4>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Usuario:</label>
-            <p>@Model.IdusuarioNavigation.NombreUsuario</p>
-        </div>
-
-        <div class="form-group">
-            <label>Habitación:</label>
-            <p>@Model.IdhabitacionNavigation.TipoHabitacion</p>
-        </div>
-
-        <div class="form-group">
-            <label>Paquete:</label>
-            <p>@Model.IdpaqueteNavigation.NombrePaquete</p>
-        </div>
-
-       
-
-        <div class="form-group">
-            <label>Fecha de Reserva:</label>
-            <p>@Model.FechaReserva.ToString("dd/MM/yyyy")</p>
-        </div>
-
-        <div class="form-group">
-            <label>Fecha de Comienzo:</label>
-            <p>@Model.FechaComienzo.ToString("dd/MM/yyyy")</p>
-        </div>
-
-        <div class="form-group">
-            <label>Fecha de Fin:</label>
-            <p>@Model.FechaFin.ToString("dd/MM/yyyy")</p>
-        </div>
-
-        <div class="form-group">
-            <label>Estado de la Reserva:</label>
-            <p>@Model.EstadoReserva</p>
-        </div>
-
-        @if (Model.Idpaquete != null)
-        {
-            <div class="form-group">
-                <label>Servicios Adicionales:</label>
-                <ul>
-                    @foreach (var servicio in ViewBag.Servicios as List<NewDawn.Models.Servicio>)
-                    {
-                        <li>@servicio?.NombreServicio</li>
-                    }
-                </ul>
-            </div>
-        }
-    </div>
-</div>
+<h2>@ViewData["Title"]</h2>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <strong>Fecha de Reserva:</strong> @Model.FechaReserva.ToString("dd/MM/yyyy") <br />
+    <strong>Fecha de Comienzo:</strong> @Model.FechaComienzo.ToString("dd/MM/yyyy") <br />
+    <strong>Fecha de Fin:</strong> @Model.FechaFin.ToString("dd/MM/yyyy") <br />
+    <strong>Estado:</strong> @(Model.EstadoReserva ? "Activo" : "Inactivo") <br />
+    <strong>Valor Total:</strong> @Model.ValorTotal.ToString("C") <br />
+</div>
+
+<h3>Usuario</h3>
+<div>
+    <strong>Nombre del Usuario:</strong> @Model.IdusuarioNavigation.NombreUsuario <br />
+    <strong>Correo del Usuario:</strong> @Model.IdusuarioNavigation.Correo <br />
+</div>
+
+<h3>Huésped</h3>
+<div>
+    @if (Model.HuespedReservas != null && Model.HuespedReservas.Any())
+    {
+        foreach (var huespedReserva in Model.HuespedReservas)
+        {
+            <strong>Nombre del Huésped:</strong> @huespedReserva.IdhuespedNavigation.NombreHuesped <br />
+            <strong>Correo del Huésped:</strong> @huespedReserva.IdhuespedNavigation.Correo <br />
+        }
+    }
+    else
+    {
+        <strong>No hay huéspedes registrados para esta reserva.</strong>
+    }
+</div>
+
+<h3>Habitaciones</h3>
+<ul>
+    @foreach (var habitacionReserva in Model.HabitacionReservas)
+    {
+        <li>@habitacionReserva.IdhabitacionNavigation.TipoHabitacion - @habitacionReserva.IdhabitacionNavigation.PrecioNoche.ToString("C")</li>
+    }
+</ul>
+
+<h3>Paquete</h3>
+<div>
+    @if (Model.Idpaquete != null)
+    {
+        <strong>Paquete Seleccionado:</strong> @Model.IdpaqueteNavigation.NombrePaquete <br />
+        <strong>Precio del Paquete:</strong> @Model.IdpaqueteNavigation.Precio.ToString("C") <br />
+    }
+    else
+    {
+        <strong>No se seleccionó un paquete.</strong>
+    }
+</div>
+
+<h3>Servicios</h3>
+<ul>
+    @foreach (var reservaServicio in Model.ReservaServicios)
+    {
+        <li>@reservaServicio.IdservicioNavigation.NombreServicio</li>
+    }
+</ul>
+
+<div>
+    <a href="@Url.Action("Edit", "Reservas", new { id = Model.Idreserva })" class="btn btn-warning">Editar</a>
+    <a href="@Url.Action("Delete", "Reservas", new { id = Model.Idreserva })" class="btn btn-danger">Eliminar</a>
+    <a href="@Url.Action("Index")" class="btn btn-primary">Volver al listado</a>
 </div>

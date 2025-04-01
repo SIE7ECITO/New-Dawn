@@ -1,100 +1,77 @@
 ﻿@model NewDawn.Models.Reserva
+
 @{
     ViewData["Title"] = "Crear Reserva";
 }
 
-<h1>Crear Reserva</h1>
+<h2>@ViewData["Title"]</h2>
 
-<h4>Detalles de la Reserva</h4>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="FechaComienzo">Fecha de Comienzo</label>
+        <input type="date" class="form-control" id="FechaComienzo" name="FechaComienzo" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly />
+    </div>
+    <div class="form-group">
+        <label for="FechaFin">Fecha de Fin</label>
+        <input type="date" class="form-control" id="FechaFin" name="FechaFin" required />
+    </div>
+    <div class="form-group">
+        <label for="Idhabitacion">Habitaciones</label>
+        <select class="form-control" id="Idhabitacion" name="Habitaciones" multiple required>
+            @foreach (var habitacion in ViewData["Habitaciones"] as List<NewDawn.Models.Habitacion>)
+            {
+                <option value="@habitacion.Idhabitacion">@habitacion.TipoHabitacion</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Idpaquete">Paquete</label>
+        <select class="form-control" id="Idpaquete" name="Idpaquete">
+            <option value="">Seleccione un paquete</option>
+            @foreach (var paquete in ViewData["Paquetes"] as List<NewDawn.Models.Paquete>)
+            {
+                <option value="@paquete.Idpaquete">@paquete.NombrePaquete</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Idservicios">Servicios</label>
+        <select class="form-control" id="Idservicios" name="Servicios" multiple>
+            @foreach (var servicio in ViewData["Servicios"] as List<NewDawn.Models.Servicio>)
+            {
+                <option value="@servicio.Idservicio">@servicio.NombreServicio</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="ValorTotal">Valor Total</label>
+        <input type="text" class="form-control" id="ValorTotal" name="ValorTotal" readonly />
+    </div>
+    <div class="form-group">
+        <label for="Idusuario">Usuario</label>
+        <input type="text" class="form-control" id="Idusuario" name="Idusuario" value="@User.Identity.Name" readonly />
+    </div>
+    <div class="form-group">
+        <label for="Idhuesped">Huésped</label>
+        <input type="text" class="form-control" id="Idhuesped" name="Idhuesped" required />
+        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#huespedModal">Registrar Huésped</button>
+    </div>
+    <button type="submit" class="btn btn-primary">Crear Reserva</button>
+</form>
 
-            <!-- Usuario -->
-            <div class="form-group">
-                <label asp-for="Idusuario" class="control-label"></label>
-                <select asp-for="Idusuario" class="form-control" asp-items="ViewBag.Idusuario"></select>
+<!-- Modal para registrar huesped -->
+<div class="modal fade" id="huespedModal" tabindex="-1" role="dialog" aria-labelledby="huespedModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="huespedModalLabel">Registrar Huésped</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-
-            <!-- Habitaciones -->
-            <div class="form-group">
-                <label>Seleccionar Habitaciones</label>
-                <select class="form-control" name="habitacionesSeleccionadas" multiple="multiple" asp-items="ViewBag.Idhabitacion">
-                    <option value="">Seleccione habitaciones</option>
-                </select>
+            <div class="modal-body">
+                <a class="btn btn-primary" href="@Url.Action("Create", "Huespedes")">Ir a Registrar Huésped</a>
             </div>
-
-            <!-- Paquete -->
-            <div class="form-group">
-                <label asp-for="Idpaquete" class="control-label"></label>
-                <select asp-for="Idpaquete" class="form-control" asp-items="ViewBag.Idpaquete">
-                    <option value="">Seleccione un paquete (opcional)</option>
-                </select>
-            </div>
-
-            <!-- Servicios (Solo si se selecciona un paquete) -->
-            <div class="form-group" id="servicios-container" style="display:none;">
-                <label>Seleccionar Servicios</label>
-                <select name="selectedServices" class="form-control" multiple="multiple" asp-items="ViewBag.Servicios">
-                    <option value="">Seleccione servicios adicionales</option>
-                </select>
-            </div>
-
-            <!-- Pago -->
-            <div class="form-group">
-                <label asp-for="Idpago" class="control-label"></label>
-                <select asp-for="Idpago" class="form-control" asp-items="ViewBag.Idpago"></select>
-            </div>
-
-            <!-- Fechas -->
-            <div class="form-group">
-                <label asp-for="FechaReserva" class="control-label"></label>
-                <input asp-for="FechaReserva" class="form-control" type="date" />
-                <span asp-validation-for="FechaReserva" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaComienzo" class="control-label"></label>
-                <input asp-for="FechaComienzo" class="form-control" type="date" />
-                <span asp-validation-for="FechaComienzo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaFin" class="control-label"></label>
-                <input asp-for="FechaFin" class="form-control" type="date" />
-                <span asp-validation-for="FechaFin" class="text-danger"></span>
-            </div>
-
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" asp-for="EstadoReserva" />
-                    @Html.DisplayNameFor(model => model.EstadoReserva)
-                </label>
-            </div>
-
-
-            <!-- Botón de envío -->
-            <div class="form-group">
-                <input type="submit" value="Crear Reserva" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Volver a la lista</a>
-</div>
-
-<script>
-    // Mostrar los servicios cuando se selecciona un paquete
-    $(document).ready(function () {
-        $("select[name='Idpaquete']").change(function () {
-            var selectedPaquete = $(this).val();
-            if (selectedPaquete) {
-                $("#servicios-container").slideDown();
-            } else {
-                $("#servicios-container").slideUp();
-            }
-        });
-    });
-</script>
