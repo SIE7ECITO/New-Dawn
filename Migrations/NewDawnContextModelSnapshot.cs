@@ -25,8 +25,11 @@ namespace NewDawn.Migrations
             modelBuilder.Entity("NewDawn.Models.Comodidade", b =>
                 {
                     b.Property<int>("IdComodidades")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("idComodidades");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdComodidades"));
 
                     b.Property<string>("DescripcionComodidad")
                         .IsRequired()
@@ -46,7 +49,7 @@ namespace NewDawn.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("IdComodidades")
-                        .HasName("PK__Comodida__A95B74EAF535EB14");
+                        .HasName("PK__Comodida__A95B74EAEBFAC6CB");
 
                     b.ToTable("Comodidades");
                 });
@@ -87,19 +90,22 @@ namespace NewDawn.Migrations
             modelBuilder.Entity("NewDawn.Models.HabitacionComodidade", b =>
                 {
                     b.Property<int>("IdHabitacionComodidades")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("idHabitacion_comodidades");
 
-                    b.Property<int?>("IdComodidades")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdHabitacionComodidades"));
+
+                    b.Property<int>("IdComodidades")
                         .HasColumnType("int")
                         .HasColumnName("idComodidades");
 
-                    b.Property<int?>("IdHabitacion")
+                    b.Property<int>("IdHabitacion")
                         .HasColumnType("int")
                         .HasColumnName("idHabitacion");
 
                     b.HasKey("IdHabitacionComodidades")
-                        .HasName("PK__Habitaci__7F71298B4564AD85");
+                        .HasName("PK__Habitaci__7F71298BAFDC4AEA");
 
                     b.HasIndex("IdComodidades");
 
@@ -460,6 +466,33 @@ namespace NewDawn.Migrations
                     b.ToTable("Servicio", (string)null);
                 });
 
+            modelBuilder.Entity("NewDawn.Models.ServicioPaquete", b =>
+                {
+                    b.Property<int>("IdservicioPaquete")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("IDServicio_Paquete");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdservicioPaquete"));
+
+                    b.Property<int>("Idpaquete")
+                        .HasColumnType("int")
+                        .HasColumnName("IDPaquete");
+
+                    b.Property<int>("Idservicio")
+                        .HasColumnType("int")
+                        .HasColumnName("IDServicio");
+
+                    b.HasKey("IdservicioPaquete")
+                        .HasName("PK__Servicio__C0383A8F3CAD24C0");
+
+                    b.HasIndex("Idpaquete");
+
+                    b.HasIndex("Idservicio");
+
+                    b.ToTable("Servicio_Paquete", (string)null);
+                });
+
             modelBuilder.Entity("NewDawn.Models.Usuario", b =>
                 {
                     b.Property<int>("Idusuario")
@@ -504,6 +537,12 @@ namespace NewDawn.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
+                    b.Property<string>("NumeroTelUsuario")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(15)");
+
                     b.HasKey("Idusuario")
                         .HasName("PK__Usuarios__52311169888DEFB5");
 
@@ -538,12 +577,14 @@ namespace NewDawn.Migrations
                     b.HasOne("NewDawn.Models.Comodidade", "IdComodidadesNavigation")
                         .WithMany("HabitacionComodidades")
                         .HasForeignKey("IdComodidades")
-                        .HasConstraintName("FK_Comodidades");
+                        .IsRequired()
+                        .HasConstraintName("FK_Habitacion_Comodidades_Comodidades");
 
                     b.HasOne("NewDawn.Models.Habitacion", "IdHabitacionNavigation")
                         .WithMany("HabitacionComodidades")
                         .HasForeignKey("IdHabitacion")
-                        .HasConstraintName("FK_Habitacion");
+                        .IsRequired()
+                        .HasConstraintName("FK_Habitacion_Comodidades_Habitacion");
 
                     b.Navigation("IdComodidadesNavigation");
 
@@ -670,6 +711,25 @@ namespace NewDawn.Migrations
                     b.Navigation("IdrolNavigation");
                 });
 
+            modelBuilder.Entity("NewDawn.Models.ServicioPaquete", b =>
+                {
+                    b.HasOne("NewDawn.Models.Paquete", "IdpaqueteNavigation")
+                        .WithMany("ServicioPaquetes")
+                        .HasForeignKey("Idpaquete")
+                        .IsRequired()
+                        .HasConstraintName("FK_ServicioPaquete_Paquete");
+
+                    b.HasOne("NewDawn.Models.Servicio", "IdservicioNavigation")
+                        .WithMany("ServicioPaquetes")
+                        .HasForeignKey("Idservicio")
+                        .IsRequired()
+                        .HasConstraintName("FK_ServicioPaquete_Servicio");
+
+                    b.Navigation("IdpaqueteNavigation");
+
+                    b.Navigation("IdservicioNavigation");
+                });
+
             modelBuilder.Entity("NewDawn.Models.Usuario", b =>
                 {
                     b.HasOne("NewDawn.Models.Rol", "IdrolNavigation")
@@ -727,6 +787,8 @@ namespace NewDawn.Migrations
                     b.Navigation("PaqueteHabitacions");
 
                     b.Navigation("Reservas");
+
+                    b.Navigation("ServicioPaquetes");
                 });
 
             modelBuilder.Entity("NewDawn.Models.Permiso", b =>
@@ -746,6 +808,11 @@ namespace NewDawn.Migrations
                     b.Navigation("RolPermisos");
 
                     b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("NewDawn.Models.Servicio", b =>
+                {
+                    b.Navigation("ServicioPaquetes");
                 });
 
             modelBuilder.Entity("NewDawn.Models.Usuario", b =>
