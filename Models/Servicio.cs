@@ -20,4 +20,6 @@ public partial class Servicio
     public virtual ICollection<ServicioPaquete> ServicioPaquetes { get; set; } = new List<ServicioPaquete>();
 
     public virtual ICollection<Reserva> Idreservas { get; set; } = new List<Reserva>();
+    public virtual ICollection<ReservaServicio> ReservaServicios { get; set; } = new List<ReservaServicio>();
+
 }

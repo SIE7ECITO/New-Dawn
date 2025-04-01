@@ -9,22 +9,23 @@ using NewDawn.Models;
 
 namespace NewDawn.Controllers
 {
-    public class PermisosController : Controller
+    public class PagosController : Controller
     {
         private readonly NewDawnContext _context;
 
-        public PermisosController(NewDawnContext context)
+        public PagosController(NewDawnContext context)
         {
             _context = context;
         }
 
-        // GET: Permisos
+        // GET: Pagos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Permisos.ToListAsync());
+            var newDawnContext = _context.Pagos.Include(p => p.IdusuarioNavigation);
+            return View(await newDawnContext.ToListAsync());
         }
 
-        // GET: Permisos/Details/5
+        // GET: Pagos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,40 +33,42 @@ namespace NewDawn.Controllers
                 return NotFound();
             }
 
-            var permiso = await _context.Permisos
-                .FirstOrDefaultAsync(m => m.Idpermisos == id);
-            if (permiso == null)
+            var pago = await _context.Pagos
+                .Include(p => p.IdusuarioNavigation)
+                .FirstOrDefaultAsync(m => m.Idpago == id);
+            if (pago == null)
             {
                 return NotFound();
             }
 
-            return View(permiso);
+            return View(pago);
         }
 
-        // GET: Permisos/Create
+        // GET: Pagos/Create
         public IActionResult Create()
         {
+            ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario");
             return View();
         }
 
-        // POST: Permisos/Create
+        // POST: Pagos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idpermisos,NombrePermiso,DescripcionPermiso,FechaCambio")] Permiso permiso)
+        public async Task<IActionResult> Create([Bind("Idpago,Idusuario,CantidadPago,CantidadAbono,FechaPago,FechaAbono,EstadoPago")] Pago pago)
         {
             if (ModelState.IsValid)
             {
-                permiso.EstadoPermisos = true;
-                _context.Add(permiso);
+                _context.Add(pago);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(permiso);
+            ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario", pago.Idusuario);
+            return View(pago);
         }
 
-        // GET: Permisos/Edit/5
+        // GET: Pagos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,27 +76,23 @@ namespace NewDawn.Controllers
                 return NotFound();
             }
 
-            var permiso = await _context.Permisos.FindAsync(id);
-            if (permiso == null)
+            var pago = await _context.Pagos.FindAsync(id);
+            if (pago == null)
             {
                 return NotFound();
             }
-            return View(permiso);
-        }
-        private bool PermisoExists(int id)
-        {
-            return _context.Permisos.Any(e => e.Idpermisos == id);
+            ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario", pago.Idusuario);
+            return View(pago);
         }
 
-
-        // POST: Permisos/Edit/5
+        // POST: Pagos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idpermisos,NombrePermiso,DescripcionPermiso,EstadoPermisos,FechaCambio")] Permiso permiso)
+        public async Task<IActionResult> Edit(int id, [Bind("Idpago,Idusuario,CantidadPago,CantidadAbono,FechaPago,FechaAbono,EstadoPago")] Pago pago)
         {
-            if (id != permiso.Idpermisos)
+            if (id != pago.Idpago)
             {
                 return NotFound();
             }
@@ -102,12 +101,12 @@ namespace NewDawn.Controllers
             {
                 try
                 {
-                    _context.Update(permiso);
+                    _context.Update(pago);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PermisoExists(permiso.Idpermisos))
+                    if (!PagoExists(pago.Idpago))
                     {
                         return NotFound();
                     }
@@ -118,42 +117,47 @@ namespace NewDawn.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(permiso);
+            ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario", pago.Idusuario);
+            return View(pago);
         }
-        // GET: Permisos/Delete/5
+
+        // GET: Pagos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (!id.HasValue)
+            if (id == null)
+            {
                 return NotFound();
+            }
 
-            var permiso = await _context.Permisos.FirstOrDefaultAsync(m => m.Idpermisos == id);
-            if (permiso == null)
+            var pago = await _context.Pagos
+                .Include(p => p.IdusuarioNavigation)
+                .FirstOrDefaultAsync(m => m.Idpago == id);
+            if (pago == null)
+            {
                 return NotFound();
+            }
 
-            return View(permiso);
+            return View(pago);
         }
 
-        // POST: Permisos/Delete/5
+        // POST: Pagos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var permiso = await _context.Permisos.FindAsync(id);
-            if (permiso == null)
-                return NotFound();
+            var pago = await _context.Pagos.FindAsync(id);
+            if (pago != null)
+            {
+                _context.Pagos.Remove(pago);
+            }
 
-            try
-            {
-                _context.Permisos.Remove(permiso);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            catch (DbUpdateException)
-            {
-                TempData["ErrorMessage"] = "No se puede eliminar el permiso porque está asociado a un rol. Primero desvincúlelo de los roles.";
-                return RedirectToAction(nameof(Delete), new { id });
-            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
+        private bool PagoExists(int id)
+        {
+            return _context.Pagos.Any(e => e.Idpago == id);
+        }
     }
 }
