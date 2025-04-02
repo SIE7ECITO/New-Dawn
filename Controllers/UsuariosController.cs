@@ -73,25 +73,6 @@ namespace NewDawn.Controllers
         }
 
 
-        // GET: Usuarios/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuarios
-                .Include(u => u.IdrolNavigation) // Incluir la relación con el rol
-                .FirstOrDefaultAsync(m => m.Idusuario == id);
-
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
-        }
 
 
 
@@ -213,6 +194,7 @@ namespace NewDawn.Controllers
             ViewData["Idrol"] = new SelectList(_context.Rols, "Idrol", "NombreRol", usuario.Idrol);
             return View(usuario);
         }
+
         // GET: Usuarios/Login
         public IActionResult Login()
         {
@@ -304,8 +286,10 @@ namespace NewDawn.Controllers
 
 
 
-        // GET: Mostrar la vista de recuperación
-        public IActionResult Recuperar()
+    
+
+    // GET: Mostrar la vista de recuperación
+    public IActionResult Recuperar()
         {
             return View();
         }

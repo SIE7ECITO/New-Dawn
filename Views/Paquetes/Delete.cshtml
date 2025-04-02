@@ -1,173 +1,60 @@
 ﻿@model NewDawn.Models.Paquete
 
 @{
-    ViewData["Title"] = "Crear Paquete";
+    ViewData["Title"] = "Eliminar Paquete";
+}
+<h2>¿Estás seguro de que deseas eliminar este paquete?</h2>
+
+@if (Model != null)
+{
+    <div class="alert alert-danger">
+        <p><strong>Nombre:</strong> @Model.NombrePaquete</p>
+        <p><strong>Descripción:</strong> @Model.Descripcion</p>
+        <p><strong>Precio:</strong> @Model.Precio.ToString("C")</p>
+        <p><strong>Estado:</strong> @(Model.EstadoPaquete ? "Activo" : "Inactivo")</p>
+
+        <h4>Habitaciones Incluidas</h4>
+        @if (Model.PaqueteHabitacions != null && Model.PaqueteHabitacions.Any())
+        {
+            <ul>
+                @foreach (var hab in Model.PaqueteHabitacions)
+                {
+                    <li>@hab.IdhabitacionNavigation?.TipoHabitacion - Capacidad: @hab.IdhabitacionNavigation?.Capacidad</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No hay habitaciones asociadas a este paquete.</p>
+        }
+
+        <h4>Servicios Incluidos</h4>
+        @if (Model.ServicioPaquetes != null && Model.ServicioPaquetes.Any())
+        {
+            <ul>
+                @foreach (var serv in Model.ServicioPaquetes)
+                {
+                    <li>@serv.IdservicioNavigation?.NombreServicio - @serv.IdservicioNavigation?.ValorServicio.ToString("C")</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No hay servicios asociados a este paquete.</p>
+        }
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Idpaquete" />
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+}
+else
+{
+    <div class="alert alert-warning">
+        <p>El paquete no fue encontrado. Es posible que ya haya sido eliminado.</p>
+        <a asp-action="Index" class="btn btn-primary">Volver a la lista</a>
+    </div>
 }
 
-<h2>Crear Paquete</h2>
-
-<form asp-action="Create" method="post" onsubmit="return calcularPrecioFinal()">
-    <div class="form-group">
-        <label asp-for="NombrePaquete"></label>
-        <input asp-for="NombrePaquete" class="form-control" required />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Descripcion"></label>
-        <textarea asp-for="Descripcion" class="form-control" required></textarea>
-    </div>
-
-    <div class="form-group">
-        <label>Estado del Paquete</label>
-        <select asp-for="EstadoPaquete" class="form-control">
-            <option value="true">Activo</option>
-            <option value="false">Inactivo</option>
-        </select>
-    </div>
-
-    <h4>Habitaciones</h4>
-    <div class="form-group">
-        <select id="habitacion" class="form-control">
-            <option value="">Seleccione una habitación</option>
-            @foreach (var habitacion in (List<NewDawn.Models.Habitacion>)ViewBag.Habitaciones)
-            {
-                <option value="@habitacion.Idhabitacion" data-precio="@habitacion.PrecioNoche">
-                    @habitacion.TipoHabitacion - Capacidad: @habitacion.Capacidad - Precio: @habitacion.PrecioNoche.ToString("C")
-                </option>
-            }
-        </select>
-    </div>
-    <button type="button" id="agregarHabitacion" class="btn btn-primary">Agregar Habitación</button>
-
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>Tipo</th>
-                <th>Capacidad</th>
-                <th>Precio</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="detallesHabitaciones"></tbody>
-    </table>
-
-    <h4>Servicios</h4>
-    <div class="form-group">
-        <select id="servicio" class="form-control">
-            <option value="">Seleccione un servicio</option>
-            @foreach (var servicio in (List<NewDawn.Models.Servicio>)ViewBag.Servicios)
-            {
-                <option value="@servicio.Idservicio" data-precio="@servicio.ValorServicio">
-                    @servicio.NombreServicio - Precio: @servicio.ValorServicio.ToString("C")
-                </option>
-            }
-        </select>
-    </div>
-    <button type="button" id="agregarServicio" class="btn btn-primary">Agregar Servicio</button>
-
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="detallesServicios"></tbody>
-    </table>
-
-    <div class="form-group">
-        <label>Descuento (%)</label>
-        <input type="number" id="descuento" class="form-control" value="0" min="0" max="100" onchange="calcularPrecio()" />
-    </div>
-
-    <div class="form-group">
-        <label>Precio Final:</label>
-        <span id="precioFinal">0.00</span>
-        <input asp-for="Precio" id="precioInput" type="hidden" />
-    </div>
-
-    <button type="submit" class="btn btn-success">Guardar Paquete</button>
-</form>
-
-<script>
-    let total = 0;
-
-    document.getElementById('agregarHabitacion').addEventListener('click', function () {
-        let select = document.getElementById('habitacion');
-        let id = select.value;
-        let nombre = select.options[select.selectedIndex].text;
-        let precio = parseFloat(select.options[select.selectedIndex].getAttribute('data-precio'));
-
-        if (id && !document.querySelector(`#habitacion-${id}`)) {
-            total += precio;
-            actualizarTotal();
-
-            let fila = `<tr id="habitacion-${id}">
-                            <td>${nombre}</td>
-                            <td>${precio.toFixed(2)}</td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm eliminarHabitacion" data-id="${id}" data-precio="${precio}">Eliminar</button>
-                            </td>
-                            <input type="hidden" name="HabitacionesSeleccionadas" value="${id}" />
-                        </tr>`;
-
-            document.getElementById('detallesHabitaciones').insertAdjacentHTML('beforeend', fila);
-        }
-    });
-
-    document.getElementById('agregarServicio').addEventListener('click', function () {
-        let select = document.getElementById('servicio');
-        let id = select.value;
-        let nombre = select.options[select.selectedIndex].text;
-        let precio = parseFloat(select.options[select.selectedIndex].getAttribute('data-precio'));
-
-        if (id && !document.querySelector(`#servicio-${id}`)) {
-            total += precio;
-            actualizarTotal();
-
-            let fila = `<tr id="servicio-${id}">
-                            <td>${nombre}</td>
-                            <td>${precio.toFixed(2)}</td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm eliminarServicio" data-id="${id}" data-precio="${precio}">Eliminar</button>
-                            </td>
-                            <input type="hidden" name="ServiciosSeleccionados" value="${id}" />
-                        </tr>`;
-
-            document.getElementById('detallesServicios').insertAdjacentHTML('beforeend', fila);
-        }
-    });
-
-    document.addEventListener('click', function (e) {
-        if (e.target.classList.contains('eliminarHabitacion')) {
-            let precio = parseFloat(e.target.getAttribute('data-precio'));
-            total -= precio;
-            actualizarTotal();
-            e.target.closest('tr').remove();
-        }
-
-        if (e.target.classList.contains('eliminarServicio')) {
-            let precio = parseFloat(e.target.getAttribute('data-precio'));
-            total -= precio;
-            actualizarTotal();
-            e.target.closest('tr').remove();
-        }
-    });
-
-    function actualizarTotal() {
-        let descuento = parseFloat(document.getElementById('descuento').value) || 0;
-        let precioFinal = total - (total * (descuento / 100));
-        precioFinal = Number(precioFinal.toFixed(2));
-
-        document.getElementById('precioFinal').textContent = precioFinal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('precioInput').value = precioFinal;
-    }
-
-    function calcularPrecioFinal() {
-        actualizarTotal();
-        return true;
-    }
-
-    document.getElementById('descuento').addEventListener('input', actualizarTotal);
-</script>

@@ -79,11 +79,6 @@ namespace NewDawn.Controllers
             }
             return View(permiso);
         }
-        private bool PermisoExists(int id)
-        {
-            return _context.Permisos.Any(e => e.Idpermisos == id);
-        }
-
 
         // POST: Permisos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -119,15 +114,21 @@ namespace NewDawn.Controllers
             }
             return View(permiso);
         }
+
         // GET: Permisos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (!id.HasValue)
+            if (id == null)
+            {
                 return NotFound();
+            }
 
-            var permiso = await _context.Permisos.FirstOrDefaultAsync(m => m.Idpermisos == id);
+            var permiso = await _context.Permisos
+                .FirstOrDefaultAsync(m => m.Idpermisos == id);
             if (permiso == null)
+            {
                 return NotFound();
+            }
 
             return View(permiso);
         }
@@ -138,21 +139,18 @@ namespace NewDawn.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var permiso = await _context.Permisos.FindAsync(id);
-            if (permiso == null)
-                return NotFound();
-
-            try
+            if (permiso != null)
             {
                 _context.Permisos.Remove(permiso);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            catch (DbUpdateException)
-            {
-                TempData["ErrorMessage"] = "No se puede eliminar el permiso porque está asociado a un rol. Primero desvincúlelo de los roles.";
-                return RedirectToAction(nameof(Delete), new { id });
-            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
+        private bool PermisoExists(int id)
+        {
+            return _context.Permisos.Any(e => e.Idpermisos == id);
+        }
     }
 }
