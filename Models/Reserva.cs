@@ -21,6 +21,8 @@ public partial class Reserva
 
     public DateOnly FechaFin { get; set; }
 
+    public double ValorTotal { get; set; }
+
     public bool EstadoReserva { get; set; }
 
     public virtual ICollection<HabitacionReserva> HabitacionReservas { get; set; } = new List<HabitacionReserva>();
@@ -36,4 +38,6 @@ public partial class Reserva
     public virtual Usuario IdusuarioNavigation { get; set; } = null!;
 
     public virtual ICollection<Servicio> Idservicios { get; set; } = new List<Servicio>();
+    public virtual ICollection<ReservaServicio> ReservaServicios { get; set; } = new List<ReservaServicio>();
+
 }

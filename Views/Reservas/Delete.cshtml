@@ -1,0 +1,23 @@
+﻿@model NewDawn.Models.Reserva
+
+@{
+    ViewData["Title"] = "Eliminar Reserva";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>¿Está seguro de que desea eliminar esta reserva?</h3>
+
+<div>
+    <strong>Fecha de Comienzo:</strong> @Model.FechaComienzo <br />
+    <strong>Fecha de Fin:</strong> @Model.FechaFin <br />
+    <strong>Estado:</strong> @(Model.EstadoReserva ? "Activo" : "Inactivo") <br />
+    <strong>Usuario:</strong> @Model.Idusuario <br />
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.Idreserva" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+</form>
+
+<a href="@Url.Action("Index")" class="btn btn-primary">Volver al listado</a>

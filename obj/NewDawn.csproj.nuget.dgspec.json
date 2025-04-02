@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sala 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj": {}
+    "C:\\Users\\Sala 402\\source\\repos\\New-Dawn\\NewDawn.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sala 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj": {
+    "C:\\Users\\Sala 402\\source\\repos\\New-Dawn\\NewDawn.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sala 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
+        "projectUniqueName": "C:\\Users\\Sala 402\\source\\repos\\New-Dawn\\NewDawn.csproj",
         "projectName": "NewDawn",
-        "projectPath": "C:\\Users\\Sala 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
+        "projectPath": "C:\\Users\\Sala 402\\source\\repos\\New-Dawn\\NewDawn.csproj",
         "packagesPath": "C:\\Users\\Sala 402\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sala 402\\Source\\Repos\\New-Dawn\\obj\\",
+        "outputPath": "C:\\Users\\Sala 402\\source\\repos\\New-Dawn\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
