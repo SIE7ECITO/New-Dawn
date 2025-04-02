@@ -16,9 +16,7 @@ public partial class NewDawnContext : DbContext
     }
 
 
-    public virtual DbSet<Comodidade> Comodidades { get; set; }
-
-    
+    public virtual DbSet<Comodidades> Comodidades { get; set; }
 
     public virtual DbSet<Habitacion> Habitacions { get; set; }
 
@@ -64,7 +62,7 @@ public partial class NewDawnContext : DbContext
         modelBuilder.Entity<ReservaServicio>(entity =>
         {
             // Especificar esquema y nombre de tabla exacto
-            entity.ToTable("Reserva_Servicio", "dbc");
+            entity.ToTable("Reserva_Servicio", "dbo");
 
             // Clave primaria compuesta
             entity.HasKey(rs => new { rs.Idreserva, rs.Idservicio })
@@ -92,13 +90,13 @@ public partial class NewDawnContext : DbContext
         });
 
         // Resto de tus configuraciones...
-        modelBuilder.Entity<Comodidade>(entity =>
+        modelBuilder.Entity<Comodidades>(entity =>
         {
-            entity.ToTable("Comodidades", "dbc"); // Asegúrate de especificar esquema
+            entity.ToTable("Comodidades", "dbo"); // Asegúrate de especificar esquema
             entity.HasKey(e => e.IdComodidades).HasName("PK__Comodida__A95B74EAEBFAC6CB");
 
 
-            modelBuilder.Entity<Comodidade>(entity =>
+            modelBuilder.Entity<Comodidades>(entity =>
         {
             entity.HasKey(e => e.IdComodidades).HasName("PK__Comodida__A95B74EAEBFAC6CB");
 

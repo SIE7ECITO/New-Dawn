@@ -25,7 +25,7 @@ namespace NewDawn.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("NewDawn.Models.Comodidade", b =>
+            modelBuilder.Entity("NewDawn.Models.Comodidades", b =>
                 {
                     b.Property<int>("IdComodidades")
                         .ValueGeneratedOnAdd()
