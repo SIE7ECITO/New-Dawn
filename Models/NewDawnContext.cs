@@ -279,7 +279,7 @@ public partial class NewDawnContext : DbContext
                 entity.Property(e => e.Idpago).HasColumnName("IDPago");
                 entity.Property(e => e.Idpaquete).HasColumnName("IDPaquete");
                 entity.Property(e => e.Idusuario).HasColumnName("IDUsuario");
-
+                entity.Property(e => e.ValorTotal).HasColumnType("decimal(18, 2)");
                 entity.HasOne(d => d.IdhabitacionNavigation).WithMany(p => p.Reservas)
                     .HasForeignKey(d => d.Idhabitacion)
                     .OnDelete(DeleteBehavior.ClientSetNull)
