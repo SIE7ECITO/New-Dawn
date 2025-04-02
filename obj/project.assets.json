@@ -7805,40 +7805,23 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
-    "C:\\Users\\Sala 402\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
-=======
     "C:\\Users\\usuario\\.nuget\\packages\\": {},
     "D:\\Downloads\\VisualStudio2\\NuGetPackages": {}
->>>>>>> Nuevamente
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\Sala 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
-      "projectName": "NewDawn",
-      "projectPath": "C:\\Users\\Sala 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
-      "packagesPath": "C:\\Users\\Sala 402\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sala 402\\Source\\Repos\\New-Dawn\\obj\\",
-=======
       "projectUniqueName": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
       "projectName": "NewDawn",
       "projectPath": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
       "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\obj\\",
->>>>>>> Nuevamente
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Downloads\\VisualStudio2\\NuGetPackages"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
-        "C:\\Users\\Sala 402\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
         "C:\\Users\\usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> Nuevamente
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -7916,5 +7899,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema al leer el archivo de caché C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
