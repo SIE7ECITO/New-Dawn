@@ -22,14 +22,10 @@
                 <input asp-for="DescripcionPermiso" class="form-control" />
                 <span asp-validation-for="DescripcionPermiso" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EstadoPermisos" /> @Html.DisplayNameFor(model => model.EstadoPermisos)
-                </label>
-            </div>
+            
             <div class="form-group">
                 <label asp-for="FechaCambio" class="control-label"></label>
-                <input asp-for="FechaCambio" class="form-control" />
+                <input asp-for="FechaCambio" class="form-control" type="date" required value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly />
                 <span asp-validation-for="FechaCambio" class="text-danger"></span>
             </div>
             <div class="form-group">

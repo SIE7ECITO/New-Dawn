@@ -53,10 +53,11 @@ namespace NewDawn.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idpermisos,NombrePermiso,DescripcionPermiso,EstadoPermisos,FechaCambio")] Permiso permiso)
+        public async Task<IActionResult> Create([Bind("Idpermisos,NombrePermiso,DescripcionPermiso,FechaCambio")] Permiso permiso)
         {
             if (ModelState.IsValid)
             {
+                permiso.EstadoPermisos = true;
                 _context.Add(permiso);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
