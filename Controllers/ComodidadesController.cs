@@ -12,10 +12,7 @@ namespace NewDawn.Controllers
     {
         private readonly NewDawnContext _context;
 
-        public ComodidadesController(NewDawnContext context)
-        {
-            _context = context;
-        }
+        public ComodidadesController(NewDawnContext context) => _context = context;
 
         // GET: Comodidades
         public async Task<IActionResult> Index()
@@ -45,7 +42,7 @@ namespace NewDawn.Controllers
         // POST: Comodidades/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NombreComodidades,DescripcionComodidad,EstadoComodidad")] Comodidade comodidade)
+        public async Task<IActionResult> Create([Bind("NombreComodidades,DescripcionComodidad,EstadoComodidad")] Comodidades comodidade)
         {
             if (!ModelState.IsValid)
                 return View(comodidade);
@@ -76,7 +73,7 @@ namespace NewDawn.Controllers
         // POST: Comodidades/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NombreComodidades,DescripcionComodidad,EstadoComodidad")] Comodidade comodidade)
+        public async Task<IActionResult> Edit(int id, [Bind("NombreComodidades,DescripcionComodidad,EstadoComodidad")] Comodidades comodidade)
         {
             if (!ModelState.IsValid)
                 return View(comodidade);

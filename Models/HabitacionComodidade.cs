@@ -11,7 +11,7 @@ public partial class HabitacionComodidade
 
     public int IdComodidades { get; set; }
 
-    public virtual Comodidade IdComodidadesNavigation { get; set; } = null!;
+    public virtual Comodidades IdComodidadesNavigation { get; set; } = null!;
 
     public virtual Habitacion IdHabitacionNavigation { get; set; } = null!;
 }

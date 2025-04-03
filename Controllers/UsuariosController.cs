@@ -36,10 +36,11 @@ namespace NewDawn.Controllers
         // POST: Usuarios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idusuario,Ccusuario,NombreUsuario,Apellido,NumeroTelUsuario,Correo,ContraseñaUsuario,EstadoUsuario,Idrol")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Idusuario,Ccusuario,NombreUsuario,Apellido,NumeroTelUsuario,Correo,ContraseñaUsuario,Idrol")] Usuario usuario)
         {
             if (!ModelState.IsValid)
             {
+                
                 foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
                 {
                     Console.WriteLine("Error: " + modelError.ErrorMessage);
@@ -65,6 +66,7 @@ namespace NewDawn.Controllers
                 return View(usuario);
             }
 
+            usuario.EstadoUsuario = true;
             // 🔹 Guardar usuario en la base de datos sin encriptar la contraseña
             _context.Add(usuario);
             await _context.SaveChangesAsync();
@@ -322,7 +324,7 @@ namespace NewDawn.Controllers
             }
 
             // 🔹 Simular el código de recuperación
-            Random rnd = new Random();
+            Random rnd = new();
             int codigoRecuperacion = rnd.Next(100000, 999999); // Genera un código de 6 dígitos
 
             // 🔹 Guardar el código en la sesión
