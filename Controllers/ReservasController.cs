@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NewDawn.Models;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using NewDawn.Models;
 
 namespace NewDawn.Controllers
 {
@@ -14,157 +17,92 @@ namespace NewDawn.Controllers
         {
             _context = context;
         }
-        // GET: Reservas/Index
+
+        // GET: Reservas
         public async Task<IActionResult> Index()
         {
-            var reservas = await _context.Reservas
-                .Include(r => r.IdusuarioNavigation)  // Incluye el usuario
-                .Include(r => r.HabitacionReservas)
-                    .ThenInclude(hr => hr.IdhabitacionNavigation)  // Incluye las habitaciones
-                .Include(r => r.HuespedReservas)
-                    .ThenInclude(hr => hr.IdhuespedNavigation)  // Incluye los huéspedes
-                .Include(r => r.ReservaServicios)
-                    .ThenInclude(rs => rs.IdservicioNavigation)  // Incluye los servicios
-                .Include(r => r.IdpaqueteNavigation)  // Incluye el paquete
-                .ToListAsync();
-
-            return View(reservas);
+            var newDawnContext = _context.Reservas.Include(r => r.IdhabitacionNavigation).Include(r => r.IdpagoNavigation).Include(r => r.IdpaqueteNavigation).Include(r => r.IdusuarioNavigation);
+            return View(await newDawnContext.ToListAsync());
         }
 
-        // GET: Reservas/Create
-        public IActionResult Create()
+        // GET: Reservas/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            // Convertir DateOnly a DateTime (solo la parte de la fecha)
-            var today = DateTime.Now.Date;  // Solo la parte de la fecha (DateTime)
-
-            // Seleccionar habitaciones que no están reservadas en las fechas seleccionadas
-            ViewData["Habitaciones"] = _context.Habitacions
-                .Where(h => !h.HabitacionReservas
-                    .Any(hr => hr.IdreservaNavigation.FechaComienzo.ToDateTime(new TimeOnly(0, 0)) <= today &&
-                               hr.IdreservaNavigation.FechaFin.ToDateTime(new TimeOnly(0, 0)) >= today))
-                .ToList();
-
-            // Seleccionar paquetes que no tienen habitaciones reservadas en las fechas seleccionadas
-            ViewData["Paquetes"] = _context.Paquetes
-                .Where(p => !p.PaqueteHabitacions
-                    .Any(ph => ph.IdhabitacionNavigation.HabitacionReservas
-                        .Any(hr => hr.IdreservaNavigation.FechaComienzo.ToDateTime(new TimeOnly(0, 0)) <= today &&
-                                   hr.IdreservaNavigation.FechaFin.ToDateTime(new TimeOnly(0, 0)) >= today)))
-                .ToList();
-
-            // Seleccionar servicios disponibles
-            ViewData["Servicios"] = _context.Servicios.ToList();
-
-            return View();
-        }
-
-
-
-
-
-
-        // POST: Reservas/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Reserva reserva, int[] selectedHabitaciones, int? selectedPaquete, int[] selectedServicios, int? selectedHuesped)
-        {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                // Asignar fecha de reserva como fecha actual
-                reserva.FechaReserva = DateOnly.FromDateTime(DateTime.Now);
-                reserva.EstadoReserva = true; // Estado activo por defecto
-
-                // Verificar si el huésped existe, si no, redirigir a la página de registro de huésped
-                if (selectedHuesped == null)
-                {
-                    // Si el huésped no está seleccionado, redirigir al registro de huespedes
-                    return RedirectToAction("Create", "Huespedes");
-                }
-
-                // Validación de habitaciones disponibles
-                foreach (var habitacionId in selectedHabitaciones)
-                {
-                    if (await IsRoomAvailable(habitacionId, reserva.FechaComienzo.ToDateTime(TimeOnly.MinValue), reserva.FechaFin.ToDateTime(TimeOnly.MinValue)))
-                    {
-                        ModelState.AddModelError("Habitacion", "Una o más habitaciones ya están reservadas en las fechas seleccionadas.");
-                        ViewData["Habitaciones"] = _context.Habitacions.ToList();
-                        ViewData["Paquetes"] = _context.Paquetes.ToList();
-                        ViewData["Servicios"] = _context.Servicios.ToList();
-                        return View(reserva);
-                    }
-                }
-
-                // Asignar habitaciones seleccionadas
-                foreach (var habitacionId in selectedHabitaciones)
-                {
-                    _context.HabitacionReservas.Add(new HabitacionReserva
-                    {
-                        Idhabitacion = habitacionId,
-                        Idreserva = reserva.Idreserva
-                    });
-                }
-
-                // Asignar paquete si es seleccionado
-                if (selectedPaquete.HasValue)
-                {
-                    reserva.Idpaquete = selectedPaquete;
-                }
-
-                // Asignar servicios seleccionados
-                foreach (var servicioId in selectedServicios)
-                {
-                    _context.ReservaServicios.Add(new ReservaServicio
-                    {
-                        Idreserva = reserva.Idreserva,
-                        Idservicio = servicioId
-                    });
-                }
-
-                // Asignar huésped
-                if (selectedHuesped.HasValue)
-                {
-                    _context.HuespedReservas.Add(new HuespedReserva
-                    {
-                        Idreserva = reserva.Idreserva,
-                        Idhuesped = selectedHuesped.Value
-                    });
-                }
-
-                _context.Add(reserva);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
 
-            ViewData["Habitaciones"] = _context.Habitacions.ToList();
-            ViewData["Paquetes"] = _context.Paquetes.ToList();
-            ViewData["Servicios"] = _context.Servicios.ToList();
-            return View(reserva);
-        }
-
-        // GET: Reservas/Edit/5
-        public async Task<IActionResult> Edit(int id)
-        {
-            var reserva = await _context.Reservas.Include(r => r.HabitacionReservas)
-                                                  .Include(r => r.ReservaServicios)
-                                                  .Include(r => r.HuespedReservas)
-                                                  .FirstOrDefaultAsync(r => r.Idreserva == id);
-
+            var reserva = await _context.Reservas
+                .Include(r => r.IdhabitacionNavigation)
+                .Include(r => r.IdpagoNavigation)
+                .Include(r => r.IdpaqueteNavigation)
+                .Include(r => r.IdusuarioNavigation)
+                .FirstOrDefaultAsync(m => m.Idreserva == id);
             if (reserva == null)
             {
                 return NotFound();
             }
 
-            ViewData["Habitaciones"] = _context.Habitacions.ToList();
-            ViewData["Paquetes"] = _context.Paquetes.ToList();
-            ViewData["Servicios"] = _context.Servicios.ToList();
+            return View(reserva);
+        }
+
+        // GET: Reservas/Create
+        public IActionResult Create()
+        {
+            ViewData["Idhabitacion"] = new SelectList(_context.Habitacions, "Idhabitacion", "Idhabitacion");
+            ViewData["Idpago"] = new SelectList(_context.Pagos, "Idpago", "Idpago");
+            ViewData["Idpaquete"] = new SelectList(_context.Paquetes, "Idpaquete", "Idpaquete");
+            ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario");
+            return View();
+        }
+
+        // POST: Reservas/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Idreserva,Idusuario,Idhabitacion,Idpaquete,Idpago,FechaReserva,FechaComienzo,FechaFin,ValorTotal,EstadoReserva")] Reserva reserva)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(reserva);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["Idhabitacion"] = new SelectList(_context.Habitacions, "Idhabitacion", "Idhabitacion", reserva.Idhabitacion);
+            ViewData["Idpago"] = new SelectList(_context.Pagos, "Idpago", "Idpago", reserva.Idpago);
+            ViewData["Idpaquete"] = new SelectList(_context.Paquetes, "Idpaquete", "Idpaquete", reserva.Idpaquete);
+            ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario", reserva.Idusuario);
+            return View(reserva);
+        }
+
+        // GET: Reservas/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var reserva = await _context.Reservas.FindAsync(id);
+            if (reserva == null)
+            {
+                return NotFound();
+            }
+            ViewData["Idhabitacion"] = new SelectList(_context.Habitacions, "Idhabitacion", "Idhabitacion", reserva.Idhabitacion);
+            ViewData["Idpago"] = new SelectList(_context.Pagos, "Idpago", "Idpago", reserva.Idpago);
+            ViewData["Idpaquete"] = new SelectList(_context.Paquetes, "Idpaquete", "Idpaquete", reserva.Idpaquete);
+            ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario", reserva.Idusuario);
             return View(reserva);
         }
 
         // POST: Reservas/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Reserva reserva, int[] selectedHabitaciones, int? selectedPaquete, int[] selectedServicios, int? selectedHuesped)
+        public async Task<IActionResult> Edit(int id, [Bind("Idreserva,Idusuario,Idhabitacion,Idpaquete,Idpago,FechaReserva,FechaComienzo,FechaFin,ValorTotal,EstadoReserva")] Reserva reserva)
         {
             if (id != reserva.Idreserva)
             {
@@ -189,42 +127,29 @@ namespace NewDawn.Controllers
                         throw;
                     }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
-
+            ViewData["Idhabitacion"] = new SelectList(_context.Habitacions, "Idhabitacion", "Idhabitacion", reserva.Idhabitacion);
+            ViewData["Idpago"] = new SelectList(_context.Pagos, "Idpago", "Idpago", reserva.Idpago);
+            ViewData["Idpaquete"] = new SelectList(_context.Paquetes, "Idpaquete", "Idpaquete", reserva.Idpaquete);
+            ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario", reserva.Idusuario);
             return View(reserva);
         }
 
-        // GET: Reservas/Details/5
-        public async Task<IActionResult> Details(int id)
+        // GET: Reservas/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            var reserva = await _context.Reservas
-                .Include(r => r.IdusuarioNavigation)  // Incluye el usuario
-                .Include(r => r.HabitacionReservas)
-                    .ThenInclude(hr => hr.IdhabitacionNavigation)  // Incluye las habitaciones
-                .Include(r => r.HuespedReservas)
-                    .ThenInclude(hr => hr.IdhuespedNavigation)  // Incluye los huéspedes
-                .Include(r => r.ReservaServicios)
-                    .ThenInclude(rs => rs.IdservicioNavigation)  // Incluye los servicios
-                .Include(r => r.IdpaqueteNavigation)  // Incluye el paquete
-                .FirstOrDefaultAsync(r => r.Idreserva == id);
-
-            if (reserva == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            return View(reserva);
-        }
-
-
-        // GET: Reservas/Delete/5
-        public async Task<IActionResult> Delete(int id)
-        {
             var reserva = await _context.Reservas
+                .Include(r => r.IdhabitacionNavigation)
+                .Include(r => r.IdpagoNavigation)
+                .Include(r => r.IdpaqueteNavigation)
+                .Include(r => r.IdusuarioNavigation)
                 .FirstOrDefaultAsync(m => m.Idreserva == id);
-
             if (reserva == null)
             {
                 return NotFound();
@@ -239,7 +164,11 @@ namespace NewDawn.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var reserva = await _context.Reservas.FindAsync(id);
-            _context.Reservas.Remove(reserva);
+            if (reserva != null)
+            {
+                _context.Reservas.Remove(reserva);
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -248,17 +177,5 @@ namespace NewDawn.Controllers
         {
             return _context.Reservas.Any(e => e.Idreserva == id);
         }
-
-        private async Task<bool> IsRoomAvailable(int habitacionId, DateTime fechaComienzo, DateTime fechaFin)
-        {
-            return !await _context.HabitacionReservas
-                .Include(hr => hr.IdreservaNavigation)
-                .AnyAsync(hr =>
-                    hr.Idhabitacion == habitacionId &&
-                    hr.IdreservaNavigation.FechaComienzo.ToDateTime(new TimeOnly(0, 0)) < fechaFin.Date &&
-                    hr.IdreservaNavigation.FechaFin.ToDateTime(new TimeOnly(0, 0)) > fechaComienzo.Date &&
-                    hr.IdreservaNavigation.EstadoReserva);
-        }
-
     }
 }

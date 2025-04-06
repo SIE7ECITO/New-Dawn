@@ -1,41 +1,83 @@
 ﻿@model IEnumerable<NewDawn.Models.Reserva>
 
 @{
-    ViewData["Title"] = "Reservas";
+    ViewData["Title"] = "Index";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h1>Index</h1>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <a asp-action="Create" class="btn btn-success">
-        <i class="fas fa-plus"></i> Nueva Reserva
-    </a>
-</div>
-
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
-            <th>Fecha de Reserva</th>
-            <th>Fecha de Comienzo</th>
-            <th>Fecha de Fin</th>
-            <th>Estado</th>
-            <th>Acciones</th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaReserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaComienzo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaFin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoReserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdhabitacionNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdpagoNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdpaqueteNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdusuarioNavigation)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var reserva in Model)
-        {
-            <tr>
-                <td>@reserva.FechaReserva</td>
-                <td>@reserva.FechaComienzo</td>
-                <td>@reserva.FechaFin</td>
-                <td>@(reserva.EstadoReserva ? "Activo" : "Inactivo")</td>
-                <td>
-                    <a href="@Url.Action("Details", "Reservas", new { id = reserva.Idreserva })" class="btn btn-info">Detalles</a>
-                    <a href="@Url.Action("Edit", "Reservas", new { id = reserva.Idreserva })" class="btn btn-warning">Editar</a>
-                    <a href="@Url.Action("Delete", "Reservas", new { id = reserva.Idreserva })" class="btn btn-danger">Eliminar</a>
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaReserva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaComienzo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaFin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoReserva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdhabitacionNavigation.Idhabitacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdpagoNavigation.Idpago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdpaqueteNavigation.Idpaquete)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdusuarioNavigation.Idusuario)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Idreserva">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Idreserva">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Idreserva">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
