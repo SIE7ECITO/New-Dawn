@@ -37,7 +37,7 @@ public partial class Reserva
 
     public virtual Usuario IdusuarioNavigation { get; set; } = null!;
 
-    public virtual ICollection<Servicio> Idservicios { get; set; } = new List<Servicio>();
-    public virtual ICollection<ReservaServicio> ReservaServicios { get; set; } = new List<ReservaServicio>();
+    public virtual ICollection<Servicio> Idservicios { get; set; } = [];
+    public virtual ICollection<ReservaServicio> ReservaServicios { get; set; } = [];
 
 }

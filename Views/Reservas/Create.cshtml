@@ -4,66 +4,164 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Crear Reserva</h1>
 
-<h4>Reserva</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Usuario -->
             <div class="form-group">
-                <label asp-for="Idusuario" class="control-label"></label>
-                <select asp-for="Idusuario" class ="form-control" asp-items="ViewBag.Idusuario"></select>
+                <label asp-for="Idusuario"></label>
+                <select asp-for="Idusuario" class="form-control" asp-items="ViewBag.Usuarios"></select>
             </div>
+
+            <!-- Paquetes -->
             <div class="form-group">
-                <label asp-for="Idhabitacion" class="control-label"></label>
-                <select asp-for="Idhabitacion" class ="form-control" asp-items="ViewBag.Idhabitacion"></select>
+                <label for="paqueteSelect">Seleccionar paquete</label>
+                <select id="paqueteSelect" class="form-control" asp-items="ViewBag.Paquetes"></select>
+                <button type="button" class="btn btn-secondary mt-2" id="btnAgregarPaquete">Agregar paquete</button>
+                <ul class="list-group mt-2" id="listaPaquetesSeleccionados"></ul>
+                <input type="hidden" name="Idpaquete" id="selectedPaquete" />
             </div>
+
+            <!-- Habitaciones -->
             <div class="form-group">
-                <label asp-for="Idpaquete" class="control-label"></label>
-                <select asp-for="Idpaquete" class ="form-control" asp-items="ViewBag.Idpaquete"></select>
+                <label for="habitacionSelect">Seleccionar habitación</label>
+                <select id="habitacionSelect" class="form-control" asp-items="ViewBag.Habitaciones"></select>
+                <button type="button" class="btn btn-secondary mt-2" id="btnAgregarHabitacion">Agregar habitación</button>
+                <ul class="list-group mt-2" id="listaHabitacionesSeleccionadas"></ul>
+                <input type="hidden" name="selectedHabitaciones" id="selectedHabitaciones" />
             </div>
+
+            <!-- Servicios -->
             <div class="form-group">
-                <label asp-for="Idpago" class="control-label"></label>
-                <select asp-for="Idpago" class ="form-control" asp-items="ViewBag.Idpago"></select>
+                <label for="servicioSelect">Seleccionar servicio</label>
+                <select id="servicioSelect" class="form-control" asp-items="ViewBag.Servicios"></select>
+                <button type="button" class="btn btn-secondary mt-2" id="btnAgregarServicio">Agregar servicio</button>
+                <ul class="list-group mt-2" id="listaServiciosSeleccionados"></ul>
+                <input type="hidden" name="selectedServicios" id="selectedServicios" />
             </div>
+
+            <!-- Fechas -->
             <div class="form-group">
-                <label asp-for="FechaReserva" class="control-label"></label>
-                <input asp-for="FechaReserva" class="form-control" />
+                <label asp-for="FechaReserva"></label>
+                <input asp-for="FechaReserva" class="form-control" type="date" />
                 <span asp-validation-for="FechaReserva" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FechaComienzo" class="control-label"></label>
-                <input asp-for="FechaComienzo" class="form-control" />
+                <label asp-for="FechaComienzo"></label>
+                <input asp-for="FechaComienzo" class="form-control" type="date" id="fechaInicio" />
                 <span asp-validation-for="FechaComienzo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FechaFin" class="control-label"></label>
-                <input asp-for="FechaFin" class="form-control" />
+                <label asp-for="FechaFin"></label>
+                <input asp-for="FechaFin" class="form-control" type="date" id="fechaFin" />
                 <span asp-validation-for="FechaFin" class="text-danger"></span>
             </div>
+
+            <!-- Total -->
             <div class="form-group">
-                <label asp-for="ValorTotal" class="control-label"></label>
-                <input asp-for="ValorTotal" class="form-control" />
-                <span asp-validation-for="ValorTotal" class="text-danger"></span>
+                <label asp-for="ValorTotal"></label>
+                <input asp-for="ValorTotal" class="form-control" readonly id="valorTotal" />
             </div>
+
+            <!-- Estado -->
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EstadoReserva" /> @Html.DisplayNameFor(model => model.EstadoReserva)
-                </label>
+                <input asp-for="EstadoReserva" class="form-check-input" />
+                <label class="form-check-label" asp-for="EstadoReserva"></label>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+
+            <input type="submit" value="Crear Reserva" class="btn btn-primary" />
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        let habitaciones = [];
+        let servicios = [];
+        let paquete = null;
+
+        const precios = {
+            habitaciones: @Html.Raw(Json.Serialize(ViewBag.HabitacionesPrecio)),
+            servicios: @Html.Raw(Json.Serialize(ViewBag.ServiciosPrecio)),
+            paquetes: @Html.Raw(Json.Serialize(ViewBag.PaquetesPrecio))
+        };
+
+        function calcularTotal() {
+            let total = 0;
+
+            const dias = calcularDias();
+            habitaciones.forEach(id => {
+                if (precios.habitaciones[id]) total += precios.habitaciones[id] * dias;
+            });
+
+            servicios.forEach(id => {
+                if (precios.servicios[id]) total += precios.servicios[id];
+            });
+
+            if (paquete && precios.paquetes[paquete]) {
+                total += precios.paquetes[paquete];
+            }
+
+            document.getElementById("valorTotal").value = total.toFixed(2);
+        }
+
+        function calcularDias() {
+            const inicio = new Date(document.getElementById("fechaInicio").value);
+            const fin = new Date(document.getElementById("fechaFin").value);
+            const diff = (fin - inicio) / (1000 * 60 * 60 * 24);
+            return isNaN(diff) || diff < 1 ? 1 : diff;
+        }
+
+        // Habitaciones
+        document.getElementById("btnAgregarHabitacion").addEventListener("click", function () {
+            const select = document.getElementById("habitacionSelect");
+            const id = select.value;
+            const nombre = select.options[select.selectedIndex].text;
+
+            if (!id || habitaciones.includes(id)) return;
+
+            habitaciones.push(id);
+            document.getElementById("listaHabitacionesSeleccionadas").innerHTML += `<li class="list-group-item">${nombre}</li>`;
+            document.getElementById("selectedHabitaciones").value = habitaciones.join(',');
+            calcularTotal();
+        });
+
+        // Servicios
+        document.getElementById("btnAgregarServicio").addEventListener("click", function () {
+            const select = document.getElementById("servicioSelect");
+            const id = select.value;
+            const nombre = select.options[select.selectedIndex].text;
+
+            if (!id || servicios.includes(id)) return;
+
+            servicios.push(id);
+            document.getElementById("listaServiciosSeleccionados").innerHTML += `<li class="list-group-item">${nombre}</li>`;
+            document.getElementById("selectedServicios").value = servicios.join(',');
+            calcularTotal();
+        });
+
+        // Paquete
+        document.getElementById("btnAgregarPaquete").addEventListener("click", function () {
+            const select = document.getElementById("paqueteSelect");
+            const id = select.value;
+            const nombre = select.options[select.selectedIndex].text;
+
+            if (!id) return;
+
+            paquete = id;
+            document.getElementById("selectedPaquete").value = paquete;
+            document.getElementById("listaPaquetesSeleccionados").innerHTML = `<li class="list-group-item">${nombre}</li>`;
+            calcularTotal();
+        });
+
+        // Recalcula si cambian las fechas
+        document.getElementById("fechaInicio").addEventListener("change", calcularTotal);
+        document.getElementById("fechaFin").addEventListener("change", calcularTotal);
+    </script>
 }

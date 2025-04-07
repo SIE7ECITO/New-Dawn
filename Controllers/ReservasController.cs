@@ -50,10 +50,23 @@ namespace NewDawn.Controllers
         // GET: Reservas/Create
         public IActionResult Create()
         {
-            ViewData["Idhabitacion"] = new SelectList(_context.Habitacions, "Idhabitacion", "Idhabitacion");
-            ViewData["Idpago"] = new SelectList(_context.Pagos, "Idpago", "Idpago");
-            ViewData["Idpaquete"] = new SelectList(_context.Paquetes, "Idpaquete", "Idpaquete");
-            ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario");
+            ViewData["Usuarios"] = new SelectList(_context.Usuarios, "Idusuario", "Nombre");
+            ViewData["Paquetes"] = new SelectList(_context.Paquetes, "Idpaquete", "NombrePaquete");
+            ViewData["Habitaciones"] = new MultiSelectList(_context.Habitacions, "Idhabitacion", "TipoHabitacion");
+            ViewData["Servicios"] = new MultiSelectList(_context.Servicios, "Idservicio", "NombreServicio");
+
+            ViewBag.HabitacionesData = _context.Habitacions
+                .Select(h => new { h.Idhabitacion, h.PrecioNoche })
+                .ToList();
+
+            ViewBag.ServiciosData = _context.Servicios
+                .Select(s => new { s.Idservicio, s.ValorServicio })
+                .ToList();
+
+            ViewBag.PaquetesData = _context.Paquetes
+                .Select(p => new { p.Idpaquete, p.Precio })
+                .ToList();
+
             return View();
         }
 
@@ -62,20 +75,75 @@ namespace NewDawn.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idreserva,Idusuario,Idhabitacion,Idpaquete,Idpago,FechaReserva,FechaComienzo,FechaFin,ValorTotal,EstadoReserva")] Reserva reserva)
+        public async Task<IActionResult> Create(
+            [Bind("Idreserva,Idusuario,Idpaquete,Idpago,FechaReserva,FechaComienzo,FechaFin,EstadoReserva")] Reserva reserva,
+                int[] selectedHabitaciones,
+                int[] selectedServicios)
         {
+            if (reserva.FechaFin < reserva.FechaComienzo)
+            {
+                ModelState.AddModelError("", "La fecha de fin no puede ser menor a la fecha de comienzo.");
+            }
+
             if (ModelState.IsValid)
             {
-                _context.Add(reserva);
+                decimal valorTotal = 0m;
+
+                // 1. Habitaciones
+                foreach (var habitacionId in selectedHabitaciones)
+                {
+                    _context.HabitacionReservas.Add(new HabitacionReserva
+                    {
+                        Idreserva = reserva.Idreserva,
+                        Idhabitacion = habitacionId
+                    });
+
+                    var habitacion = await _context.Habitacions.FindAsync(habitacionId);
+                    if (habitacion != null)
+                    {
+                        var fechaInicio = reserva.FechaComienzo.ToDateTime(TimeOnly.MinValue);
+                        var fechaFin = reserva.FechaFin.ToDateTime(TimeOnly.MinValue);
+                        int dias = (fechaFin - fechaInicio).Days;
+                        valorTotal += (decimal)habitacion.PrecioNoche * dias;
+                    }
+                }
+
+                // 2. Servicios
+                foreach (var servicioId in selectedServicios)
+                {
+                    _context.ReservaServicios.Add(new ReservaServicio
+                    {
+                        Idreserva = reserva.Idreserva,
+                        Idservicio = servicioId
+                    });
+
+                    var servicio = await _context.Servicios.FindAsync(servicioId);
+                    if (servicio != null)
+                        valorTotal += servicio.ValorServicio;
+                }
+
+                // 3. Paquete (opcional)
+                if (reserva.Idpaquete != null)
+                {
+                    var paquete = await _context.Paquetes.FindAsync(reserva.Idpaquete);
+                    if (paquete != null)
+                        valorTotal += paquete.Precio;
+                }
+
+                reserva.ValorTotal = (double)valorTotal;
+                _context.Reservas.Add(reserva);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Idhabitacion"] = new SelectList(_context.Habitacions, "Idhabitacion", "Idhabitacion", reserva.Idhabitacion);
-            ViewData["Idpago"] = new SelectList(_context.Pagos, "Idpago", "Idpago", reserva.Idpago);
-            ViewData["Idpaquete"] = new SelectList(_context.Paquetes, "Idpaquete", "Idpaquete", reserva.Idpaquete);
-            ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario", reserva.Idusuario);
+
+            ViewData["Usuarios"] = new SelectList(_context.Usuarios, "Idusuario", "Nombre", reserva.Idusuario);
+            ViewData["Paquetes"] = new SelectList(_context.Paquetes, "Idpaquete", "NombrePaquete", reserva.Idpaquete);
+            ViewData["Habitaciones"] = new MultiSelectList(_context.Habitacions, "Idhabitacion", "TipoHabitacion", selectedHabitaciones);
+            ViewData["Servicios"] = new MultiSelectList(_context.Servicios, "Idservicio", "NombreServicio", selectedServicios);
             return View(reserva);
         }
+
+
 
         // GET: Reservas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -94,6 +162,10 @@ namespace NewDawn.Controllers
             ViewData["Idpago"] = new SelectList(_context.Pagos, "Idpago", "Idpago", reserva.Idpago);
             ViewData["Idpaquete"] = new SelectList(_context.Paquetes, "Idpaquete", "Idpaquete", reserva.Idpaquete);
             ViewData["Idusuario"] = new SelectList(_context.Usuarios, "Idusuario", "Idusuario", reserva.Idusuario);
+            ViewBag.HabitacionesPrecio = _context.Habitacions.ToDictionary(h => h.Idhabitacion.ToString(), h => h.PrecioNoche);
+            ViewBag.ServiciosPrecio = _context.Servicios.ToDictionary(s => s.Idservicio.ToString(), s => s.ValorServicio);
+            ViewBag.PaquetesPrecio = _context.Paquetes.ToDictionary(p => p.Idpaquete.ToString(), p => p.Precio);
+
             return View(reserva);
         }
 
