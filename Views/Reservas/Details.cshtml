@@ -4,69 +4,74 @@
     ViewData["Title"] = "Detalles de la Reserva";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Detalles de la Reserva</h3>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Fecha de Comienzo</dt>
+            <dd class="col-sm-9">@Model.FechaComienzo?.ToString("dd/MM/yyyy")</dd>
 
-<div>
-    <strong>Fecha de Reserva:</strong> @Model.FechaReserva.ToString("dd/MM/yyyy") <br />
-    <strong>Fecha de Comienzo:</strong> @Model.FechaComienzo.ToString("dd/MM/yyyy") <br />
-    <strong>Fecha de Fin:</strong> @Model.FechaFin.ToString("dd/MM/yyyy") <br />
-    <strong>Estado:</strong> @(Model.EstadoReserva ? "Activo" : "Inactivo") <br />
-    <strong>Valor Total:</strong> @Model.ValorTotal.ToString("C") <br />
-</div>
+            <dt class="col-sm-3">Fecha de Fin</dt>
+            <dd class="col-sm-9">@Model.FechaFin?.ToString("dd/MM/yyyy")</dd>
 
-<h3>Usuario</h3>
-<div>
-    <strong>Nombre del Usuario:</strong> @Model.IdusuarioNavigation.NombreUsuario <br />
-    <strong>Correo del Usuario:</strong> @Model.IdusuarioNavigation.Correo <br />
-</div>
+            <dt class="col-sm-3">Usuario</dt>
+            <dd class="col-sm-9">@Model.IdusuarioNavigation?.NombreUsuario @Model.IdusuarioNavigation?.Apellido</dd>
 
-<h3>Huésped</h3>
-<div>
-    @if (Model.HuespedReservas != null && Model.HuespedReservas.Any())
-    {
-        foreach (var huespedReserva in Model.HuespedReservas)
+            <dt class="col-sm-3">Huésped</dt>
+            @foreach (var huespedReserva in Model.HuespedReservas)
+            {
+                <dd class="col-sm-9">@huespedReserva.Idhuesped</dd>
+            }
+
+
+
+
+            <dt class="col-sm-3">Estado de la Reserva</dt>
+            <dd class="col-sm-9">@Model.EstadoReserva ? "Activa" : "Cancelada"</dd>
+
+            <dt class="col-sm-3">Valor Total</dt>
+            <dd class="col-sm-9">$@Model.ValorTotal</dd>
+        </dl>
+
+        <h5>Habitaciones Seleccionadas</h5>
+        <ul class="list-group">
+            @foreach (var habitacionReserva in Model.HabitacionReservas)
+            {
+                <li class="list-group-item">
+                    @habitacionReserva.IdhabitacionNavigation?.TipoHabitacion - $@habitacionReserva.IdhabitacionNavigation?.PrecioNoche por noche
+                </li>
+            }
+        </ul>
+
+        <h5>Paquete Seleccionado</h5>
+        @if (Model.IdpaqueteNavigation != null)
         {
-            <strong>Nombre del Huésped:</strong> @huespedReserva.IdhuespedNavigation.NombreHuesped <br />
-            <strong>Correo del Huésped:</strong> @huespedReserva.IdhuespedNavigation.Correo <br />
+            <p>@Model.IdpaqueteNavigation.NombrePaquete - $@Model.IdpaqueteNavigation.Precio</p>
         }
-    }
-    else
-    {
-        <strong>No hay huéspedes registrados para esta reserva.</strong>
-    }
-</div>
+        else
+        {
+            <p>No se seleccionó ningún paquete.</p>
+        }
 
-<h3>Habitaciones</h3>
-<ul>
-    @foreach (var habitacionReserva in Model.HabitacionReservas)
-    {
-        <li>@habitacionReserva.IdhabitacionNavigation.TipoHabitacion - @habitacionReserva.IdhabitacionNavigation.PrecioNoche.ToString("C")</li>
-    }
-</ul>
+        <h5>Servicios Adicionales</h5>
+        <ul class="list-group">
+            @foreach (var reservaServicio in Model.ReservaServicios)
+            {
+                <li class="list-group-item">
+                    @reservaServicio.IdservicioNavigation?.NombreServicio - $@reservaServicio.IdservicioNavigation?.ValorServicio
+                </li>
+            }
+        </ul>
 
-<h3>Paquete</h3>
-<div>
-    @if (Model.Idpaquete != null)
-    {
-        <strong>Paquete Seleccionado:</strong> @Model.IdpaqueteNavigation.NombrePaquete <br />
-        <strong>Precio del Paquete:</strong> @Model.IdpaqueteNavigation.Precio.ToString("C") <br />
-    }
-    else
-    {
-        <strong>No se seleccionó un paquete.</strong>
-    }
-</div>
-
-<h3>Servicios</h3>
-<ul>
-    @foreach (var reservaServicio in Model.ReservaServicios)
-    {
-        <li>@reservaServicio.IdservicioNavigation.NombreServicio</li>
-    }
-</ul>
-
-<div>
-    <a href="@Url.Action("Edit", "Reservas", new { id = Model.Idreserva })" class="btn btn-warning">Editar</a>
-    <a href="@Url.Action("Delete", "Reservas", new { id = Model.Idreserva })" class="btn btn-danger">Eliminar</a>
-    <a href="@Url.Action("Index")" class="btn btn-primary">Volver al listado</a>
+        <div class="text-right mt-3">
+            <a asp-action="Edit" asp-route-id="@Model.Idreserva" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Volver al listado
+            </a>
+        </div>
+    </div>
 </div>

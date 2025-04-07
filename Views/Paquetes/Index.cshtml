@@ -5,9 +5,11 @@
 }
 
 <h2>Lista de Paquetes</h2>
-<a asp-action="Create" class="btn btn-primary">Crear Nuevo Paquete</a>
-<table class="table">
-    <thead>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Crear Nuevo Paquete</a>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
         <tr>
             <th>Nombre</th>
             <th>Descripción</th>
@@ -17,17 +19,26 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Where(p => p.Idpaquete != 0))
         {
             <tr>
                 <td>@item.NombrePaquete</td>
                 <td>@item.Descripcion</td>
                 <td>@item.Precio.ToString("C")</td>
-                <td>@(item.EstadoPaquete ? "Activo" : "Inactivo")</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Idpaquete" class="btn btn-info">Detalles</a>
-                    <a asp-action="Edit" asp-route-id="@item.Idpaquete" class="btn btn-warning">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@item.Idpaquete" class="btn btn-danger">Eliminar</a>
+                    @if (item.EstadoPaquete)
+                    {
+                        <span class="badge bg-success">Activo</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Inactivo</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Idpaquete" class="btn btn-info btn-sm">Detalles</a>
+                    <a asp-action="Edit" asp-route-id="@item.Idpaquete" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.Idpaquete" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este paquete?');">Eliminar</a>
                 </td>
             </tr>
         }
