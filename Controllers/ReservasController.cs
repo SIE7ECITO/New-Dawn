@@ -235,13 +235,18 @@ namespace NewDawn.Controllers
 
                     foreach (var sp in paquete.ServicioPaquetes)
                     {
-                        _context.ReservaServicios.Add(new ReservaServicio
+                        // Verificar si ya existe en el contexto
+                        if (!_context.ReservaServicios.Local.Any(rs => rs.Idreserva == reserva.Idreserva && rs.Idservicio == sp.Idservicio))
                         {
-                            Idservicio = sp.Idservicio,
-                            Idreserva = reserva.Idreserva
-                        });
+                            _context.ReservaServicios.Add(new ReservaServicio
+                            {
+                                Idservicio = sp.Idservicio,
+                                Idreserva = reserva.Idreserva
+                            });
+                        }
                     }
                 }
+
 
                 if (serviciosSeleccionados != null)
                 {
@@ -255,13 +260,19 @@ namespace NewDawn.Controllers
                         }
 
                         total += servicio.ValorServicio;
-                        _context.ReservaServicios.Add(new ReservaServicio
+
+                        // Verificar si ya existe en el contexto
+                        if (!_context.ReservaServicios.Local.Any(rs => rs.Idreserva == reserva.Idreserva && rs.Idservicio == idServicio))
                         {
-                            Idservicio = servicio.Idservicio,
-                            Idreserva = reserva.Idreserva
-                        });
+                            _context.ReservaServicios.Add(new ReservaServicio
+                            {
+                                Idservicio = idServicio,
+                                Idreserva = reserva.Idreserva
+                            });
+                        }
                     }
                 }
+
 
                 if (!ModelState.IsValid)
                 {
@@ -294,210 +305,179 @@ namespace NewDawn.Controllers
 
 
         // GET: Reservas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+      
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null) return NotFound();
-
             var reserva = await _context.Reservas
                 .Include(r => r.HabitacionReservas)
                 .Include(r => r.ReservaServicios)
-                .Include(r => r.IdpaqueteNavigation)
-                .Include(r => r.IdhabitacionNavigation)
-                .Include(r => r.ReservaServicios)
-                .ThenInclude(rs => rs.IdservicioNavigation)
-                .Include(r => r.IdpagoNavigation)
                 .FirstOrDefaultAsync(r => r.Idreserva == id);
 
-            if (reserva == null) return NotFound();
-
-            // Cargar todos los elementos seleccionables
-            var habitacionesDisponibles = await _context.Habitacions
-                .Where(h => h.EstadoHabitacion == true).ToListAsync();
-
-            var serviciosDisponibles = await _context.Servicios
-                .Where(s => s.EstadoServicio == true).ToListAsync();
-
-            var paquetesDisponibles = await _context.Paquetes
-                .Where(p => p.EstadoPaquete == true).ToListAsync();
-
-            // Obtener los IDs seleccionados para preselección en la vista
-            var habitacionesSeleccionadas = reserva.HabitacionReservas.Select(hr => hr.Idhabitacion).ToList();
-            var serviciosSeleccionados = reserva.ReservaServicios.Select(rs => rs.Idservicio).ToList();
-
-            ViewBag.Habitaciones = habitacionesDisponibles;
-            ViewBag.HabitacionesSeleccionadas = habitacionesSeleccionadas;
-
-            ViewBag.Servicios = serviciosDisponibles;
-            ViewBag.ServiciosSeleccionados = serviciosSeleccionados;
-
-            ViewBag.Paquetes = paquetesDisponibles;
-            ViewBag.IdPaqueteSeleccionado = reserva.Idpaquete;
-
-            // Puedes pasar también el pago asociado si lo vas a mostrar o editar
-            ViewBag.Pago = reserva.IdpagoNavigation;
-
-
-            return View(reserva);
-        }
-
-
-
-        // POST: Reservas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Reserva reserva, List<int> habitacionesSeleccionadas, List<int> serviciosSeleccionados)
-        {
-            if (id != reserva.Idreserva) return NotFound();
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var reservaExistente = await _context.Reservas
-                        .Include(r => r.HabitacionReservas)
-                        .Include(r => r.ReservaServicios)
-                        .Include(r => r.IdpagoNavigation)
-                        .FirstOrDefaultAsync(r => r.Idreserva == id);
-
-                    if (reservaExistente == null) return NotFound();
-
-                    // Actualizar datos principales
-                    reservaExistente.FechaComienzo = reserva.FechaComienzo;
-                    reservaExistente.FechaFin = reserva.FechaFin;
-                    reservaExistente.EstadoReserva = reserva.EstadoReserva;
-                    reservaExistente.FechaReserva = reserva.FechaReserva;
-                    reservaExistente.Idusuario = reserva.Idusuario;
-
-                    // Limpiar relaciones anteriores
-                    _context.HabitacionReservas.RemoveRange(reservaExistente.HabitacionReservas);
-                    _context.ReservaServicios.RemoveRange(reservaExistente.ReservaServicios);
-
-                    // Habitaciones o paquete
-                    if (habitacionesSeleccionadas != null && habitacionesSeleccionadas.Count > 0)
-                    {
-                        foreach (var idHab in habitacionesSeleccionadas)
-                        {
-                            reservaExistente.HabitacionReservas.Add(new HabitacionReserva
-                            {
-                                Idreserva = reservaExistente.Idreserva,
-                                Idhabitacion = idHab
-                            });
-                        }
-
-                        reservaExistente.Idhabitacion = 0;
-                        reservaExistente.Idpaquete = 0;
-                    }
-                    else if (reserva.Idpaquete != 0)
-                    {
-                        reservaExistente.Idpaquete = reserva.Idpaquete;
-                        reservaExistente.Idhabitacion = 0;
-
-                        var serviciosPaquete = await _context.ServicioPaquetes
-                            .Where(sp => sp.Idpaquete == reserva.Idpaquete)
-                            .Select(sp => sp.Idservicio)
-                            .ToListAsync();
-
-                        serviciosSeleccionados.AddRange(serviciosPaquete);
-                        serviciosSeleccionados = serviciosSeleccionados.Distinct().ToList();
-                    }
-                    else
-                    {
-                        reservaExistente.Idhabitacion = 0;
-                        reservaExistente.Idpaquete = 0;
-                    }
-
-                    // Servicios
-                    if (serviciosSeleccionados != null)
-                    {
-                        foreach (var idServ in serviciosSeleccionados.Distinct())
-                        {
-                            reservaExistente.ReservaServicios.Add(new ReservaServicio
-                            {
-                                Idreserva = reservaExistente.Idreserva,
-                                Idservicio = idServ
-                            });
-                        }
-                    }
-
-                    // Recalcular total
-                    decimal total = 0;
-                    int dias = (reservaExistente.FechaFin.Value.ToDateTime(TimeOnly.MinValue) -
-                                reservaExistente.FechaComienzo.Value.ToDateTime(TimeOnly.MinValue)).Days;
-
-                    if (habitacionesSeleccionadas != null && habitacionesSeleccionadas.Count > 0)
-                    {
-                        var habitaciones = await _context.Habitacions
-                            .Where(h => habitacionesSeleccionadas.Contains(h.Idhabitacion))
-                            .ToListAsync();
-
-                        total += habitaciones.Sum(h => h.PrecioNoche * (decimal)dias);
-                    }
-
-                    if (reservaExistente.Idpaquete != 0)
-                    {
-                        var paquete = await _context.Paquetes
-                            .FirstOrDefaultAsync(p => p.Idpaquete == reservaExistente.Idpaquete);
-
-                        if (paquete != null)
-                            total += paquete.Precio * (decimal)dias;
-                    }
-
-                    if (serviciosSeleccionados != null && serviciosSeleccionados.Count > 0)
-                    {
-                        var servicios = await _context.Servicios
-                            .Where(s => serviciosSeleccionados.Contains(s.Idservicio))
-                            .ToListAsync();
-
-                        total += servicios.Sum(s => s.ValorServicio);
-                    }
-
-                    // Guardar total
-                    reservaExistente.ValorTotal = (double)total;
-
-                    // Actualizar el pago
-                    if (reservaExistente.IdpagoNavigation != null)
-                    {
-                        reservaExistente.IdpagoNavigation.CantidadPago = total;
-                        _context.Pagos.Update(reservaExistente.IdpagoNavigation);
-                    }
-
-                    _context.Reservas.Update(reservaExistente);
-                    await _context.SaveChangesAsync();
-
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ReservaExists(reserva.Idreserva)) return NotFound();
-                    throw;
-                }
-            }
-
-            // En caso de error, recargar combos
-            ViewBag.Habitaciones = await _context.Habitacions.Where(h => h.EstadoHabitacion).ToListAsync();
-            ViewBag.Servicios = await _context.Servicios.Where(s => s.EstadoServicio).ToListAsync();
-            ViewBag.Paquetes = await _context.Paquetes.Where(p => p.EstadoPaquete).ToListAsync();
-
-            return View(reserva);
-        }
-
-
-        // GET: Reservas/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
+            if (reserva == null)
             {
                 return NotFound();
             }
 
+            await CargarDatosReservaAsync();
+            return View(reserva);
+        }
+
+        // POST: Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(
+            int id,
+            Reserva reserva,
+            List<int>? habitacionesSeleccionadas,
+            int? idPaquete,
+            List<int>? serviciosSeleccionados)
+        {
+            if (id != reserva.Idreserva)
+            {
+                return NotFound();
+            }
+
+            if (reserva.FechaComienzo == null || reserva.FechaFin == null)
+            {
+                ModelState.AddModelError("", "Las fechas son requeridas");
+            }
+            else if (reserva.FechaFin.Value <= reserva.FechaComienzo.Value)
+            {
+                ModelState.AddModelError("", "La fecha de fin debe ser posterior a la fecha de inicio");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                await CargarDatosReservaAsync();
+                return View(reserva);
+            }
+
+            var existingReserva = await _context.Reservas
+                .Include(r => r.HabitacionReservas)
+                .Include(r => r.ReservaServicios)
+                .FirstOrDefaultAsync(r => r.Idreserva == id);
+
+            if (existingReserva == null)
+            {
+                return NotFound();
+            }
+
+            existingReserva.FechaComienzo = reserva.FechaComienzo;
+            existingReserva.FechaFin = reserva.FechaFin;
+            existingReserva.Idpaquete = idPaquete ?? 0;
+
+            // Update habitaciones and servicios logic similar to Create method
+
+            decimal total = 0;
+            int cantidadDias = (reserva.FechaFin.Value.ToDateTime(TimeOnly.MinValue) - reserva.FechaComienzo.Value.ToDateTime(TimeOnly.MinValue)).Days;
+
+            // Habitaciones logic
+            existingReserva.HabitacionReservas.Clear();
+            if (habitacionesSeleccionadas != null && habitacionesSeleccionadas.Any())
+            {
+                foreach (var idHabitacion in habitacionesSeleccionadas)
+                {
+                    var habitacion = await _context.Habitacions.FindAsync(idHabitacion);
+                    if (habitacion == null || !habitacion.EstadoHabitacion)
+                    {
+                        ModelState.AddModelError("", $"Habitación {idHabitacion} no disponible");
+                        continue;
+                    }
+
+                    total += habitacion.PrecioNoche * cantidadDias;
+                    existingReserva.HabitacionReservas.Add(new HabitacionReserva
+                    {
+                        Idhabitacion = idHabitacion,
+                        Idreserva = existingReserva.Idreserva
+                    });
+                }
+            }
+
+            // Paquete and servicios logic
+            if (reserva.Idpaquete != 0)
+            {
+                var paquete = await _context.Paquetes
+                    .Include(p => p.ServicioPaquetes)
+                    .FirstOrDefaultAsync(p => p.Idpaquete == reserva.Idpaquete);
+
+                if (paquete == null)
+                {
+                    ModelState.AddModelError("", "Paquete no encontrado");
+                    await CargarDatosReservaAsync();
+                    return View(reserva);
+                }
+
+                total += paquete.Precio * cantidadDias;
+
+                foreach (var sp in paquete.ServicioPaquetes)
+                {
+                    if (!_context.ReservaServicios.Local.Any(rs => rs.Idreserva == reserva.Idreserva && rs.Idservicio == sp.Idservicio))
+                    {
+                        existingReserva.ReservaServicios.Add(new ReservaServicio
+                        {
+                            Idservicio = sp.Idservicio,
+                            Idreserva = existingReserva.Idreserva
+                        });
+                    }
+                }
+            }
+
+            // Servicios logic
+            existingReserva.ReservaServicios.Clear();
+            if (serviciosSeleccionados != null)
+            {
+                foreach (var idServicio in serviciosSeleccionados)
+                {
+                    var servicio = await _context.Servicios.FindAsync(idServicio);
+                    if (servicio == null || !servicio.EstadoServicio)
+                    {
+                        ModelState.AddModelError("", $"Servicio {idServicio} no disponible");
+                        continue;
+                    }
+
+                    total += servicio.ValorServicio;
+
+                    if (!_context.ReservaServicios.Local.Any(rs => rs.Idreserva == reserva.Idreserva && rs.Idservicio == idServicio))
+                    {
+                        existingReserva.ReservaServicios.Add(new ReservaServicio
+                        {
+                            Idservicio = idServicio,
+                            Idreserva = existingReserva.Idreserva
+                        });
+                    }
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                await CargarDatosReservaAsync();
+                return View(reserva);
+            }
+
+            existingReserva.ValorTotal = (double)total;
+            _context.Update(existingReserva);
+
+            var pago = await _context.Pagos.FindAsync(existingReserva.Idpago);
+            if (pago != null)
+            {
+                pago.CantidadPago = total;
+                _context.Update(pago);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        // GET: Delete
+        public async Task<IActionResult> Delete(int id)
+        {
             var reserva = await _context.Reservas
-                .Include(r => r.IdhabitacionNavigation)
-                .Include(r => r.IdpagoNavigation)
-                .Include(r => r.IdpaqueteNavigation)
-                .Include(r => r.IdusuarioNavigation)
-                .FirstOrDefaultAsync(m => m.Idreserva == id);
+                .Include(r => r.HabitacionReservas)
+                .Include(r => r.ReservaServicios)
+                .FirstOrDefaultAsync(r => r.Idreserva == id);
+
             if (reserva == null)
             {
                 return NotFound();
@@ -506,18 +486,33 @@ namespace NewDawn.Controllers
             return View(reserva);
         }
 
-        // POST: Reservas/Delete/5
+        // POST: Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var reserva = await _context.Reservas.FindAsync(id);
-            if (reserva != null)
+            var reserva = await _context.Reservas
+                .Include(r => r.HabitacionReservas)
+                .Include(r => r.ReservaServicios)
+                .FirstOrDefaultAsync(r => r.Idreserva == id);
+
+            if (reserva == null)
             {
-                _context.Reservas.Remove(reserva);
+                return NotFound();
+            }
+
+            _context.HabitacionReservas.RemoveRange(reserva.HabitacionReservas);
+            _context.ReservaServicios.RemoveRange(reserva.ReservaServicios);
+            _context.Reservas.Remove(reserva);
+
+            var pago = await _context.Pagos.FindAsync(reserva.Idpago);
+            if (pago != null)
+            {
+                _context.Pagos.Remove(pago);
             }
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
