@@ -32,8 +32,7 @@ namespace NewDawn.Controllers
             return View(reservas);
         }
         // Acción para ver los detalles de una reserva
-        // Acción para ver los detalles de una reserva
-        // Acción para ver los detalles de una reserva
+       
         public async Task<IActionResult> Details(int id)
         {
             if (id == 0)
@@ -305,7 +304,7 @@ namespace NewDawn.Controllers
 
 
         // GET: Reservas/Edit/5
-      
+
         public async Task<IActionResult> Edit(int id)
         {
             var reserva = await _context.Reservas
@@ -318,9 +317,14 @@ namespace NewDawn.Controllers
                 return NotFound();
             }
 
-            await CargarDatosReservaAsync();
+            // Cargar listas para los dropdowns y checkboxes
+            ViewBag.Paquetes = new SelectList(await _context.Paquetes.ToListAsync(), "Idpaquete", "NombrePaquete");
+            ViewBag.Habitaciones = await _context.Habitacions.Where(h => h.EstadoHabitacion).ToListAsync();
+            ViewBag.Servicios = await _context.Servicios.Where(s => s.EstadoServicio).ToListAsync();
+
             return View(reserva);
         }
+
 
         // POST: Edit
         [HttpPost]
@@ -471,16 +475,18 @@ namespace NewDawn.Controllers
 
 
         // GET: Delete
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult>Delete(int id)
         {
             var reserva = await _context.Reservas
                 .Include(r => r.HabitacionReservas)
                 .Include(r => r.ReservaServicios)
+                .Include(r => r.IdusuarioNavigation)
                 .FirstOrDefaultAsync(r => r.Idreserva == id);
 
             if (reserva == null)
             {
-                return NotFound();
+                ViewData["ErrorMessage"] = "No se encontró la reserva.";
+                return View("Error"); // Devuelve una vista de error personalizada.
             }
 
             return View(reserva);

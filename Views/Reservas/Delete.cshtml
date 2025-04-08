@@ -1,4 +1,5 @@
-﻿@model Reserva
+﻿@model NewDawn.Models.Reserva
+
 
 @{
     ViewData["Title"] = "Eliminar Reserva";
@@ -9,6 +10,7 @@
 <h3>¿Está seguro que desea eliminar esta reserva?</h3>
 <div>
     <h4>Reserva</h4>
+    <input type="hidden" asp-for="Idreserva" />
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -27,7 +29,7 @@
             Usuario
         </dt>
         <dd class="col-sm-10">
-            @Model.IdusuarioNavigation.NombreUsuario
+            @Model.IdusuarioNavigation?.NombreUsuario ?? "Usuario no disponible"
         </dd>
         <dt class="col-sm-2">
             Estado de la Reserva
@@ -43,7 +45,7 @@
         </dd>
     </dl>
 
-    <form asp-action="DeleteConfirmed" method="post">
+    <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="Idreserva" />
         <input type="submit" value="Eliminar" class="btn btn-danger" /> |
         <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
