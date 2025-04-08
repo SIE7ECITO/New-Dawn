@@ -1,47 +1,46 @@
 ﻿@model IEnumerable<NewDawn.Models.Huesped>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista de Huéspedes";
+    var searchCc = Context.Request.Query["searchCc"];
 }
 
-<h1>Index</h1>
+<h1>Lista de Huéspedes</h1>
+
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchCc" class="form-control" placeholder="Buscar por CC" value="@searchCc" />
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        <a asp-action="Index" class="btn btn-secondary">Limpiar</a>
+    </div>
+</form>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Crear Nuevo Huésped</a>
 </p>
-<table class="table">
-    <thead>
+
+<table class="table table-striped">
+    <thead class="table-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Cchuesped)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreHuesped)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Correo)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Cchuesped)</th>
+            <th>@Html.DisplayNameFor(model => model.NombreHuesped)</th>
+            <th>@Html.DisplayNameFor(model => model.Correo)</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cchuesped)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreHuesped)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Correo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Idhuesped">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Idhuesped">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Idhuesped">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Cchuesped)</td>
+                <td>@Html.DisplayFor(modelItem => item.NombreHuesped)</td>
+                <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Idhuesped" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Idhuesped" class="btn btn-info btn-sm">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Idhuesped" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este huésped?');">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
