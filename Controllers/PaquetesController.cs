@@ -19,9 +19,31 @@ namespace NewDawn.Controllers
         }
 
         // GET: Paquetes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nombre, decimal? precioMin, decimal? precioMax, bool? estado)
         {
-            var paquetes = await _context.Paquetes.ToListAsync();
+            var query = _context.Paquetes.AsQueryable();
+
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                query = query.Where(p => p.NombrePaquete.Contains(nombre));
+            }
+
+            if (precioMin.HasValue)
+            {
+                query = query.Where(p => p.Precio >= precioMin.Value);
+            }
+
+            if (precioMax.HasValue)
+            {
+                query = query.Where(p => p.Precio <= precioMax.Value);
+            }
+
+            if (estado.HasValue)
+            {
+                query = query.Where(p => p.EstadoPaquete == estado.Value);
+            }
+
+            var paquetes = await query.ToListAsync();
             return View(paquetes);
         }
 

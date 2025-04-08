@@ -10,6 +10,14 @@
     <a asp-action="Create" class="btn btn-success">Crear Nuevo Usuario</a>
 </p>
 
+<form asp-action="Index" method="get" class="form-inline mb-3">
+    <div class="form-group me-2">
+        <input type="text" name="searchCc" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Buscar por cédula..." />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Limpiar</a>
+</form>
+
 <table class="table table-striped">
     <thead>
         <tr>

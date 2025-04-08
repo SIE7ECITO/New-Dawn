@@ -19,10 +19,19 @@ namespace NewDawn.Controllers
         }
 
         // GET: Huespedes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchCc)
         {
-            return View(await _context.Huespeds.ToListAsync());
+            var huespedes = from h in _context.Huespeds
+                            select h;
+
+            if (!string.IsNullOrEmpty(searchCc))
+            {
+                huespedes = huespedes.Where(h => h.Cchuesped.ToString().Contains(searchCc));
+            }
+
+            return View(await huespedes.ToListAsync());
         }
+
 
         // GET: Huespedes/Details/5
         public async Task<IActionResult> Details(int? id)
