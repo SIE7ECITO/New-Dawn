@@ -188,6 +188,54 @@
         });
 
     </script>
+    <script>
+        function calcularTotal() {
+            let total = 0;
+
+            // Días entre fechas
+            let fechaInicio = new Date($('input[name="FechaComienzo"]').val());
+            let fechaFin = new Date($('input[name="FechaFin"]').val());
+
+            let cantidadDias = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24));
+            if (isNaN(cantidadDias) || cantidadDias <= 0) {
+                cantidadDias = 1; // fallback
+            }
+
+            // Habitaciones seleccionadas
+            $('input[name="habitacionesSeleccionadas"]:checked').each(function () {
+                let precioNoche = parseFloat($(this).data('precio')) || 0;
+                total += precioNoche * cantidadDias;
+            });
+
+            // Paquete seleccionado
+            let paquete = $('select[name="idPaquete"] option:selected');
+            let precioPaquete = parseFloat(paquete.data('precio')) || 0;
+            if (precioPaquete > 0) {
+                total += precioPaquete;
+            }
+
+            // Servicios adicionales
+            $('input[name="serviciosSeleccionados"]:checked').each(function () {
+                let precioServicio = parseFloat($(this).data('precio')) || 0;
+                total += precioServicio;
+            });
+
+            // Mostrar total
+            $('input[name="ValorTotal"]').val(total.toFixed(2));
+            $('input[name="ValorTotal"]').next('input[type="hidden"]').val(total.toFixed(2));
+        }
+
+        $(document).ready(function () {
+            // Recalcular cuando cambien fechas, habitaciones, paquete o servicios
+            $('input[name="FechaComienzo"], input[name="FechaFin"]').on('change', calcularTotal);
+            $('input[name="habitacionesSeleccionadas"], input[name="serviciosSeleccionados"]').on('change', calcularTotal);
+            $('select[name="idPaquete"]').on('change', calcularTotal);
+
+            // Calcular al cargar la página
+            calcularTotal();
+        });
+    </script>
+
 }
 
 @if (!ViewData.ModelState.IsValid)
