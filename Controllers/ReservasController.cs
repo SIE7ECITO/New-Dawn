@@ -109,6 +109,8 @@ namespace NewDawn.Controllers
             return View(reserva);
         }
 
+        //POST create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(

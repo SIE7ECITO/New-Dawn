@@ -62,11 +62,13 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="form-check">
-                                            <input class="form-check-input" 
-                                                   type="checkbox" 
-                                                   name="habitacionesSeleccionadas" 
-                                                   value="@h.Idhabitacion" 
-                                                   id="habitacion_@h.Idhabitacion" />
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   name="habitacionesSeleccionadas"
+                                                   value="@h.Idhabitacion"
+                                                   id="habitacion_@h.Idhabitacion"
+                                                   data-precio="@h.PrecioNoche" />
+
                                             <label class="form-check-label" for="habitacion_@h.Idhabitacion">
                                                 <strong>@h.TipoHabitacion</strong><br>
                                                 Precio: $@h.PrecioNoche/noche<br>
@@ -112,11 +114,12 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="form-check">
-                                            <input class="form-check-input" 
-                                                   type="checkbox" 
-                                                   name="serviciosSeleccionados" 
-                                                   value="@s.Idservicio" 
-                                                   id="servicio_@s.Idservicio" />
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   name="serviciosSeleccionados"
+                                                   value="@s.Idservicio"
+                                                   id="servicio_@s.Idservicio"
+                                                   data-precio="@s.ValorServicio" />
                                             <label class="form-check-label" for="servicio_@s.Idservicio">
                                                 @s.NombreServicio<br>
                                                 $@s.ValorServicio
@@ -134,8 +137,13 @@
                         </div>
                     }
                 </div>
-            </div>
 
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorTotal" class="control-label">Valor Total (estimado)</label>
+                <input asp-for="ValorTotal" class="form-control" readonly />
+                <input type="hidden" asp-for="ValorTotal" />
+            </div>
             <div class="form-group text-right">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> Guardar Reserva
@@ -178,6 +186,7 @@
                 return date.toISOString().split('T')[0];
             }
         });
+
     </script>
 }
 
