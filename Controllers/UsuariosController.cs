@@ -20,11 +20,22 @@ namespace NewDawn.Controllers
         }
 
         // GET: Usuarios
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchCc)
         {
-            var newDawnContext = _context.Usuarios.Include(u => u.IdrolNavigation);
-            return View(await newDawnContext.ToListAsync());
+            var usuarios = from u in _context.Usuarios.Include(u => u.IdrolNavigation)
+                           select u;
+
+            if (!string.IsNullOrEmpty(searchCc))
+            {
+                usuarios = usuarios.Where(u => u.Ccusuario.ToString().Contains(searchCc));
+            }
+
+            ViewData["CurrentFilter"] = searchCc;
+
+            return View(await usuarios.ToListAsync());
         }
+
+
 
         // GET: Usuarios/Create
         public IActionResult Create()

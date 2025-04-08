@@ -16,15 +16,41 @@ namespace NewDawn.Controllers
             _context = context;
         }
 
-        // GET: Habitaciones
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? capacidad, decimal? precioMin, decimal? precioMax, List<int>? comodidadesSeleccionadas)
         {
-            var habitaciones = await _context.Habitacions
+            var habitacionesQuery = _context.Habitacions
                 .Include(h => h.HabitacionComodidades)
                 .ThenInclude(hc => hc.IdComodidadesNavigation)
-                .ToListAsync();
-            return View(habitaciones);
+                .AsQueryable();
+
+            if (capacidad.HasValue)
+            {
+                habitacionesQuery = habitacionesQuery.Where(h => h.Capacidad >= capacidad.Value);
+            }
+
+            if (precioMin.HasValue)
+            {
+                habitacionesQuery = habitacionesQuery.Where(h => h.PrecioNoche >= precioMin.Value);
+            }
+
+            if (precioMax.HasValue)
+            {
+                habitacionesQuery = habitacionesQuery.Where(h => h.PrecioNoche <= precioMax.Value);
+            }
+
+            if (comodidadesSeleccionadas != null && comodidadesSeleccionadas.Any())
+            {
+                habitacionesQuery = habitacionesQuery
+                    .Where(h => h.HabitacionComodidades
+                        .Any(hc => comodidadesSeleccionadas.Contains(hc.IdComodidades)));
+            }
+
+            // Para el filtro de comodidades en la vista
+            ViewData["Comodidades"] = await _context.Comodidades.ToListAsync();
+
+            return View(await habitacionesQuery.ToListAsync());
         }
+
 
         // GET: Habitaciones/Details/5
         public async Task<IActionResult> Details(int? id)
