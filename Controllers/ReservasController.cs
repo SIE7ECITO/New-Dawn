@@ -195,6 +195,24 @@ namespace NewDawn.Controllers
                                 continue;
                             }
 
+                            // Validar solapamiento de fechas
+                            var conflictos = await _context.HabitacionReservas
+                                .Where(hr => hr.Idhabitacion == idHabitacion)
+                                .Include(hr => hr.IdreservaNavigation)
+                                .Where(hr =>
+                                    hr.IdreservaNavigation != null &&
+                                    hr.IdreservaNavigation.EstadoReserva &&
+                                    hr.IdreservaNavigation.FechaFin > reserva.FechaComienzo &&
+                                    hr.IdreservaNavigation.FechaComienzo < reserva.FechaFin
+                                )
+                                .ToListAsync();
+
+                            if (conflictos.Any())
+                            {
+                                ModelState.AddModelError("", $"La habitación {idHabitacion} ya está reservada en las fechas seleccionadas.");
+                                continue;
+                            }
+
                             total += habitacion.PrecioNoche * cantidadDias;
                             _context.HabitacionReservas.Add(new HabitacionReserva
                             {
@@ -205,26 +223,40 @@ namespace NewDawn.Controllers
 
                         reserva.Idhabitacion = habitacionesSeleccionadas.FirstOrDefault();
                     }
-                    else
-                    {
-                        _context.HabitacionReservas.Add(new HabitacionReserva
-                        {
-                            Idhabitacion = 0,
-                            Idreserva = reserva.Idreserva
-                        });
-                        reserva.Idhabitacion = 0;
-                    }
+
                 }
 
                 if (reserva.Idpaquete != 0)
                 {
                     var paquete = await _context.Paquetes
                         .Include(p => p.ServicioPaquetes)
+                        .Include(p => p.PaqueteHabitacions)
+                            .ThenInclude(hp => hp.IdpaqueteHabitacion)
                         .FirstOrDefaultAsync(p => p.Idpaquete == reserva.Idpaquete);
 
-                    if (paquete == null)
+                    foreach (var hp in paquete.PaqueteHabitacions)
                     {
-                        ModelState.AddModelError("", "Paquete no encontrado");
+                        var idHabitacion = hp.Idhabitacion;
+
+                        var conflictos = await _context.HabitacionReservas
+                            .Where(hr => hr.Idhabitacion == idHabitacion)
+                            .Include(hr => hr.IdreservaNavigation)
+                            .Where(hr =>
+                                hr.IdreservaNavigation != null &&
+                                hr.IdreservaNavigation.EstadoReserva &&
+                                hr.IdreservaNavigation.FechaFin > reserva.FechaComienzo &&
+                                hr.IdreservaNavigation.FechaComienzo < reserva.FechaFin
+                            )
+                            .ToListAsync();
+
+                        if (conflictos.Any())
+                        {
+                            ModelState.AddModelError("", $"La habitación del paquete con ID {idHabitacion} ya está reservada en las fechas seleccionadas.");
+                        }
+                    }
+
+                    if (!ModelState.IsValid)
+                    {
                         await transaction.RollbackAsync();
                         await CargarDatosReservaAsync();
                         return View(reserva);
