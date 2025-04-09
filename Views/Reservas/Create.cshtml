@@ -53,11 +53,14 @@
 
             <div class="form-group">
                 <label class="control-label">Seleccionar Habitaciones</label>
-                <div class="row">
+                <div class="row" id="habitaciones-container">
                     @if (habitaciones.Any())
                     {
                         foreach (var h in habitaciones)
                         {
+                            if (h.Idhabitacion == 0) continue;
+                            <!-- Excluir habitación con ID 0 -->
+
                             <div class="col-md-4 mb-3">
                                 <div class="card">
                                     <div class="card-body">
@@ -162,9 +165,14 @@
     }
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
+            // Formatear fecha para input type="date"
+            function formatDate(date) {
+                return date.toISOString().split('T')[0];
+            }
+
             // Sincronizar fecha mínima de fin
-            $('input[name="FechaComienzo"]').change(function() {
+            $('input[name="FechaComienzo"]').change(function () {
                 var startDate = new Date(this.value);
                 if (isNaN(startDate.getTime())) return;
 
@@ -176,67 +184,129 @@
 
                 // Ajustar fecha fin si es necesario
                 var currentEndDate = new Date(endDateInput.val());
-                if (isNaN(currentEndDate.getTime()) {
+                if (isNaN(currentEndDate.getTime())) {
                     endDateInput.val(formatDate(minEndDate));
                 } else if (currentEndDate <= startDate) {
                     endDateInput.val(formatDate(minEndDate));
                 }
+
+                // Actualizar habitaciones cuando cambie la fecha de inicio
+                actualizarHabitaciones();
             });
 
-            // Formatear fecha para input type="date"
-            function formatDate(date) {
-                return date.toISOString().split('T')[0];
-            }
-        });
-
-    </script>
-    <script>
-        function calcularTotal() {
-            let total = 0;
-
-            // Días entre fechas
-            let fechaInicio = new Date($('input[name="FechaComienzo"]').val());
-            let fechaFin = new Date($('input[name="FechaFin"]').val());
-
-            let cantidadDias = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24));
-            if (isNaN(cantidadDias) || cantidadDias <= 0) {
-                cantidadDias = 1; // fallback
-            }
-
-            // Habitaciones seleccionadas
-            $('input[name="habitacionesSeleccionadas"]:checked').each(function () {
-                let precioNoche = parseFloat($(this).data('precio')) || 0;
-                total += precioNoche * cantidadDias;
+            $('input[name="FechaFin"]').change(function () {
+                // Actualizar habitaciones cuando cambie la fecha de fin
+                actualizarHabitaciones();
             });
 
-            // Paquete seleccionado
-            let paquete = $('select[name="idPaquete"] option:selected');
-            let precioPaquete = parseFloat(paquete.data('precio')) || 0;
-            if (precioPaquete > 0) {
-                total += precioPaquete;
+            // Función para calcular el valor total
+            function calcularTotal() {
+                let total = 0;
+
+                // Días entre fechas
+                let fechaInicio = new Date($('input[name="FechaComienzo"]').val());
+                let fechaFin = new Date($('input[name="FechaFin"]').val());
+
+                let cantidadDias = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24));
+                if (isNaN(cantidadDias) || cantidadDias <= 0) {
+                    cantidadDias = 1; // fallback
+                }
+
+                // Habitaciones seleccionadas
+                $('input[name="habitacionesSeleccionadas"]:checked').each(function () {
+                    let precioNoche = parseFloat($(this).data('precio')) || 0;
+                    total += precioNoche * cantidadDias;
+                });
+
+                // Paquete seleccionado
+                let paquete = $('select[name="idPaquete"] option:selected');
+                let precioPaquete = parseFloat(paquete.data('precio')) || 0;
+                if (precioPaquete > 0) {
+                    total += precioPaquete;
+                }
+
+                // Servicios adicionales
+                $('input[name="serviciosSeleccionados"]:checked').each(function () {
+                    let precioServicio = parseFloat($(this).data('precio')) || 0;
+                    total += precioServicio;
+                });
+
+                // Mostrar total
+                $('input[name="ValorTotal"]').val(total.toFixed(2));
             }
 
-            // Servicios adicionales
-            $('input[name="serviciosSeleccionados"]:checked').each(function () {
-                let precioServicio = parseFloat($(this).data('precio')) || 0;
-                total += precioServicio;
-            });
-
-            // Mostrar total
-            $('input[name="ValorTotal"]').val(total.toFixed(2));
-        }
-
-        $(document).ready(function () {
-            // Recalcular cuando cambien fechas, habitaciones, paquete o servicios
+            // Recalcular total al cambiar fechas, habitaciones, paquete o servicios
             $('input[name="FechaComienzo"], input[name="FechaFin"]').on('change', calcularTotal);
             $('input[name="habitacionesSeleccionadas"], input[name="serviciosSeleccionados"]').on('change', calcularTotal);
             $('select[name="idPaquete"]').on('change', calcularTotal);
 
-            // Calcular al cargar la página
+            // Función para actualizar las habitaciones disponibles
+            function actualizarHabitaciones() {
+                const fechaInicio = $('input[name="FechaComienzo"]').val();
+                const fechaFin = $('input[name="FechaFin"]').val();
+
+                if (!fechaInicio || !fechaFin) return;
+
+                $.ajax({
+                    url: '@Url.Action("FiltrarHabitaciones", "Reservas")',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ fechaInicio, fechaFin }),
+                    success: function (habitaciones) {
+                        const container = $('#habitaciones-container');
+                        container.empty();
+
+                        if (habitaciones.length > 0) {
+                            habitaciones.forEach(h => {
+                                if (h.idhabitacion === 0) return; // Excluir habitación con ID 0
+
+                                const habitacionHtml = `
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           name="habitacionesSeleccionadas"
+                                                           value="${h.idhabitacion}"
+                                                           id="habitacion_${h.idhabitacion}"
+                                                           data-precio="${h.precioNoche}" />
+
+                                                    <label class="form-check-label" for="habitacion_${h.idhabitacion}">
+                                                        <strong>${h.tipoHabitacion}</strong><br>
+                                                        Precio: $${h.precioNoche}/noche<br>
+                                                        Capacidad: ${h.capacidad} personas
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                                container.append(habitacionHtml);
+                            });
+                        } else {
+                            container.append(`
+                                <div class="col-12">
+                                    <div class="alert alert-warning">No hay habitaciones disponibles</div>
+                                </div>
+                            `);
+                        }
+
+                        // Recalcular el total después de actualizar las habitaciones
+                        calcularTotal();
+                    },
+                    error: function () {
+                        alert('Hubo un error al cargar las habitaciones disponibles.');
+                    }
+                });
+            }
+
+            // Actualizar habitaciones al cargar la página
+            actualizarHabitaciones();
+
+            // Calcular el total al cargar la página
             calcularTotal();
         });
     </script>
-
 }
 
 @if (!ViewData.ModelState.IsValid)
