@@ -7805,23 +7805,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\usuario\\.nuget\\packages\\": {},
-    "D:\\Downloads\\VisualStudio2\\NuGetPackages": {}
+    "C:\\Users\\Aula 402\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
+      "projectUniqueName": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
       "projectName": "NewDawn",
-      "projectPath": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
-      "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\obj\\",
+      "projectPath": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
+      "packagesPath": "C:\\Users\\Aula 402\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "D:\\Downloads\\VisualStudio2\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aula 402\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
