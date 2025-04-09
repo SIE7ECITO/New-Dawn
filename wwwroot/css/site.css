@@ -4,7 +4,7 @@
 /*           Variables                */
 /* =================================== */
 :root {
-    --header-height: 150px; /* Header alto para un logo más grande */
+    --header-height: 90px; /* Header alto para un logo más grande */
     --nav-width: 68px;
     /* Se reutilizan colores, ajustando según tu imagen */
     --header-gradient: linear-gradient(to right, #5c6bc0, #0F3D52); /* Fondo azul con gradiente */
@@ -58,6 +58,7 @@ a {
     z-index: 90;
     transition: 0.5s;
     justify-content: space-between;
+    border-bottom-right-radius: 50px;
 }
 
     /* Ajustar colores de texto e iconos en el header para que sean visibles sobre el gradiente */
@@ -71,9 +72,11 @@ a {
 }
 
     .header_title img {
-        height: 200px;
+        height: 130px;
         width: auto;
         margin-top: 10px;
+        position: relative;
+        left: 5px;
     }
 
 .header_toggle {
@@ -154,6 +157,8 @@ a {
     font-weight: bold;
     text-decoration: none;
     transition: background-color 0.3s;
+    position: relative;
+    right: 40px;
 }
 
     .btn-login:hover {

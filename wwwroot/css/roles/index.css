@@ -90,18 +90,12 @@ body {
     color: white;
 }
 
-    .boton-rojo:hover {
-        background-color: #c9302c;
-    }
 
 .boton-gris {
     background-color: #6c757d;
     color: white;
 }
 
-    .boton-gris:hover {
-        background-color: #5a6268;
-    }
 
 .tabla-permisos {
     overflow-x: auto;
@@ -126,9 +120,10 @@ body {
         color: white;
     }
 
-    .tabla-permisos tr:hover {
-        background-color: #f1f1f1;
+    .tabla-blanca{
+        background-color: white;
     }
+
 
 .alert {
     padding: 15px;

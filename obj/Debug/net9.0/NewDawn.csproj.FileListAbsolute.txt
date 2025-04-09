@@ -1960,8 +1960,6 @@ C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\NewDawn.sourcelink.json
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\scopedcss\bundle\NewDawn.styles.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\scopedcss\projectbundle\NewDawn.bundle.scp.css
-C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\eh1nzn568c-jd7dofm31s.gz
-C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\apwdh3ao9f-wrleic7h9o.gz
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\yrr4hswgjq-ewt3da4cml.gz
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\hbd8iuy4as-sjlipy4zlm.gz
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\aqpi0kcy9u-yf4njmvzq7.gz
@@ -2044,3 +2042,10 @@ C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\refint\NewDawn.dll
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\NewDawn.pdb
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\NewDawn.genruntimeconfig.cache
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\ref\NewDawn.dll
+C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\eh1nzn568c-ec3bmu47z6.gz
+C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\ybokiir5gr-evgiycm14m.gz
+C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\5bwpirtfvr-qj19wjwntk.gz
+C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\461f0deywd-ew6c4ijhci.gz
+C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\8wcjaap4zq-9notyj3zvr.gz
+C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\5k136z54f1-ghy79a9em4.gz
+C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\apwdh3ao9f-z66htmuh0l.gz

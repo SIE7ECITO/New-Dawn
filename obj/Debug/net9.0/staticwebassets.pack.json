@@ -5,6 +5,26 @@
       "PackagePath": "staticwebassets\\NewDawn.ioi9oxc0ll.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Permisos\\create.css",
+      "PackagePath": "staticwebassets\\css\\Permisos\\create.css"
+    },
+    {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Permisos\\delete.css",
+      "PackagePath": "staticwebassets\\css\\Permisos\\delete.css"
+    },
+    {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Permisos\\details.css",
+      "PackagePath": "staticwebassets\\css\\Permisos\\details.css"
+    },
+    {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Permisos\\edit.css",
+      "PackagePath": "staticwebassets\\css\\Permisos\\edit.css"
+    },
+    {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Permisos\\index.css",
+      "PackagePath": "staticwebassets\\css\\Permisos\\index.css"
+    },
+    {
       "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Usuarios\\login.css",
       "PackagePath": "staticwebassets\\css\\Usuarios\\login.css"
     },

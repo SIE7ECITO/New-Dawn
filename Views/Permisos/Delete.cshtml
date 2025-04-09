@@ -4,52 +4,58 @@
     ViewData["Title"] = "Eliminar Permiso";
 }
 
-<h1 class="text-uppercase text-danger">Eliminar Permiso</h1>
+<head>
+    <link rel="stylesheet" href="~/css/Permisos/delete.css" />
+</head>
 
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["ErrorMessage"]
-    </div>
-}
-
-<h3 class="text-warning">¿Está seguro de que desea eliminar este permiso?</h3>
-
-<div class="card p-3 shadow-sm">
-    <h4>Detalles del permiso</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-3 font-weight-bold">
-            @Html.DisplayNameFor(model => model.NombrePermiso)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.NombrePermiso)
-        </dd>
-        <dt class="col-sm-3 font-weight-bold">
-            @Html.DisplayNameFor(model => model.DescripcionPermiso)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.DescripcionPermiso)
-        </dd>
-        <dt class="col-sm-3 font-weight-bold">
-            @Html.DisplayNameFor(model => model.EstadoPermisos)
-        </dt>
-        <dd class="col-sm-9">
-            @(Model.EstadoPermisos ? "Activo" : "Inactivo")
-        </dd>
-        <dt class="col-sm-3 font-weight-bold">
-            @Html.DisplayNameFor(model => model.FechaCambio)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.FechaCambio)
-        </dd>
-    </dl>
-
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Idpermisos" />
-        <div class="mt-3">
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+<div class="contenedor-principal">
+    <div class="contenedor-dentro">
+        <div class="encabezado-formulario">
+            <h2 class="titulo-formulario text-danger">Eliminar Permiso</h2>
+            <p class="mensaje-confirmacion">¿Estás seguro de que deseas eliminar este permiso?</p>
         </div>
-    </form>
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alerta-error">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <div class="cuerpo-formulario">
+            <div class="grupo-campo">
+                <label class="etiqueta-campo">@Html.DisplayNameFor(model => model.NombrePermiso)</label>
+                <div class="valor-campo">
+                    @Html.DisplayFor(model => model.NombrePermiso)
+                </div>
+            </div>
+
+            <div class="grupo-campo">
+                <label class="etiqueta-campo">@Html.DisplayNameFor(model => model.DescripcionPermiso)</label>
+                <div class="valor-campo">
+                    @Html.DisplayFor(model => model.DescripcionPermiso)
+                </div>
+            </div>
+
+            <div class="grupo-campo">
+                <label class="etiqueta-campo">@Html.DisplayNameFor(model => model.EstadoPermisos)</label>
+                <div class="valor-campo">
+                    @(Model.EstadoPermisos ? "Activo" : "Inactivo")
+                </div>
+            </div>
+
+            <div class="grupo-campo">
+                <label class="etiqueta-campo">@Html.DisplayNameFor(model => model.FechaCambio)</label>
+                <div class="valor-campo">
+                    @Html.DisplayFor(model => model.FechaCambio)
+                </div>
+            </div>
+
+            <form asp-action="Delete" class="formulario-botones">
+                <input type="hidden" asp-for="Idpermisos" />
+                <button type="submit" class="boton boton-rojo">Eliminar</button>
+                <a asp-action="Index" class="boton boton-gris">Cancelar</a>
+            </form>
+        </div>
+    </div>
 </div>

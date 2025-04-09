@@ -1,49 +1,63 @@
 ﻿@model NewDawn.Models.Permiso
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Permiso";
 }
 
-<h1>Edit</h1>
+<head>
+    <link rel="stylesheet" href="~/css/Permisos/edit.css" />
+</head>
 
-<h4>Permiso</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Idpermisos" />
-            <div class="form-group">
-                <label asp-for="NombrePermiso" class="control-label"></label>
-                <input asp-for="NombrePermiso" class="form-control" />
-                <span asp-validation-for="NombrePermiso" class="text-danger"></span>
+<body>
+    <div class="contenedor-formulario">
+        <div class="contenedor-dentro">
+            <div class="formulario-header">
+                <h2>Editar Permiso</h2>
             </div>
-            <div class="form-group">
-                <label asp-for="DescripcionPermiso" class="control-label"></label>
-                <input asp-for="DescripcionPermiso" class="form-control" />
-                <span asp-validation-for="DescripcionPermiso" class="text-danger"></span>
+
+            <form asp-action="Edit" class="formulario-cuerpo">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Idpermisos" />
+
+                <div class="grupo-formulario">
+                    <label asp-for="NombrePermiso">Nombre</label>
+                    <input asp-for="NombrePermiso" class="entrada" placeholder="Nombre del permiso" />
+                    <span asp-validation-for="NombrePermiso" class="texto-error"></span>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label asp-for="DescripcionPermiso">Descripción</label>
+                    <input asp-for="DescripcionPermiso" class="entrada" placeholder="Descripción del permiso" />
+                    <span asp-validation-for="DescripcionPermiso" class="texto-error"></span>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label>
+                        <input type="checkbox" asp-for="EstadoPermisos" />
+                        @Html.DisplayNameFor(model => model.EstadoPermisos)
+                    </label>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label asp-for="FechaCambio">Fecha de Cambio</label>
+                    <input asp-for="FechaCambio" type="date" class="entrada" />
+                    <span asp-validation-for="FechaCambio" class="texto-error"></span>
+                </div>
+
+                <div class="botonera">
+                    <button type="submit" class="btn-formulario">GUARDAR</button>
+                </div>
+            </form>
+
+            <div class="volver">
+                <a asp-action="Index">Volver Atrás</a>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EstadoPermisos" /> @Html.DisplayNameFor(model => model.EstadoPermisos)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaCambio" class="control-label"></label>
-                <input asp-for="FechaCambio" class="form-control" />
-                <span asp-validation-for="FechaCambio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</body>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
