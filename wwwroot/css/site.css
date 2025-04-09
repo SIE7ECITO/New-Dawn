@@ -1,207 +1,299 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
-/* =================== */
-/*    RESET GLOBAL     */
-/* =================== */
-* {
-    margin: 0;
-    padding: 0;
+/* =================================== */
+/*           Variables                */
+/* =================================== */
+:root {
+    --header-height: 150px; /* Header alto para un logo más grande */
+    --nav-width: 68px;
+    /* Se reutilizan colores, ajustando según tu imagen */
+    --header-gradient: linear-gradient(to right, #5c6bc0, #0F3D52); /* Fondo azul con gradiente */
+    --sidebar-bg: #D9D6C3; /* Color beige para el sidebar */
+
+    --first-color: #0F3D52;
+    --first-color-light: #1b78a3;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100;
+}
+
+/* =================================== */
+/*         Reset y Fondo              */
+/* =================================== */
+*, ::before, ::after {
     box-sizing: border-box;
 }
 
-html, body {
-    width: 100%;
-    height: 100%;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f5f5f5;
-    display: flex;
-    flex-direction: column;
+body {
+    position: relative;
+    margin: var(--header-height) 0 0 0;
+    padding: 0 1rem;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: 0.5s;
+    /* Fondo puede mantenerse como prefieras; si deseas un degradado gris, cámbialo aquí */
+    background: #e2e2e2;
 }
 
-.main-content {
-    flex: 1; /* Permite que el contenido crezca y empuje el footer hacia abajo */
-}
-
-/* =================== */
-/*    ENLACES Y LISTAS */
-/* =================== */
 a {
     text-decoration: none;
-    color: inherit;
+    color: var(--first-color);
 }
 
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-/* =================== */
-/*        NAVBAR       */
-/* =================== */
-nav {
+/* =================================== */
+/*           Header                   */
+/* =================================== */
+.header {
     width: 100%;
-    height: 10vh;
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    background-color: rgb(86, 86, 255);
-    box-shadow: 0 0 10px rgba(86, 86, 255, 0.8);
-    padding: 0 20px;
+    padding: 0 1rem;
+    /* Fondo azul con gradiente (como la parte derecha de tu imagen) */
+    background: var(--header-gradient);
+    z-index: 90;
+    transition: 0.5s;
+    justify-content: space-between;
+}
+
+    /* Ajustar colores de texto e iconos en el header para que sean visibles sobre el gradiente */
+    .header * {
+        color: #fff;
+    }
+
+.header_title {
+    text-align: center;
+    flex: 1;
+}
+
+    .header_title img {
+        height: 200px;
+        width: auto;
+        margin-top: 10px;
+    }
+
+.header_toggle {
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: relative;
+    z-index: 101;
+    margin-left: 40px;
+}
+
+/* ======== BUSCADOR (SEARCH) ======== */
+.header_search {
+    flex: none;
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    margin-left: 1rem;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 2px solid #fb7e2d; /* Borde naranja */
+    border-radius: 25px;
+    background-color: #fb7e2d; /* Fondo naranja, igual a "Iniciar Sesión" */
+    padding: 0.2rem 0.5rem;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+    .search-form:hover {
+        /* Sombras con un tono naranja */
+        box-shadow: 0 4px 12px rgba(251, 126, 45, 0.3);
+    }
+
+.search-input {
+    border: none;
+    outline: none;
+    background-color: transparent; /* Transparente para usar el fondo naranja */
+    padding: 0.5rem;
+    width: 120px;
+    color: #fff; /* Texto blanco */
+    font-size: 1rem;
+}
+
+    .search-input::placeholder {
+        color: #fff;
+        font-style: italic;
+    }
+
+.search-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #fff; /* Icono de la lupa en blanco */
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+    .search-btn:hover {
+        color: #6cb5aa; /* Un tono distinto al pasar el mouse */
+    }
+
+/* =================================== */
+/*       Acciones en el Header        */
+/* =================================== */
+.header_actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-login {
+    background-color: #fb7e2d;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+    .btn-login:hover {
+        background-color: #6cb5aa;
+    }
+
+/* =================================== */
+/*           Sidebar                  */
+/* =================================== */
+.l-navbar {
+    position: fixed;
+    top: 0;
+    left: -30%;
+    width: var(--nav-width);
+    height: 100vh;
+    /* Sidebar con color beige (como la parte izquierda de tu imagen) */
+    background: var(--sidebar-bg);
+    transition: 0.5s;
+    z-index: 9999;
+}
+
+.show {
+    left: 0;
+    width: 250px;
 }
 
 .nav {
-    display: flex;
-    align-items: center;
-    width: auto;
-    gap: 20px;
-}
-
-.link_nav {
-    display: flex;
-    gap: 40px;
-}
-
-.iniciar {
-    font-weight: bold;
-    border: 1px solid grey;
-    padding: 6px 12px;
-    border-radius: 20px;
-    transition: background-color 0.3s ease-in-out;
-}
-
-    .iniciar:hover {
-        background-color: rgba(202, 201, 253, 0.5);
-    }
-
-/* Enlaces de navegación */
-.links_a a {
-    color: black;
-    font-weight: 500;
-    transition: color 0.3s ease-in-out;
-}
-
-    .links_a a:hover {
-        color: blue;
-    }
-
-/* Logo o Branding */
-.links_new {
-    position: absolute;
-    left: 5%;
-}
-
-    .links_new a {
-        color: black;
-        font-weight: bold;
-        font-size: 20px;
-    }
-
-/* =================== */
-/*       LOGIN         */
-/* =================== */
-.login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 90vh;
-    padding: 2rem;
-}
-
-form {
-    width: 100%;
-    max-width: 400px;
-    padding: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid grey;
-    border-radius: 10px;
-    background-color: #fff;
-}
-
-.login h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Inputs del formulario */
-.login .form-group {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    justify-content: flex-start;
+    overflow: hidden;
 }
 
-    .login .form-group label {
-        font-weight: 500;
-        margin-bottom: 5px;
-    }
-
-    .login .form-group input {
-        padding: 8px;
-        outline: none;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        transition: border 0.3s ease-in-out;
-    }
-
-        .login .form-group input:focus {
-            border-color: rgb(86, 86, 255);
-        }
-
-/* Botón */
-.login button {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    background-color: rgb(86, 86, 255);
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+.nav_logo,
+.nav_link {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 1rem;
+    padding: 0.5rem 0 0.5rem 1.5rem;
 }
 
-    .login button:hover {
-        background-color: rgb(60, 60, 200);
+.nav_logo {
+    margin-bottom: 2rem;
+}
+
+.nav_logo-icon {
+    font-size: 1.25rem;
+    color: var(--first-color);
+}
+
+.nav_logo-name {
+    color: var(--first-color);
+    font-weight: 700;
+}
+
+.nav_link {
+    position: relative;
+    color: var(--first-color);
+    margin-bottom: 1.5rem;
+    transition: 0.3s;
+}
+
+    .nav_link:hover {
+        color: var(--first-color-light);
     }
 
-/* =================== */
-/*        FOOTER       */
-/* =================== */
-.footer {
-    width: 100%;
-    background-color: #343a40;
-    color: white;
+.nav_icon {
+    font-size: 1.25rem;
+}
+
+.nav_message {
+    padding: 15px;
     text-align: center;
-    padding: 15px 0;
-    margin-top: auto;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333; /* Texto oscuro sobre fondo claro */
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
-/* =================== */
-/*   RESPONSIVE FIXES  */
-/* =================== */
-@media screen and (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        height: auto;
-        padding: 10px 0;
+.show .nav_message {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =================================== */
+/*         Ajustes del Body           */
+/* =================================== */
+.body-pd {
+    padding-left: calc(var(--nav-width) + 1rem);
+}
+
+/* =================================== */
+/*         Contenedor Principal       */
+/* =================================== */
+.height-100 {
+    height: 100vh;
+}
+
+/* Enlace activo */
+.active {
+    color: var(--white-color);
+}
+
+    .active::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 2px;
+        height: 32px;
+        background-color: var(--white-color);
     }
 
-    .link_nav {
-        flex-direction: column;
-        gap: 10px;
+/* =================================== */
+/*           Media Query              */
+/* =================================== */
+@media screen and (min-width: 768px) {
+    body {
+        margin: calc(var(--header-height) + 1rem) 0 0 0;
+        padding-left: calc(var(--nav-width) + 2rem);
     }
 
-    .links_new {
-        position: static;
-        text-align: center;
-        margin-bottom: 10px;
+    .header {
+        height: var(--header-height);
+        padding: 0 2rem;
     }
 
-    .login {
-        padding: 1rem;
+    .l-navbar {
+        left: 0;
+        padding: 1rem 1rem 0 0;
     }
 
-    form {
-        padding: 30px;
+    .show {
+        width: calc(var(--nav-width) + 156px);
+    }
+
+    .body-pd {
+        padding-left: calc(var(--nav-width) + 188px);
     }
 }

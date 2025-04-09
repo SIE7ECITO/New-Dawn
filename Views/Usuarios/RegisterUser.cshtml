@@ -2,72 +2,65 @@
 
 @{
     ViewData["Title"] = "Registrarse";
+    Layout = null;
 }
 
-<h1 class="text-center">Registrarse</h1>
-<hr />
+<head>
+    <link rel="stylesheet" href="~/css/register.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form crear">
+            <form asp-action="RegisterUser" method="post">
+                <h2>REGISTRARSE</h2>
+                <div class="form-group">
+                    <input asp-for="Ccusuario" class="form-control" placeholder="Cédula">
+                </div>
+                <div class="form-group">
+                    <input asp-for="NombreUsuario" class="form-control" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <input asp-for="Apellido" class="form-control" placeholder="Apellido">
+                </div>
+                <div class="form-group">
+                    <input asp-for="Correo" class="form-control" type="email" placeholder="Correo" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input asp-for="NumeroTelUsuario" name="NumeroTelUsuario" class="form-control" type="tel" placeholder="Número de Teléfono">
+                </div>
+                <div class="form-group">
+                    <input asp-for="ContraseñaUsuario" class="form-control" type="password" placeholder="Contraseña" autocomplete="off">
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <form asp-action="RegisterUser" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+                </div>
+                <div class="form-group">
+                    <input id="ConfirmarContraseña" name="ConfirmarContraseña" class="form-control" type="password" placeholder="Confirme su contraseña" autocomplete="off" />
+                    <span class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Ccusuario" class="control-label"></label>
-                <input asp-for="Ccusuario" class="form-control" placeholder="Ingrese su cédula" />
-                <span asp-validation-for="Ccusuario" class="text-danger"></span>
+                <div class="form-group select">
+                    <select asp-for="Idrol" class="form-control" asp-items="ViewBag.Idrol"></select>
+                </div>
+                <button type="submit" class="registro" style="border-radius: 10px; padding: 10px;">Registrarse</button>
+                @if (ViewData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger" style="color: red;">@ViewData["ErrorMessage"]</div>
+                }
+            </form>
+        </div>
+
+        <div class="panel-container">
+            <div class="panel">
+                <div class="panel-panel panel-right">
+                    <img src="~/imagen/newdawn.png" alt="New Dawn">
+                    <a asp-action="Login" class="registro">Login</a>
+                    <br />
+                    <a asp-action="Index" asp-controller="Home" class="registro">Inicio</a>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label asp-for="NombreUsuario" class="control-label"></label>
-                <input asp-for="NombreUsuario" class="form-control" placeholder="Ingrese su nombre" />
-                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Apellido" class="control-label"></label>
-                <input asp-for="Apellido" class="form-control" placeholder="Ingrese su apellido" />
-                <span asp-validation-for="Apellido" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Correo" class="control-label"></label>
-                <input asp-for="Correo" class="form-control" type="email" placeholder="Ingrese su correo" autocomplete="off" />
-                <span asp-validation-for="Correo" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="NumeroTelUsuario" class="control-label"></label>
-                <input asp-for="NumeroTelUsuario" class="form-control" type="tel" placeholder="Ingrese su número de teléfono" />
-                <span asp-validation-for="NumeroTelUsuario" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ContraseñaUsuario" class="control-label"></label>
-                <input asp-for="ContraseñaUsuario" class="form-control" type="password" placeholder="Ingrese su contraseña" autocomplete="off" />
-                <span asp-validation-for="ContraseñaUsuario" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label for="ConfirmarContraseña" class="control-label">Confirmar Contraseña</label>
-                <input id="ConfirmarContraseña" name="ConfirmarContraseña" class="form-control" type="password" placeholder="Confirme su contraseña" autocomplete="off" />
-                <span class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Idrol" class="control-label"></label>
-                <select asp-for="Idrol" class="form-control" asp-items="ViewBag.Idrol"></select>
-                <span asp-validation-for="Idrol" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mt-3 text-center">
-                <input type="submit" value="Registrarse" class="btn btn-primary btn-lg" />
-                <a asp-action="Login" class="btn btn-secondary btn-lg">Iniciar sesión</a>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
+</body>
