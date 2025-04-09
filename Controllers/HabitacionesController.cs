@@ -123,7 +123,6 @@ namespace NewDawn.Controllers
             return View(habitacion);
         }
 
-        // POST: Habitaciones/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Habitacion habitacion, List<int> ComodidadesSeleccionadas)
@@ -140,6 +139,7 @@ namespace NewDawn.Controllers
 
             var habitacionExistente = await _context.Habitacions
                 .Include(h => h.HabitacionComodidades)
+                .Include(h => h.PaqueteHabitacions)
                 .FirstOrDefaultAsync(h => h.Idhabitacion == id);
 
             if (habitacionExistente == null)
@@ -148,9 +148,12 @@ namespace NewDawn.Controllers
             habitacionExistente.TipoHabitacion = habitacion.TipoHabitacion;
             habitacionExistente.EstadoHabitacion = habitacion.EstadoHabitacion;
             habitacionExistente.PrecioNoche = habitacion.PrecioNoche;
-            habitacionExistente.EnPaquete = habitacion.EnPaquete;
             habitacionExistente.Capacidad = habitacion.Capacidad;
 
+            bool estabaEnPaquete = habitacionExistente.EnPaquete;
+            habitacionExistente.EnPaquete = habitacion.EnPaquete;
+
+            // Eliminar y volver a agregar comodidades
             _context.HabitacionComodidades.RemoveRange(habitacionExistente.HabitacionComodidades);
             await _context.SaveChangesAsync();
 
@@ -162,11 +165,49 @@ namespace NewDawn.Controllers
                     IdComodidades = idComodidad
                 });
                 _context.HabitacionComodidades.AddRange(comodidades);
-                await _context.SaveChangesAsync();
             }
 
+            // Si EnPaquete fue desactivado, eliminar relación con paquetes
+            if (!habitacion.EnPaquete && estabaEnPaquete)
+            {
+                // Obtener IDs de los paquetes relacionados
+                var paquetesRelacionados = habitacionExistente.PaqueteHabitacions
+                    .Select(ph => ph.Idpaquete)
+                    .Distinct()
+                    .ToList();
+
+                // Eliminar relaciones con PaqueteHabitacion
+                _context.PaqueteHabitacions.RemoveRange(habitacionExistente.PaqueteHabitacions);
+
+                // Verificar y eliminar paquetes que se quedan sin habitaciones
+                foreach (var idPaquete in paquetesRelacionados)
+                {
+                    var otrasHabitaciones = await _context.PaqueteHabitacions
+                        .Where(ph => ph.Idpaquete == idPaquete && ph.Idhabitacion != habitacion.Idhabitacion)
+                        .ToListAsync();
+
+                    if (!otrasHabitaciones.Any())
+                    {
+                        // Eliminar también relaciones con servicios
+                        var servicios = await _context.ServicioPaquetes
+                            .Where(sp => sp.Idpaquete == idPaquete)
+                            .ToListAsync();
+                        _context.ServicioPaquetes.RemoveRange(servicios);
+
+                        // Eliminar el paquete
+                        var paquete = await _context.Paquetes.FindAsync(idPaquete);
+                        if (paquete != null)
+                        {
+                            _context.Paquetes.Remove(paquete);
+                        }
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         // GET: Habitaciones/Delete/5
         public async Task<IActionResult> Delete(int? id)

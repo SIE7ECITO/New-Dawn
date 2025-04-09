@@ -6,7 +6,7 @@
 
 <h2>Crear Paquete</h2>
 
-<form asp-action="Create" method="post" onsubmit="return calcularPrecioFinal()">
+<form asp-action="Create" method="post">
     <div class="form-group">
         <label asp-for="NombrePaquete"></label>
         <input asp-for="NombrePaquete" class="form-control" required />
@@ -23,8 +23,7 @@
             <option value="">Seleccione una habitación</option>
             @foreach (var habitacion in (List<NewDawn.Models.Habitacion>)ViewBag.Habitaciones)
             {
-                <option value="@habitacion.Idhabitacion"
-                        data-precio="@habitacion.PrecioNoche">
+                <option value="@habitacion.Idhabitacion">
                     @habitacion.TipoHabitacion - Capacidad: @habitacion.Capacidad - Precio: @habitacion.PrecioNoche.ToString("C")
                 </option>
             }
@@ -36,7 +35,6 @@
         <thead>
             <tr>
                 <th>Tipo</th>
-                <th>Precio</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -49,8 +47,7 @@
             <option value="">Seleccione un servicio</option>
             @foreach (var servicio in (List<NewDawn.Models.Servicio>)ViewBag.Servicios)
             {
-                <option value="@servicio.Idservicio"
-                        data-precio="@servicio.ValorServicio">
+                <option value="@servicio.Idservicio">
                     @servicio.NombreServicio - Precio: @servicio.ValorServicio.ToString("C")
                 </option>
             }
@@ -62,7 +59,6 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Precio</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -70,99 +66,58 @@
     </table>
 
     <div class="form-group">
-        <label>Descuento (%)</label>
-        <input type="number" id="descuento" class="form-control" value="0" min="0" max="100" onchange="calcularPrecio()" />
-    </div>
-
-    <div class="form-group">
-        <label>Precio Final:</label>
-        <span id="precioFinal">0.00</span>
-        <input asp-for="Precio" id="precioInput" type="hidden" />
+        <label asp-for="Precio">Precio del Paquete</label>
+        <input asp-for="Precio" type="number" class="form-control" step="0.01" min="0" required />
     </div>
 
     <button type="submit" class="btn btn-success">Guardar Paquete</button>
 </form>
 
-<script>
-    let total = 0;
+@section Scripts {
+    <script>
+        document.getElementById('agregarHabitacion').addEventListener('click', function () {
+            let select = document.getElementById('habitacion');
+            let id = select.value;
+            let nombre = select.options[select.selectedIndex].text;
 
-    document.getElementById('agregarHabitacion').addEventListener('click', function () {
-        let select = document.getElementById('habitacion');
-        let id = select.value;
-        let nombre = select.options[select.selectedIndex].text;
-        let precio = parseFloat(select.options[select.selectedIndex].getAttribute('data-precio'));
+            if (id && !document.querySelector(`#habitacion-${id}`)) {
+                let fila = `<tr id="habitacion-${id}">
+                                <td>${nombre}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm eliminarHabitacion" data-id="${id}">Eliminar</button>
+                                </td>
+                                <input type="hidden" name="HabitacionesSeleccionadas" value="${id}" />
+                            </tr>`;
 
-        if (id && !document.querySelector(`#habitacion-${id}`)) {
-            total += precio;
-            actualizarTotal();
+                document.getElementById('detallesHabitaciones').insertAdjacentHTML('beforeend', fila);
+            }
+        });
 
-            let fila = `<tr id="habitacion-${id}">
-                            <td>${nombre}</td>
-                            <td>${precio.toFixed(2)}</td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm eliminarHabitacion" data-id="${id}" data-precio="${precio}">Eliminar</button>
-                            </td>
-                            <input type="hidden" name="HabitacionesSeleccionadas" value="${id}" />
-                        </tr>`;
+        document.getElementById('agregarServicio').addEventListener('click', function () {
+            let select = document.getElementById('servicio');
+            let id = select.value;
+            let nombre = select.options[select.selectedIndex].text;
 
-            document.getElementById('detallesHabitaciones').insertAdjacentHTML('beforeend', fila);
-        }
-    });
+            if (id && !document.querySelector(`#servicio-${id}`)) {
+                let fila = `<tr id="servicio-${id}">
+                                <td>${nombre}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm eliminarServicio" data-id="${id}">Eliminar</button>
+                                </td>
+                                <input type="hidden" name="ServiciosSeleccionados" value="${id}" />
+                            </tr>`;
 
-    document.getElementById('agregarServicio').addEventListener('click', function () {
-        let select = document.getElementById('servicio');
-        let id = select.value;
-        let nombre = select.options[select.selectedIndex].text;
-        let precio = parseFloat(select.options[select.selectedIndex].getAttribute('data-precio'));
+                document.getElementById('detallesServicios').insertAdjacentHTML('beforeend', fila);
+            }
+        });
 
-        if (id && !document.querySelector(`#servicio-${id}`)) {
-            total += precio;
-            actualizarTotal();
-
-            let fila = `<tr id="servicio-${id}">
-                            <td>${nombre}</td>
-                            <td>${precio.toFixed(2)}</td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm eliminarServicio" data-id="${id}" data-precio="${precio}">Eliminar</button>
-                            </td>
-                            <input type="hidden" name="ServiciosSeleccionados" value="${id}" />
-                        </tr>`;
-
-            document.getElementById('detallesServicios').insertAdjacentHTML('beforeend', fila);
-        }
-    });
-
-    document.addEventListener('click', function (e) {
-        if (e.target.classList.contains('eliminarHabitacion')) {
-            let precio = parseFloat(e.target.getAttribute('data-precio'));
-            total -= precio;
-            actualizarTotal();
-            e.target.closest('tr').remove();
-        }
-
-        if (e.target.classList.contains('eliminarServicio')) {
-            let precio = parseFloat(e.target.getAttribute('data-precio'));
-            total -= precio;
-            actualizarTotal();
-            e.target.closest('tr').remove();
-        }
-    });
-
-    function actualizarTotal() {
-        let descuento = parseFloat(document.getElementById('descuento').value) || 0;
-        let precioFinal = total - (total * (descuento / 100));
-
-        // Evitar errores de formato y asegurar que se envíe correctamente como decimal
-        precioFinal = Number(precioFinal.toFixed(2));
-
-        document.getElementById('precioFinal').textContent = precioFinal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('precioInput').value = precioFinal;
-    }
-
-    function calcularPrecioFinal() {
-        actualizarTotal();
-        return true;
-    }
-
-    document.getElementById('descuento').addEventListener('input', actualizarTotal);
-</script>
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('eliminarHabitacion')) {
+                e.target.closest('tr').remove();
+            }
+            if (e.target.classList.contains('eliminarServicio')) {
+                e.target.closest('tr').remove();
+            }
+        });
+    </script>
+}
