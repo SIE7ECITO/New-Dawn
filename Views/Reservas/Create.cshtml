@@ -28,7 +28,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="FechaComienzo" class="control-label"></label>
-                        <input asp-for="FechaComienzo" 
+                        <input asp-for="FechaComienzo"
                                type="date"
                                class="form-control"
                                value="@fechaInicioValue"
@@ -40,7 +40,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="FechaFin" class="control-label"></label>
-                        <input asp-for="FechaFin" 
+                        <input asp-for="FechaFin"
                                type="date"
                                class="form-control"
                                value="@fechaFinValue"
@@ -92,10 +92,10 @@
             <div class="form-group">
                 <label class="control-label">Seleccionar Paquete (Opcional)</label>
                 <select class="form-control" name="idPaquete">
-                    <option value="">-- Sin paquete --</option>
+                    <option value="" data-precio="0">-- Sin paquete --</option>
                     @foreach (var p in paquetes)
                     {
-                        <option value="@p.Idpaquete">
+                        <option value="@p.Idpaquete" data-precio="@p.Precio">
                             @p.NombrePaquete - $@p.Precio (Incluye:
                             @string.Join(", ", p.ServicioPaquetes?.Select(sp => sp.IdservicioNavigation?.NombreServicio) ?? new List<string>()))
                         </option>
@@ -157,21 +157,23 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
     <script>
         $(document).ready(function() {
             // Sincronizar fecha mínima de fin
             $('input[name="FechaComienzo"]').change(function() {
                 var startDate = new Date(this.value);
                 if (isNaN(startDate.getTime())) return;
-                
+
                 var minEndDate = new Date(startDate);
                 minEndDate.setDate(minEndDate.getDate() + 1);
-                
+
                 var endDateInput = $('input[name="FechaFin"]');
                 endDateInput.attr('min', formatDate(minEndDate));
-                
+
                 // Ajustar fecha fin si es necesario
                 var currentEndDate = new Date(endDateInput.val());
                 if (isNaN(currentEndDate.getTime()) {
@@ -180,7 +182,7 @@
                     endDateInput.val(formatDate(minEndDate));
                 }
             });
-            
+
             // Formatear fecha para input type="date"
             function formatDate(date) {
                 return date.toISOString().split('T')[0];
@@ -222,7 +224,6 @@
 
             // Mostrar total
             $('input[name="ValorTotal"]').val(total.toFixed(2));
-            $('input[name="ValorTotal"]').next('input[type="hidden"]').val(total.toFixed(2));
         }
 
         $(document).ready(function () {

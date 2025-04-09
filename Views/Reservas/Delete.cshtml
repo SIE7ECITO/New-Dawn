@@ -1,23 +1,53 @@
 ﻿@model NewDawn.Models.Reserva
 
+
 @{
     ViewData["Title"] = "Eliminar Reserva";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h1>@ViewData["Title"]</h1>
 
-<h3>¿Está seguro de que desea eliminar esta reserva?</h3>
-
+<h3>¿Está seguro que desea eliminar esta reserva?</h3>
 <div>
-    <strong>Fecha de Comienzo:</strong> @Model.FechaComienzo <br />
-    <strong>Fecha de Fin:</strong> @Model.FechaFin <br />
-    <strong>Estado:</strong> @(Model.EstadoReserva ? "Activo" : "Inactivo") <br />
-    <strong>Usuario:</strong> @Model.Idusuario <br />
+    <h4>Reserva</h4>
+    <input type="hidden" asp-for="Idreserva" />
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Fecha de Comienzo
+        </dt>
+        <dd class="col-sm-10">
+            @Model.FechaComienzo
+        </dd>
+        <dt class="col-sm-2">
+            Fecha de Fin
+        </dt>
+        <dd class="col-sm-10">
+            @Model.FechaFin
+        </dd>
+        <dt class="col-sm-2">
+            Usuario
+        </dt>
+        <dd class="col-sm-10">
+            @Model.IdusuarioNavigation?.NombreUsuario ?? "Usuario no disponible"
+        </dd>
+        <dt class="col-sm-2">
+            Estado de la Reserva
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.EstadoReserva ? "Activa" : "Cancelada")
+        </dd>
+        <dt class="col-sm-2">
+            Valor Total
+        </dt>
+        <dd class="col-sm-10">
+            @Model.ValorTotal.ToString("C")
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Idreserva" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
 </div>
-
-<form asp-action="Delete" method="post">
-    <input type="hidden" name="id" value="@Model.Idreserva" />
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-</form>
-
-<a href="@Url.Action("Index")" class="btn btn-primary">Volver al listado</a>

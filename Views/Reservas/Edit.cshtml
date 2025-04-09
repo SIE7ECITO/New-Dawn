@@ -2,215 +2,76 @@
 
 @{
     ViewData["Title"] = "Editar Reserva";
-
-    var habitaciones = ViewBag.HabitacionesDisponibles as List<NewDawn.Models.Habitacion> ?? new List<NewDawn.Models.Habitacion>();
-    var paquetes = ViewBag.PaquetesDisponibles as List<NewDawn.Models.Paquete> ?? new List<NewDawn.Models.Paquete>();
-    var servicios = ViewBag.ServiciosDisponibles as List<NewDawn.Models.Servicio> ?? new List<NewDawn.Models.Servicio>();
-
-    var habitacionesSeleccionadas = ViewBag.HabitacionesSeleccionadas as List<int> ?? new List<int>();
-    var serviciosSeleccionados = ViewBag.ServiciosSeleccionados as List<int> ?? new List<int>();
-    var idPaqueteSeleccionado = ViewBag.IdPaqueteSeleccionado as int?;
-    var idHuespedActual = ViewBag.IdhuespedActual as int?;
-
-    string fechaInicioValue = Model?.FechaComienzo?.ToString("yyyy-MM-dd") ?? DateTime.Today.ToString("yyyy-MM-dd");
-    string fechaFinValue = Model?.FechaFin?.ToString("yyyy-MM-dd") ?? DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
+    var habitaciones = ViewBag.Habitaciones as List<Habitacion>;
+    var paquetes = ViewBag.Paquetes as List<SelectListItem>;
+    var servicios = ViewBag.Servicios as List<Servicio>;
 }
 
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Editar Reserva</h3>
+<h1>@ViewData["Title"]</h1>
+
+<h4>Reserva</h4>
+<hr />
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Idreserva" />
+
+    <div class="form-group">
+        <label asp-for="FechaComienzo" class="control-label"></label>
+        <input asp-for="FechaComienzo" class="form-control" type="date" />
+        <span asp-validation-for="FechaComienzo" class="text-danger"></span>
     </div>
-    <div class="card-body">
-        <form asp-action="Edit" method="post">
-            <input type="hidden" asp-for="Idreserva" />
-            <input type="hidden" asp-for="Idusuario" />
-            <input type="hidden" asp-for="EstadoReserva" />
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label asp-for="FechaComienzo" class="control-label"></label>
-                        <input asp-for="FechaComienzo"
-                               type="date"
-                               class="form-control"
-                               value="@fechaInicioValue"
-                               required />
-                        <span asp-validation-for="FechaComienzo" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label asp-for="FechaFin" class="control-label"></label>
-                        <input asp-for="FechaFin"
-                               type="date"
-                               class="form-control"
-                               value="@fechaFinValue"
-                               required />
-                        <span asp-validation-for="FechaFin" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label">Seleccionar Habitaciones</label>
-                <div class="row">
-                    @if (habitaciones.Any())
-                    {
-                        foreach (var h in habitaciones)
-                        {
-                            <div class="col-md-4 mb-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="form-check">
-                                            <input class="form-check-input"
-                                                   type="checkbox"
-                                                   name="habitacionesSeleccionadas"
-                                                   value="@h.Idhabitacion"
-                                                   id="habitacion_@h.Idhabitacion"
-                                                   @(habitacionesSeleccionadas.Contains(h.Idhabitacion) ? "checked" : "") />
-                                            <label class="form-check-label" for="habitacion_@h.Idhabitacion">
-                                                <strong>@h.TipoHabitacion</strong><br>
-                                                Precio: $@h.PrecioNoche/noche<br>
-                                                Capacidad: @h.Capacidad personas
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <div class="col-12">
-                            <div class="alert alert-warning">No hay habitaciones disponibles</div>
-                        </div>
-                    }
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label">Seleccionar Paquete (Opcional)</label>
-                <select class="form-control" name="idPaquete">
-                    <option value="">-- Sin paquete --</option>
-                    @foreach (var p in paquetes)
-                    {
-                        var selected = p.Idpaquete == idPaqueteSeleccionado ? "selected" : "";
-                        var serviciosIncluidos = p.ServicioPaquetes?.Select(sp => sp.IdservicioNavigation?.NombreServicio) ?? new List<string>();
-                        <option value="@p.Idpaquete" selected="@selected">
-                            @p.NombrePaquete - $@p.Precio (Incluye: @string.Join(", ", serviciosIncluidos))
-                        </option>
-                    }
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label">Servicios Adicionales</label>
-                <div class="row">
-                    @if (servicios.Any())
-                    {
-                        foreach (var s in servicios)
-                        {
-                            <div class="col-md-3 mb-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="form-check">
-                                            <input class="form-check-input"
-                                                   type="checkbox"
-                                                   name="serviciosSeleccionados"
-                                                   value="@s.Idservicio"
-                                                   id="servicio_@s.Idservicio"
-                                                   @(serviciosSeleccionados.Contains(s.Idservicio) ? "checked" : "") />
-                                            <label class="form-check-label" for="servicio_@s.Idservicio">
-                                                @s.NombreServicio<br>
-                                                $@s.ValorServicio
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <div class="col-12">
-                            <div class="alert alert-warning">No hay servicios adicionales disponibles</div>
-                        </div>
-                    }
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="Idhuesped">Huésped</label>
-                <input type="text" class="form-control" id="Idhuesped" name="Idhuesped" value="@idHuespedActual" required />
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#huespedModal">Registrar Huésped</button>
-            </div>
-
-            <div class="form-group text-right">
-                <button type="submit" class="btn btn-success">
-                    <i class="fas fa-save"></i> Guardar Cambios
-                </button>
-                <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Cancelar
-                </a>
-            </div>
-        </form>
+    <div class="form-group">
+        <label asp-for="FechaFin" class="control-label"></label>
+        <input asp-for="FechaFin" class="form-control" type="date" />
+        <span asp-validation-for="FechaFin" class="text-danger"></span>
     </div>
-</div>
 
-<!-- Modal para registrar huésped -->
-<div class="modal fade" id="huespedModal" tabindex="-1" role="dialog" aria-labelledby="huespedModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="huespedModalLabel">Registrar Huésped</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <a class="btn btn-primary" href="@Url.Action("Create", "Huespedes")">Ir a Registrar Huésped</a>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="idPaquete">Paquete</label>
+        @Html.DropDownListFor(
+                 model => model.Idpaquete,                             // propiedad del modelo
+                 (SelectList)ViewBag.Paquetes,                         // lista de opciones
+                 "-- Seleccione un paquete --",                        // opción por defecto
+                 new { @class = "form-control", id = "idPaquete" }     // atributos HTML
+                 )
     </div>
-</div>
+
+
+    <div class="form-group">
+        <label>Habitaciones</label>
+        @foreach (var hab in habitaciones)
+        {
+            <div class="form-check">
+                <input type="checkbox"
+                       class="form-check-input"
+                       name="habitacionesSeleccionadas"
+                       value="@hab.Idhabitacion"
+                @(Model.HabitacionReservas.Any(hr => hr.Idhabitacion == hab.Idhabitacion) ? "checked" : "") />
+                <label class="form-check-label">@hab.Idhabitacion</label>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label>Servicios</label>
+        @foreach (var serv in servicios)
+        {
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="serviciosSeleccionados"
+                       value="@serv.Idservicio"
+                @(Model.ReservaServicios.Any(rs => rs.Idservicio == serv.Idservicio) ? "checked" : "") />
+
+                <label class="form-check-label">@serv.NombreServicio</label>
+            </div>
+        }
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <script>
-        $(document).ready(function () {
-            $('input[name="FechaComienzo"]').change(function () {
-                var startDate = new Date(this.value);
-                if (isNaN(startDate.getTime())) return;
-
-                var minEndDate = new Date(startDate);
-                minEndDate.setDate(minEndDate.getDate() + 1);
-
-                var endDateInput = $('input[name="FechaFin"]');
-                endDateInput.attr('min', formatDate(minEndDate));
-
-                var currentEndDate = new Date(endDateInput.val());
-                if (isNaN(currentEndDate.getTime()) || currentEndDate <= startDate) {
-                    endDateInput.val(formatDate(minEndDate));
-                }
-            });
-
-            function formatDate(date) {
-                return date.toISOString().split('T')[0];
-            }
-        });
-    </script>
+    <partial name="_ValidationScriptsPartial" />
 }
 
-@if (!ViewData.ModelState.IsValid)
-{
-    <div class="alert alert-danger mt-3">
-        <h5>Errores de validación:</h5>
-        <ul>
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <li>@error.ErrorMessage</li>
-            }
-        </ul>
-    </div>
-}
