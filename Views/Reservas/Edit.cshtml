@@ -5,6 +5,14 @@
     var habitaciones = ViewBag.Habitaciones as List<Habitacion>;
     var paquetes = ViewBag.Paquetes as List<SelectListItem>;
     var servicios = ViewBag.Servicios as List<Servicio>;
+
+    string fechaInicioValue = Model?.FechaComienzo != null
+        ? Model.FechaComienzo.Value.ToString("yyyy-MM-dd")
+        : DateTime.Today.ToString("yyyy-MM-dd");
+
+    string fechaFinValue = Model?.FechaFin != null
+        ? Model.FechaFin.Value.ToString("yyyy-MM-dd")
+        : DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -17,41 +25,74 @@
 
     <div class="form-group">
         <label asp-for="FechaComienzo" class="control-label"></label>
-        <input asp-for="FechaComienzo" class="form-control" type="date" />
+        <input asp-for="FechaComienzo"
+               class="form-control"
+               type="date"
+               value="@fechaInicioValue"
+               min="@DateTime.Today.ToString("yyyy-MM-dd")"
+               required />
         <span asp-validation-for="FechaComienzo" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="FechaFin" class="control-label"></label>
-        <input asp-for="FechaFin" class="form-control" type="date" />
+        <input asp-for="FechaFin"
+               class="form-control"
+               type="date"
+               value="@fechaFinValue"
+               min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")"
+               required />
         <span asp-validation-for="FechaFin" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label for="idPaquete">Paquete</label>
         @Html.DropDownListFor(
-                 model => model.Idpaquete,                             // propiedad del modelo
-                 (SelectList)ViewBag.Paquetes,                         // lista de opciones
-                 "-- Seleccione un paquete --",                        // opción por defecto
-                 new { @class = "form-control", id = "idPaquete" }     // atributos HTML
+                 model => model.Idpaquete,
+                 (SelectList)ViewBag.Paquetes,
+                 "-- Seleccione un paquete --",
+                 new { @class = "form-control", id = "idPaquete" }
                  )
     </div>
 
-
     <div class="form-group">
         <label>Habitaciones</label>
-        @foreach (var hab in habitaciones)
-        {
-            <div class="form-check">
-                <input type="checkbox"
-                       class="form-check-input"
-                       name="habitacionesSeleccionadas"
-                       value="@hab.Idhabitacion"
-                @(Model.HabitacionReservas.Any(hr => hr.Idhabitacion == hab.Idhabitacion) ? "checked" : "") />
-                <label class="form-check-label">@hab.Idhabitacion</label>
-            </div>
-        }
+        <div class="row" id="habitaciones-container">
+            @if (habitaciones != null && habitaciones.Any())
+            {
+                foreach (var hab in habitaciones)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-check">
+                                    <input type="checkbox"
+                                           class="form-check-input"
+                                           name="habitacionesSeleccionadas"
+                                           value="@hab.Idhabitacion"
+                                           id="habitacion_@hab.Idhabitacion"
+                                           data-precio="@hab.PrecioNoche"
+                                    @(Model.HabitacionReservas.Any(hr => hr.Idhabitacion == hab.Idhabitacion) ? "checked" : "") />
+                                    <label class="form-check-label" for="habitacion_@hab.Idhabitacion">
+                                        <strong>@hab.TipoHabitacion</strong><br />
+                                        Precio: $@hab.PrecioNoche/noche<br />
+                                        Capacidad: @hab.Capacidad personas
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="alert alert-warning">No hay habitaciones disponibles</div>
+                </div>
+            }
+        </div>
     </div>
+
     <div class="form-group">
         <label>Servicios</label>
         @foreach (var serv in servicios)
@@ -61,17 +102,167 @@
                        type="checkbox"
                        name="serviciosSeleccionados"
                        value="@serv.Idservicio"
+                       id="servicio_@serv.Idservicio"
                 @(Model.ReservaServicios.Any(rs => rs.Idservicio == serv.Idservicio) ? "checked" : "") />
-
-                <label class="form-check-label">@serv.NombreServicio</label>
+                <label class="form-check-label" for="servicio_@serv.Idservicio">@serv.NombreServicio</label>
             </div>
         }
     </div>
+
+    <div class="form-group">
+        <label asp-for="ValorTotal" class="control-label">Valor Total (estimado)</label>
+        <input asp-for="ValorTotal" class="form-control" readonly />
+        <input type="hidden" asp-for="ValorTotal" />
+    </div>
+
     <button type="submit" class="btn btn-primary">Guardar</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}
 
+    <script>
+        $(document).ready(function () {
+            // Formatear fecha para input type="date"
+            function formatDate(date) {
+                return date.toISOString().split('T')[0];
+            }
+
+            // Sincronizar fecha mínima de fin
+            $('input[name="FechaComienzo"]').change(function () {
+                var startDate = new Date(this.value);
+                if (isNaN(startDate.getTime())) return;
+
+                var minEndDate = new Date(startDate);
+                minEndDate.setDate(minEndDate.getDate() + 1);
+
+                var endDateInput = $('input[name="FechaFin"]');
+                endDateInput.attr('min', formatDate(minEndDate));
+
+                // Ajustar fecha fin si es necesario
+                var currentEndDate = new Date(endDateInput.val());
+                if (isNaN(currentEndDate.getTime())) {
+                    endDateInput.val(formatDate(minEndDate));
+                } else if (currentEndDate <= startDate) {
+                    endDateInput.val(formatDate(minEndDate));
+                }
+
+                // Actualizar habitaciones cuando cambie la fecha de inicio
+                actualizarHabitaciones();
+            });
+
+            $('input[name="FechaFin"]').change(function () {
+                // Actualizar habitaciones cuando cambie la fecha de fin
+                actualizarHabitaciones();
+            });
+
+            // Función para calcular el valor total
+            function calcularTotal() {
+                let total = 0;
+
+                // Días entre fechas
+                let fechaInicio = new Date($('input[name="FechaComienzo"]').val());
+                let fechaFin = new Date($('input[name="FechaFin"]').val());
+
+                let cantidadDias = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24));
+                if (isNaN(cantidadDias) || cantidadDias <= 0) {
+                    cantidadDias = 1; // fallback
+                }
+
+                // Habitaciones seleccionadas
+                $('input[name="habitacionesSeleccionadas"]:checked').each(function () {
+                    let precioNoche = parseFloat($(this).data('precio')) || 0;
+                    total += precioNoche * cantidadDias;
+                });
+
+                // Paquete seleccionado
+                let paquete = $('select[name="idPaquete"] option:selected');
+                let precioPaquete = parseFloat(paquete.data('precio')) || 0;
+                if (precioPaquete > 0) {
+                    total += precioPaquete;
+                }
+
+                // Servicios adicionales
+                $('input[name="serviciosSeleccionados"]:checked').each(function () {
+                    let precioServicio = parseFloat($(this).data('precio')) || 0;
+                    total += precioServicio;
+                });
+
+                // Mostrar total
+                $('input[name="ValorTotal"]').val(total.toFixed(2));
+            }
+
+            // Recalcular total al cambiar fechas, habitaciones, paquete o servicios
+            $('input[name="FechaComienzo"], input[name="FechaFin"]').on('change', calcularTotal);
+            $('input[name="habitacionesSeleccionadas"], input[name="serviciosSeleccionados"]').on('change', calcularTotal);
+            $('select[name="idPaquete"]').on('change', calcularTotal);
+
+            // Función para actualizar las habitaciones disponibles
+            function actualizarHabitaciones() {
+                const fechaInicio = $('input[name="FechaComienzo"]').val();
+                const fechaFin = $('input[name="FechaFin"]').val();
+
+                if (!fechaInicio || !fechaFin) return;
+
+                $.ajax({
+                    url: '@Url.Action("FiltrarHabitaciones", "Reservas")',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ fechaInicio, fechaFin }),
+                    success: function (habitaciones) {
+                        const container = $('#habitaciones-container');
+                        container.empty();
+
+                        if (habitaciones.length > 0) {
+                            habitaciones.forEach(h => {
+                                if (h.idhabitacion === 0) return; // Excluir habitación con ID 0
+
+                                const habitacionHtml = `
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           name="habitacionesSeleccionadas"
+                                                           value="${h.idhabitacion}"
+                                                           id="habitacion_${h.idhabitacion}"
+                                                           data-precio="${h.precioNoche}" />
+
+                                                    <label class="form-check-label" for="habitacion_${h.idhabitacion}">
+                                                        <strong>${h.tipoHabitacion}</strong><br>
+                                                        Precio: $${h.precioNoche}/noche<br>
+                                                        Capacidad: ${h.capacidad} personas
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                                container.append(habitacionHtml);
+                            });
+                        } else {
+                            container.append(`
+                                <div class="col-12">
+                                    <div class="alert alert-warning">No hay habitaciones disponibles</div>
+                                </div>
+                            `);
+                        }
+
+                        // Recalcular el total después de actualizar las habitaciones
+                        calcularTotal();
+                    },
+                    error: function () {
+                        alert('Hubo un error al cargar las habitaciones disponibles.');
+                    }
+                });
+            }
+
+            // Actualizar habitaciones al cargar la página
+            actualizarHabitaciones();
+
+            // Calcular el total al cargar la página
+            calcularTotal();
+        });
+    </script>
+}

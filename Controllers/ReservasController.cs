@@ -439,8 +439,9 @@ namespace NewDawn.Controllers
             decimal total = 0;
             int cantidadDias = (reserva.FechaFin.Value.ToDateTime(TimeOnly.MinValue) - reserva.FechaComienzo.Value.ToDateTime(TimeOnly.MinValue)).Days;
 
+            
             // Habitaciones logic
-            existingReserva.HabitacionReservas.Clear();
+            _context.HabitacionReservas.RemoveRange(existingReserva.HabitacionReservas); // Limpia las habitaciones existentes
             if (habitacionesSeleccionadas != null && habitacionesSeleccionadas.Any())
             {
                 foreach (var idHabitacion in habitacionesSeleccionadas)
@@ -456,7 +457,7 @@ namespace NewDawn.Controllers
                     existingReserva.HabitacionReservas.Add(new HabitacionReserva
                     {
                         Idhabitacion = idHabitacion,
-                        Idreserva = existingReserva.Idreserva
+                        Idreserva = existingReserva.Idreserva 
                     });
                 }
             }
@@ -491,8 +492,9 @@ namespace NewDawn.Controllers
             }
 
             // Servicios logic
-            existingReserva.ReservaServicios.Clear();
-            if (serviciosSeleccionados != null)
+            _context.ReservaServicios.RemoveRange(existingReserva.ReservaServicios); // Limpia las asociaciones de servicios existentes
+
+            if (serviciosSeleccionados != null && serviciosSeleccionados.Any())
             {
                 foreach (var idServicio in serviciosSeleccionados)
                 {
@@ -503,16 +505,15 @@ namespace NewDawn.Controllers
                         continue;
                     }
 
+                    // Agregar el costo del servicio al total
                     total += servicio.ValorServicio;
 
-                    if (!_context.ReservaServicios.Local.Any(rs => rs.Idreserva == reserva.Idreserva && rs.Idservicio == idServicio))
+                    // Agregar el servicio a la reserva
+                    existingReserva.ReservaServicios.Add(new ReservaServicio
                     {
-                        existingReserva.ReservaServicios.Add(new ReservaServicio
-                        {
-                            Idservicio = idServicio,
-                            Idreserva = existingReserva.Idreserva
-                        });
-                    }
+                        Idservicio = idServicio,
+                        Idreserva = existingReserva.Idreserva // Asegúrate de asignar la clave foránea correctamente
+                    });
                 }
             }
 
