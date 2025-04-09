@@ -1,30 +1,31 @@
 ﻿@model NewDawn.Models.Rol
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del Rol";
 }
 
-<h1>Details</h1>
+<head>
+    <link rel="stylesheet" href="~/css/roles/details.css" />
+</head>
 
-<div>
-    <h4>Rol</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreRol)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreRol)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EstadoRol)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EstadoRol)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Idrol">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Detalles del Rol</h1>
+        <p class="form-subtitle">Información registrada del rol en el sistema</p>
+
+        <div class="form-group">
+            <label class="form-label">@Html.DisplayNameFor(model => model.NombreRol)</label>
+            <input class="form-input" value="@Model.NombreRol" readonly />
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">@Html.DisplayNameFor(model => model.EstadoRol)</label>
+            <input class="form-input" value="@(Model.EstadoRol ? "Activo" : "Inactivo")" readonly />
+        </div>
+
+        <div class="form-actions">
+            <a asp-action="Edit" asp-route-id="@Model?.Idrol" class="btn btn-cancel">EDITAR</a>
+            <a asp-action="Index" class="btn btn-danger">VOLVER</a>
+        </div>
+    </div>
+</body>

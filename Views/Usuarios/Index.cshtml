@@ -4,50 +4,64 @@
     ViewData["Title"] = "Usuarios";
 }
 
-<h1>Lista de Usuarios</h1>
+<head>
+    <link rel="stylesheet" href="~/css/Usuarios/index.css">
+</head>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Crear Nuevo Usuario</a>
-</p>
+<div class="contenedor-principal">
 
-<form asp-action="Index" method="get" class="form-inline mb-3">
-    <div class="form-group me-2">
-        <input type="text" name="searchCc" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Buscar por cédula..." />
+    <div class="encabezado-formulario">
+        <h1 class="titulo-formulario">Lista de Usuarios</h1>
     </div>
-    <button type="submit" class="btn btn-primary">Buscar</button>
-    <a asp-action="Index" class="btn btn-secondary ms-2">Limpiar</a>
-</form>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Ccusuario)</th>
-            <th>@Html.DisplayNameFor(model => model.NombreUsuario)</th>
-            <th>@Html.DisplayNameFor(model => model.Apellido)</th>
-            <th>@Html.DisplayNameFor(model => model.Correo)</th>
-            <th>@Html.DisplayNameFor(model => model.NumeroTelUsuario)</th>
-            <th>@Html.DisplayNameFor(model => model.EstadoUsuario)</th>
-            <th>@Html.DisplayNameFor(model => model.IdrolNavigation.NombreRol)</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Ccusuario)</td>
-                <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
-                <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
-                <td>@Html.DisplayFor(modelItem => item.Correo)</td>
-                <td>@Html.DisplayFor(modelItem => item.NumeroTelUsuario)</td>
-                <td>@Html.DisplayFor(modelItem => item.EstadoUsuario)</td>
-                <td>@Html.DisplayFor(modelItem => item.IdrolNavigation.NombreRol)</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Idusuario" class="btn btn-warning btn-sm">Editar</a>
-                    <a asp-action="Details" asp-route-id="@item.Idusuario" class="btn btn-info btn-sm">Detalles</a>
-                    <a asp-action="Delete" asp-route-id="@item.Idusuario" class="btn btn-danger btn-sm">Eliminar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="formulario-campo mb-3">
+        <a asp-action="Create" class="boton boton-azul">Crear Nuevo Usuario</a>
+    </div>
+
+    <form asp-action="Index" method="get" class="mb-3">
+        <div class="formulario-campo">
+            <input type="text" name="searchCc" value="@ViewData["CurrentFilter"]" placeholder="Buscar por cédula..." />
+        </div>
+        <div class="formulario-campo">
+            <button type="submit" class="boton boton-azul">Buscar</button>
+            <a asp-action="Index" class="boton boton-gris">Limpiar</a>
+        </div>
+    </form>
+
+    <div class="tabla-permisos tabla-blanca">
+        <table>
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Ccusuario)</th>
+                    <th>@Html.DisplayNameFor(model => model.NombreUsuario)</th>
+                    <th>@Html.DisplayNameFor(model => model.Apellido)</th>
+                    <th>@Html.DisplayNameFor(model => model.Correo)</th>
+                    <th>@Html.DisplayNameFor(model => model.NumeroTelUsuario)</th>
+                    <th>@Html.DisplayNameFor(model => model.EstadoUsuario)</th>
+                    <th>@Html.DisplayNameFor(model => model.IdrolNavigation.NombreRol)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Ccusuario)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NumeroTelUsuario)</td>
+                        <td>@Html.DisplayFor(modelItem => item.EstadoUsuario)</td>
+                        <td>@Html.DisplayFor(modelItem => item.IdrolNavigation.NombreRol)</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Idusuario" class="boton boton-azul">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.Idusuario" class="boton boton-gris">Detalles</a>
+                            <a asp-action="Delete" asp-route-id="@item.Idusuario" class="boton boton-rojo">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

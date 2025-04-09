@@ -25,6 +25,14 @@
       "PackagePath": "staticwebassets\\css\\Permisos\\index.css"
     },
     {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Usuarios\\create.css",
+      "PackagePath": "staticwebassets\\css\\Usuarios\\create.css"
+    },
+    {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Usuarios\\index.css",
+      "PackagePath": "staticwebassets\\css\\Usuarios\\index.css"
+    },
+    {
       "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Usuarios\\login.css",
       "PackagePath": "staticwebassets\\css\\Usuarios\\login.css"
     },
@@ -35,6 +43,22 @@
     {
       "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Usuarios\\register.css",
       "PackagePath": "staticwebassets\\css\\Usuarios\\register.css"
+    },
+    {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\roles\\create.css",
+      "PackagePath": "staticwebassets\\css\\roles\\create.css"
+    },
+    {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\roles\\delete.css",
+      "PackagePath": "staticwebassets\\css\\roles\\delete.css"
+    },
+    {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\roles\\details.css",
+      "PackagePath": "staticwebassets\\css\\roles\\details.css"
+    },
+    {
+      "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\roles\\edit.css",
+      "PackagePath": "staticwebassets\\css\\roles\\edit.css"
     },
     {
       "Id": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\roles\\index.css",

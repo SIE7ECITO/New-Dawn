@@ -66,23 +66,19 @@ body {
     }
 
     .tabla-estilizada th {
-        background-color: #d6d3c2;
-        color: #0b3c52;
+        background-color: #164b68;
+        color: white;
     }
 
-    .tabla-estilizada tr:hover {
-        background-color: #f1f1f1;
+    .btn-accion {
+        text-decoration: none;
+        padding: 6px 12px;
+        margin: 0 3px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
     }
-
-.btn-accion {
-    text-decoration: none;
-    padding: 6px 12px;
-    margin: 0 3px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    color: white;
-}
 
     .btn-accion.editar {
         background-color: #007bff;

@@ -24,6 +24,7 @@ C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\css\Permisos\delete.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\css\Usuarios\create.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\css\site.css
@@ -38,6 +39,7 @@ C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\jquery\dist\jquery.js
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\css\roles\index.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\css\roles\edit.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\css\Usuarios\recuperar.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
@@ -55,8 +57,12 @@ C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\jquery-validation\dist\jquer
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\css\roles\create.css
+C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\css\Usuarios\index.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\favicon.ico
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\css\roles\details.css
+C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\css\roles\delete.css
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
 C:\Users\Aula 402\Source\Repos\New-Dawn\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
@@ -74,8 +80,14 @@ wwwroot\css\Permisos\delete.css
 wwwroot\css\Permisos\details.css
 wwwroot\css\Permisos\edit.css
 wwwroot\css\Permisos\index.css
+wwwroot\css\roles\create.css
+wwwroot\css\roles\delete.css
+wwwroot\css\roles\details.css
+wwwroot\css\roles\edit.css
 wwwroot\css\roles\index.css
 wwwroot\css\site.css
+wwwroot\css\Usuarios\create.css
+wwwroot\css\Usuarios\index.css
 wwwroot\css\Usuarios\login.css
 wwwroot\css\Usuarios\recuperar.css
 wwwroot\css\Usuarios\register.css
