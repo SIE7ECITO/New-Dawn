@@ -17,6 +17,22 @@
       "PackagePath": "staticwebassets\\Images\\banner3.jpg"
     },
     {
+      "Id": "C:\\Users\\Aula402\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\banner4.jpg",
+      "PackagePath": "staticwebassets\\Images\\banner4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Aula402\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\piscina.jpg",
+      "PackagePath": "staticwebassets\\Images\\piscina.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Aula402\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\restaurante.jpg",
+      "PackagePath": "staticwebassets\\Images\\restaurante.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Aula402\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\spa.jpg",
+      "PackagePath": "staticwebassets\\Images\\spa.jpg"
+    },
+    {
       "Id": "C:\\Users\\Aula402\\Source\\Repos\\New-Dawn\\wwwroot\\css\\Home\\Home.css",
       "PackagePath": "staticwebassets\\css\\Home\\Home.css"
     },

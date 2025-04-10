@@ -14,9 +14,12 @@ h2 {
 
 p {
     font-size: 1em;
-    color: #5A73BF;
+    color: #184059;
 }
-
+.Carrousel-p {
+    font-size: 1em;
+    color: #F2762E;
+}
 /* Banner / Carrusel */
 .banner {
     margin-bottom: 40px;
@@ -29,7 +32,7 @@ p {
 }
 
 .carousel-caption {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     padding: 10px;
     border-radius: 5px;
 }

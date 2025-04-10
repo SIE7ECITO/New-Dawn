@@ -97,6 +97,10 @@ wwwroot\favicon.ico
 wwwroot\Images\banner.jpg
 wwwroot\Images\banner2.jpg
 wwwroot\Images\banner3.jpg
+wwwroot\Images\banner4.jpg
+wwwroot\Images\piscina.jpg
+wwwroot\Images\restaurante.jpg
+wwwroot\Images\spa.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
