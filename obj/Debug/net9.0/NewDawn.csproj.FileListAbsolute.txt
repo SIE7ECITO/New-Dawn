@@ -1280,9 +1280,7 @@ C:\Users\usuario\source\repos\New-Dawn\obj\Debug\net9.0\NewDawn.sourcelink.json
 C:\Users\usuario\source\repos\New-Dawn\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\usuario\source\repos\New-Dawn\obj\Debug\net9.0\scopedcss\bundle\NewDawn.styles.css
 C:\Users\usuario\source\repos\New-Dawn\obj\Debug\net9.0\scopedcss\projectbundle\NewDawn.bundle.scp.css
-C:\Users\usuario\source\repos\New-Dawn\obj\Debug\net9.0\compressed\apwdh3ao9f-h5dsgvwjxg.gz
 C:\Users\usuario\source\repos\New-Dawn\obj\Debug\net9.0\compressed\sejph0lg4o-61n19gt1b8.gz
-C:\Users\usuario\source\repos\New-Dawn\obj\Debug\net9.0\compressed\zw6y58xqfw-xtxxf3hu2r.gz
 C:\Users\usuario\source\repos\New-Dawn\obj\Debug\net9.0\compressed\m168hy0mcb-bqjiyaj88i.gz
 C:\Users\usuario\source\repos\New-Dawn\obj\Debug\net9.0\compressed\db1xatj1j0-c2jlpeoesf.gz
 C:\Users\usuario\source\repos\New-Dawn\obj\Debug\net9.0\compressed\936ny18cma-erw9l3u2r3.gz
@@ -2055,3 +2053,20 @@ C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\tqhur5r2ba-n
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\gml0lqvs1d-bxfvvxwcyq.gz
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\9x2ugerh73-bekwu10hjh.gz
 C:\Users\Aula 402\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\s28d5n23rf-lmmw17irm6.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\5bwpirtfvr-o2anfl1g8t.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\8wcjaap4zq-obq7ny8gyc.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\5k136z54f1-2prlmbrzrb.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\461f0deywd-9t22z7cynu.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\ybokiir5gr-q4i2eoiagj.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\rc2fircmvs-lqyqlncg4d.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\u5ceqf5evv-7os2a3j6se.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\tqhur5r2ba-7os2a3j6se.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\gml0lqvs1d-j6lt36asg9.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\eh1nzn568c-5kztku88ox.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\apwdh3ao9f-z66htmuh0l.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\9x2ugerh73-b3lpagaj1g.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\s28d5n23rf-xody5na65n.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\yrr4hswgjq-sbw1hnsk5u.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\hbd8iuy4as-41r3ukq4g1.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\aqpi0kcy9u-cw78818dbx.gz
+C:\Users\usuario\Source\Repos\New-Dawn\obj\Debug\net9.0\compressed\zw6y58xqfw-asxgnb893v.gz
