@@ -17,261 +17,261 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = NewDawn
 build_property.RootNamespace = NewDawn
-build_property.ProjectDir = C:\Users\usuario\Source\Repos\New-Dawn\
+build_property.ProjectDir = C:\Users\Aula 402\Source\Repos\New-Dawn\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\usuario\Source\Repos\New-Dawn
+build_property.MSBuildProjectDirectory = C:\Users\Aula 402\Source\Repos\New-Dawn
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Comodidades/Create.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Comodidades/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tb2RpZGFkZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Comodidades/Delete.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Comodidades/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tb2RpZGFkZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Comodidades/Details.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Comodidades/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tb2RpZGFkZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Comodidades/Edit.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Comodidades/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tb2RpZGFkZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Comodidades/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Comodidades/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tb2RpZGFkZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Habitaciones/Create.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Habitaciones/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFiaXRhY2lvbmVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Habitaciones/Delete.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Habitaciones/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFiaXRhY2lvbmVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Habitaciones/Details.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Habitaciones/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFiaXRhY2lvbmVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Habitaciones/Edit.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Habitaciones/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFiaXRhY2lvbmVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Habitaciones/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Habitaciones/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFiaXRhY2lvbmVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Home/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Home/Privacy.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Huespedes/Create.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Huespedes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSHVlc3BlZGVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Huespedes/Delete.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Huespedes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSHVlc3BlZGVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Huespedes/Details.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Huespedes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSHVlc3BlZGVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Huespedes/Edit.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Huespedes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSHVlc3BlZGVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Huespedes/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Huespedes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSHVlc3BlZGVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Pagos/Create.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Pagos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Pagos/Delete.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Pagos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Pagos/Details.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Pagos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Pagos/Edit.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Pagos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Pagos/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Pagos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Paquetes/Create.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Paquetes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFxdWV0ZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Paquetes/Delete.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Paquetes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFxdWV0ZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Paquetes/Details.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Paquetes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFxdWV0ZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Paquetes/Edit.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Paquetes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFxdWV0ZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Paquetes/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Paquetes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFxdWV0ZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Permisos/Create.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Permisos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVybWlzb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Permisos/Delete.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Permisos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVybWlzb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Permisos/Details.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Permisos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVybWlzb3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Permisos/Edit.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Permisos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVybWlzb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Permisos/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Permisos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVybWlzb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Reservas/Create.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Reservas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Reservas/Delete.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Reservas/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Reservas/Details.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Reservas/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Reservas/Edit.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Reservas/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Reservas/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Reservas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Roles/Create.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Roles/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Roles/Delete.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Roles/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Roles/Details.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Roles/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Roles/Edit.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Roles/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Roles/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Roles/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Servicios/Create.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Servicios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljaW9zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Servicios/Delete.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Servicios/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljaW9zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Servicios/Details.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Servicios/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljaW9zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Servicios/Edit.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Servicios/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljaW9zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Servicios/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Servicios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljaW9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Shared/Error.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Usuarios/Create.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Usuarios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Usuarios/Delete.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Usuarios/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Usuarios/Details.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Usuarios/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Usuarios/Edit.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Usuarios/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Usuarios/Index.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Usuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Usuarios/Login.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Usuarios/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Usuarios/Recuperar.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Usuarios/Recuperar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcUmVjdXBlcmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Usuarios/RegisterUser.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Usuarios/RegisterUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcUmVnaXN0ZXJVc2VyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Usuarios/Restablecer.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Usuarios/Restablecer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcUmVzdGFibGVjZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Usuarios/VerificarCodigo.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Usuarios/VerificarCodigo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcVmVyaWZpY2FyQ29kaWdvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/_ViewImports.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/_ViewStart.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/usuario/Source/Repos/New-Dawn/Views/Shared/_Layout.cshtml]
+[C:/Users/Aula 402/Source/Repos/New-Dawn/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-14w0n3d0r1
