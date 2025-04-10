@@ -19,8 +19,9 @@ body {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     position: relative;
     right: 10vh;
-    top:4vh;
+    top: 4vh;
     height: 74vh;
+    margin-bottom: 80px;
 }
 
 .formulario-header h2 {
