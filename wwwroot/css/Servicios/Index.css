@@ -1,0 +1,111 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #eef1f6, #c3dafe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Contenedor principal centrado vertical y horizontalmente */
+.contenedor-principal {
+    width: 100%;
+    max-width: 1100px;
+    background-color: #e5e1cf;
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+/* Título */
+.encabezado h2 {
+    font-weight: bold;
+    color: #113b4c;
+    text-align: center;
+    position: relative;
+    bottom: 5vh;
+}
+
+/* Botón Crear Nuevo */
+.btn-crear {
+    background-color: #113b4c;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: none;
+    position: relative;
+    bottom: 4vh;
+}
+
+    .btn-crear:hover {
+        background-color: #0d2e3b;
+    }
+
+.text-end{
+    display: flex;
+    justify-content: end;
+}
+
+/* Tabla estilizada */
+.tabla-estilizada {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+}
+
+    .tabla-estilizada th, .tabla-estilizada td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .tabla-estilizada th {
+        background-color: #113b4c;
+        color: white;
+    }
+
+/* Checkbox de estado */
+.estado-checkbox {
+    width: 20px;
+    height: 20px;
+}
+
+/* Estilo para los botones de acciones */
+.acciones .btn {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+.acciones{
+    display: flex;
+    gap: 5px;
+}
+
+.acciones .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.acciones .btn-info {
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+}
+
+.acciones .btn-danger {
+    background-color: #e53935;
+    color: white;
+    border: none;
+}
+
+.acciones .btn:hover {
+    opacity: 0.9;
+}

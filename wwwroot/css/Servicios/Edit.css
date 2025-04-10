@@ -1,0 +1,114 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+.edit-container {
+    background-color: #e5e1cf;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 500px;
+}
+
+h2 {
+    color: #0b3c52;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subtext {
+    color: #555;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 14px;
+    resize: none;
+}
+
+textarea {
+    min-height: 60px;
+}
+
+.form-check-group {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #333;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.btn-save {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    width: 100%;
+    max-width: 180px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+    .btn-save:hover {
+        background-color: #218838;
+        cursor: pointer;
+    }
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    width: 100%;
+    max-width: 180px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+    .btn-cancel:hover {
+        background-color: #5a6268;
+        cursor: pointer;
+    }

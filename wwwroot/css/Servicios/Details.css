@@ -1,0 +1,101 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 50vh;
+}
+
+.details-container {
+    background-color: #e5e1cf;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 450px;
+}
+
+h2 {
+    color: #0b3c52;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subtext {
+    color: #555;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 14px;
+    resize: none;
+}
+
+textarea {
+    min-height: 60px;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+    .btn-edit:hover {
+        background-color: #0056b3;
+        cursor: pointer;
+    }
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+    .btn-cancel:hover {
+        background-color: #5a6268;
+        cursor: pointer;
+    }

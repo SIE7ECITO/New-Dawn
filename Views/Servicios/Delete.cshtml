@@ -4,47 +4,39 @@
     ViewData["Title"] = "Eliminar Servicio";
 }
 
-<h1 class="mb-4 text-danger">Eliminar Servicio</h1>
+<head>
+    <link href="~/css/Servicios/Delete.css" rel="stylesheet" />
+</head>
 
-<div class="alert alert-warning">
-    <h4 class="alert-heading">¡Atención!</h4>
-    <p>¿Está seguro de que desea eliminar este servicio? Esta acción no se puede deshacer.</p>
-</div>
+<div class="delete-container">
+    <h2>Eliminar Servicio</h2>
+    <p class="subtext">¿Estás seguro de que deseas eliminar este servicio?</p>
 
-<div class="card shadow-lg p-4">
-    <h4 class="mb-3">Detalles del Servicio</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.NombreServicio)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(model => model.NombreServicio)</dd>
+    <div class="form-group">
+        <label>NombrePermiso</label>
+        <input type="text" value="@Model.NombreServicio" readonly />
+    </div>
 
-        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.DescripcionServicio)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(model => model.DescripcionServicio)</dd>
+    <div class="form-group">
+        <label>DescripcionPermiso</label>
+        <textarea readonly>@Model.DescripcionServicio</textarea>
+    </div>
 
-        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.ValorServicio)</dt>
-        <dd class="col-sm-9">$@Html.DisplayFor(model => model.ValorServicio)</dd>
+    <div class="form-group">
+        <label>EstadoPermisos</label>
+        <input type="text" value="@(Model.EstadoServicio ? "Activo" : "Inactivo")" readonly />
+    </div>
 
-        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.FechaCreacion)</dt>
-        <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaCreacion)</dd>
-
-        <dt class="col-sm-3 fw-bold">@Html.DisplayNameFor(model => model.EstadoServicio)</dt>
-        <dd class="col-sm-9">
-            @if (Model.EstadoServicio)
-            {
-                <span class="badge bg-success">Activo</span>
-            }
-            else
-            {
-                <span class="badge bg-danger">Inactivo</span>
-            }
-        </dd>
-    </dl>
+    <div class="form-group">
+        <label>FechaCambio</label>
+        <input type="text" value="@Model.FechaCreacion.ToShortDateString()" readonly />
+    </div>
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Idservicio" />
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</button>
-            <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancelar</a>
+        <div class="button-group">
+            <button type="submit" class="btn-delete">ELIMINAR</button>
+            <a asp-action="Index" class="btn-cancel">CANCELAR</a>
         </div>
     </form>
 </div>
