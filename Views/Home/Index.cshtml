@@ -1,7 +1,87 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<head>
+    <link rel="stylesheet" href="~/css/Home/Home.css">
+</head>
+<div class="banner">
+    <!-- Carrusel -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/images/banner.jpg" class="d-block w-100" alt="Banner 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Bienvenido a Nuestro Hotel</h5>
+                    <p>Tu confort es nuestra prioridad.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/images/banner2.jpg" class="d-block w-100" alt="Banner 2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Paquetes Especiales</h5>
+                    <p>Descubre nuestras ofertas exclusivas.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/images/banner3.jpg" class="d-block w-100" alt="Banner 3">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Habitaciones de Lujo</h5>
+                    <p>Relájate en nuestras habitaciones premium.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
 
-<div class="text-center">
+<div class="services-section text-center">
+    <h2>Servicios</h2>
+    <p>Explora los servicios que ofrecemos para hacer de tu estadía inolvidable.</p>
+    <div class="service-cards">
+        <div class="card">
+            <img src="spa.jpg" class="card-img-top" alt="Spa">
+            <div class="card-body">
+                <h5 class="card-title">Spa y Relax</h5>
+                <p class="card-text">Disfruta de nuestro servicio de spa para relajarte completamente.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="restaurant.jpg" class="card-img-top" alt="Restaurante">
+            <div class="card-body">
+                <h5 class="card-title">Restaurante</h5>
+                <p class="card-text">Saborea los mejores platillos en nuestro restaurante exclusivo.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="pool.jpg" class="card-img-top" alt="Piscina">
+            <div class="card-body">
+                <h5 class="card-title">Piscina</h5>
+                <p class="card-text">Relájate en nuestra piscina con vistas espectaculares.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="packages-section text-center">
+    <h2>Paquetes</h2>
+    <p>Conoce nuestras ofertas y paquetes especiales.</p>
+    <!-- Similar estructura para paquetes -->
+</div>
+
+<div class="rooms-section text-center">
+    <h2>Habitaciones</h2>
+    <p>Elige entre una variedad de habitaciones diseñadas para tu confort.</p>
+    <!-- Similar estructura para habitaciones -->
 </div>
