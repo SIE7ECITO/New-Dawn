@@ -85,6 +85,8 @@ namespace NewDawn.Controllers
                 ViewBag.Servicios = _context.Servicios.ToList();
                 return View(paquete);
             }
+            paquete.EstadoPaquete = true;
+
 
             _context.Add(paquete);
             await _context.SaveChangesAsync();
@@ -97,6 +99,14 @@ namespace NewDawn.Controllers
                     Idhabitacion = id
                 });
                 _context.PaqueteHabitacions.AddRange(paqueteHabitaciones);
+
+                // Actualizar EnPaquete a true para las habitaciones seleccionadas
+                var habitaciones = _context.Habitacions.Where(h => HabitacionesSeleccionadas.Contains(h.Idhabitacion)).ToList();
+                foreach (var habitacion in habitaciones)
+                {
+                    habitacion.EnPaquete = true;
+                    _context.Habitacions.Update(habitacion);
+                }
             }
 
             if (ServiciosSeleccionados?.Any() == true)
@@ -112,6 +122,7 @@ namespace NewDawn.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         // GET: Paquetes/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -135,7 +146,6 @@ namespace NewDawn.Controllers
             return View(paquete);
         }
 
-        // POST: Paquetes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Paquete paquete, List<int> HabitacionesSeleccionadas, List<int> ServiciosSeleccionados)
@@ -166,11 +176,15 @@ namespace NewDawn.Controllers
             paqueteExistente.Precio = paquete.Precio;
             paqueteExistente.EstadoPaquete = paquete.EstadoPaquete;
 
-            // Eliminar relaciones previas y agregar las nuevas
+            // Guardar IDs de habitaciones antes de eliminar relaciones
+            var habitacionesAntes = paqueteExistente.PaqueteHabitacions.Select(ph => ph.Idhabitacion).ToList();
+
+            // Eliminar relaciones previas
             _context.PaqueteHabitacions.RemoveRange(paqueteExistente.PaqueteHabitacions);
             _context.ServicioPaquetes.RemoveRange(paqueteExistente.ServicioPaquetes);
             await _context.SaveChangesAsync();
 
+            // Agregar nuevas relaciones
             if (HabitacionesSeleccionadas?.Any() == true)
             {
                 var paqueteHabitaciones = HabitacionesSeleccionadas.Select(idHab => new PaqueteHabitacion
@@ -179,6 +193,14 @@ namespace NewDawn.Controllers
                     Idhabitacion = idHab
                 });
                 _context.PaqueteHabitacions.AddRange(paqueteHabitaciones);
+
+                // Marcar nuevas habitaciones como EnPaquete = true
+                var habitacionesNuevas = _context.Habitacions.Where(h => HabitacionesSeleccionadas.Contains(h.Idhabitacion)).ToList();
+                foreach (var hab in habitacionesNuevas)
+                {
+                    hab.EnPaquete = true;
+                    _context.Habitacions.Update(hab);
+                }
             }
 
             if (ServiciosSeleccionados?.Any() == true)
@@ -191,9 +213,26 @@ namespace NewDawn.Controllers
                 _context.ServicioPaquetes.AddRange(paqueteServicios);
             }
 
+            // Verificar si las habitaciones removidas siguen en otros paquetes
+            var habitacionesRemovidas = habitacionesAntes.Except(HabitacionesSeleccionadas ?? new List<int>()).ToList();
+            foreach (var idHab in habitacionesRemovidas)
+            {
+                bool sigueEnPaquete = _context.PaqueteHabitacions.Any(ph => ph.Idhabitacion == idHab);
+                if (!sigueEnPaquete)
+                {
+                    var habitacion = await _context.Habitacions.FindAsync(idHab);
+                    if (habitacion != null)
+                    {
+                        habitacion.EnPaquete = false;
+                        _context.Habitacions.Update(habitacion);
+                    }
+                }
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         // GET: Paquetes/Delete/5
         public async Task<IActionResult> Delete(int? id)
