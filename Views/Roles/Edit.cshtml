@@ -6,29 +6,36 @@
     var PermisosSeleccionados = ViewBag.Permitidos as List<int> ?? new List<int>();
 }
 
-<h1>Editar Rol</h1>
-<hr />
+<head>
+    <link rel="stylesheet" href="~/css/roles/edit.css" />
+</head>
 
-<div class="row">
-    <div class="col-md-6">
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Editar Rol</h1>
+        <p class="form-subtitle">Modifica el nombre, estado y permisos del rol</p>
+
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Idrol" />
 
             <div class="form-group">
-                <label asp-for="NombreRol" class="control-label"></label>
-                <input asp-for="NombreRol" class="form-control" />
+                <label asp-for="NombreRol" class="form-label"></label>
+                <input asp-for="NombreRol" class="form-input" />
                 <span asp-validation-for="NombreRol" class="text-danger"></span>
             </div>
 
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" asp-for="EstadoRol" id="EstadoRolCheck" />
-                <label class="form-check-label" for="EstadoRolCheck">Activo</label>
+            <div class="form-group">
+                <label class="form-label">Estado del Rol</label>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" asp-for="EstadoRol" id="EstadoRolCheck" />
+                    <label class="form-check-label" for="EstadoRolCheck">Activo</label>
+                </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label">Permisos</label>
-                <div>
+                <label class="form-label">Permisos</label>
+                <div class="form-checkbox-group">
                     @foreach (var permiso in Permisos)
                     {
                         <div class="form-check">
@@ -41,18 +48,19 @@
                 </div>
             </div>
 
-            <div class="form-group mt-3">
-                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger">GUARDAR</button>
+                <a asp-action="Index" class="btn btn-cancel">CANCELAR</a>
             </div>
         </form>
     </div>
-</div>
+</body>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
     <script>
         document.querySelector("form").addEventListener("submit", function () {
             let permisosSeleccionados = [];

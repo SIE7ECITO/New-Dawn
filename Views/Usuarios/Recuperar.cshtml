@@ -1,13 +1,26 @@
 ﻿@{
     ViewData["Title"] = "Recuperar Contraseña";
+    Layout = null;
 }
 
-<h2>Recuperar Contraseña</h2>
 
-<form asp-action="Recuperar" method="post">
-    <div class="form-group">
-        <label for="Correo">Correo Electrónico</label>
-        <input type="email" class="form-control" name="Correo" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Enviar Código</button>
-</form>
+<head>
+    <link rel="stylesheet" href="~/css/Usuarios/recuperar.css">
+</head>
+
+<div class="login-container">
+    <form asp-action="Recuperar" method="post">
+        <div class="borde">
+            <h2>NewDawn</h2>
+        </div>
+        <div class="texto">
+            <h2>Recuperar Contraseña</h2>
+            <div class="form-group">
+                <label for="Correo">Correo Electrónico</label>
+                <input type="email" class="form-control" name="Correo" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar Código</button>
+            <a class="Volver" asp-action="Login">Volver Atras</a>
+        </div>
+    </form>
+</div>

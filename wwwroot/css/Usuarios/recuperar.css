@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-container {
+    border-top: 80px solid #0F3D52;
+}
+
+.borde {
+    position: relative;
+    bottom: 85px;
+}
+
+    .borde h2 {
+        color: white;
+        font-weight: bold;
+    }
+
+.texto {
+    position: relative;
+    bottom: 50px;
+}
+
+a {
+    text-decoration: none;
+    color: #0F3D52;
+}
+
+.login-container {
+    background-color: #D9D6C3;
+    border-radius: 30px;
+    box-shadow: 0 15px 50px 5px rgba(0, 0, 0, 0.35);
+    width: 400px;
+    max-width: 90%;
+    padding: 30px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    margin-bottom: 20px;
+    color: #0F3D52;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+input {
+    background-color: #eee;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+}
+
+    input:focus {
+        outline: none;
+        border: 2px solid #0F3D52;
+    }
+
+button {
+    background-color: #0F3D52;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    width: 100%;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: #1b78a3;
+    }
+
+.registro {
+    display: inline-block;
+    background-color: #0F3D52;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+    .registro:hover {
+        background-color: #1b78a3;
+    }
+
+.volver {
+    position: relative;
+    top: 50px;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    .login-container {
+        width: 100%;
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 10px;
+    }
+}

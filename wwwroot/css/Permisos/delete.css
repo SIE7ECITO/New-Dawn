@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    max-height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
+
+.contenedor-dentro {
+    position: relative;
+    bottom: 10px;
+}
+
+.contenedor-principal {
+    background-color: #D9D6C3;
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    padding: 30px 40px;
+    text-align: center;
+    position: relative;
+    right: 5vh;
+    bottom: 5vh;
+    height: 100%;
+}
+
+.encabezado-formulario {
+    margin-bottom: 20px;
+}
+
+.titulo-formulario {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0F3D52;
+    margin-bottom: 10px;
+}
+
+.mensaje-confirmacion {
+    font-size: 16px;
+    color: #555;
+}
+
+.alerta-error {
+    background-color: #f8d7da;
+    color: #842029;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.cuerpo-formulario {
+    text-align: left;
+}
+
+.grupo-campo {
+    margin-bottom: 15px;
+}
+
+.etiqueta-campo {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="checkbox"],
+textarea {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    background-color: #eee;
+}
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    textarea:focus {
+        outline: none;
+        border: 2px solid #0F3D52;
+    }
+
+.valor-campo {
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+}
+
+.formulario-botones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    gap: 10px;
+}
+
+.boton {
+    flex: 1;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton-rojo {
+    background-color: #d9534f;
+    color: white;
+}
+
+    .boton-rojo:hover {
+        background-color: #c9302c;
+    }
+
+.boton-gris {
+    background-color: #6c757d;
+    color: white;
+}
+
+    .boton-gris:hover {
+        background-color: #5a6268;
+    }
+
+.boton-azul {
+    background-color: #0F3D52;
+    color: white;
+}
+
+    .boton-azul:hover {
+        background-color: #1b78a3;
+    }
+
+/* Tabla (para Index) */
+.tabla-permisos {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 20px;
+    background-color: #D9D6C3;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+    .tabla-permisos table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .tabla-permisos th,
+    .tabla-permisos td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .tabla-permisos th {
+        color: #0F3D52;
+        font-weight: bold;
+    }
+
+    .tabla-permisos a {
+        color: #0F3D52;
+        font-weight: 600;
+        margin-right: 10px;
+        text-decoration: none;
+    }
+
+        .tabla-permisos a:hover {
+            text-decoration: underline;
+        }
+
+/* Responsive */
+@media (max-width: 576px) {
+    .contenedor-principal {
+        padding: 20px;
+    }
+
+    .formulario-botones {
+        flex-direction: column;
+    }
+
+    .boton {
+        width: 100%;
+    }
+
+    .tabla-permisos {
+        padding: 10px;
+    }
+
+        .tabla-permisos table {
+            font-size: 12px;
+        }
+}

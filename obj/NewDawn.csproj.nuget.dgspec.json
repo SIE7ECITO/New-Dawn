@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aula402\\Source\\Repos\\New-Dawn\\NewDawn.csproj": {}
+    "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aula402\\Source\\Repos\\New-Dawn\\NewDawn.csproj": {
+    "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aula402\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
+        "projectUniqueName": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
         "projectName": "NewDawn",
-        "projectPath": "C:\\Users\\Aula402\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
-        "packagesPath": "C:\\Users\\Aula402\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aula402\\Source\\Repos\\New-Dawn\\obj\\",
+        "projectPath": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\NewDawn.csproj",
+        "packagesPath": "C:\\Users\\Aula 402\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Aula 402\\Source\\Repos\\New-Dawn\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Aula402\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Aula 402\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -93,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

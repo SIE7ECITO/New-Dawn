@@ -1,80 +1,100 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - NewDawn</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/NewDawn.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NewDawn</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Permisos" asp-action="Index">Permisos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Login">Iniciar Sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Comodidades" asp-action="Index">Comodidades</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Habitaciones" asp-action="Index">Habitaciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Servicios" asp-action="Index">Servicios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Paquetes" asp-action="Index">Paquetes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Huespedes" asp-action="Index">Huespedes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Reservas" asp-action="Index">Reservas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Pagos" asp-action="Index">Pagos</a>
-                        </li>
 
-                    </ul>
-                </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-beta1/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body id="body-pd">
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header_left" style="display: flex; align-items: center; gap: 1rem;">
+            <div class="header_toggle">
+                <i class="bx bx-menu" id="header-toggle"></i>
+            </div>
+        </div>
+
+        <h1 class="header_title">
+            <img src="https://i.ibb.co/yBg4HQX7/LOGO-PNG.png" alt="Logo NewDawn" />
+        </h1>
+
+        <div class="header_actions">
+            <a asp-controller="Usuarios" asp-action="Login" class="btn-login">Iniciar Sesión</a>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div class="nav_list">
+                <a asp-controller="Home" asp-action="Index" class="nav_link active">
+                    <i class="bx bx-home nav_icon"></i>
+                    <span class="nav_name">Inicio</span>
+                </a>
+                <a asp-controller="Home" asp-action="Privacy" class="nav_link">
+                    <i class="bx bx-shield nav_icon"></i>
+                    <span class="nav_name">Privacy</span>
+                </a>
+                <a asp-controller="Permisos" asp-action="Index" class="nav_link">
+                    <i class="bx bx-key nav_icon"></i>
+                    <span class="nav_name">Permisos</span>
+                </a>
+                <a asp-controller="Roles" asp-action="Index" class="nav_link">
+                    <i class="bx bx-user-check nav_icon"></i>
+                    <span class="nav_name">Roles</span>
+                </a>
+                <a asp-controller="Usuarios" asp-action="Index" class="nav_link">
+                    <i class="bx bx-group nav_icon"></i>
+                    <span class="nav_name">Usuarios</span>
+                </a>
+                <a asp-controller="Comodidades" asp-action="Index" class="nav_link">
+                    <i class="bx bx-bed nav_icon"></i>
+                    <span class="nav_name">Comodidades</span>
+                </a>
+                <a asp-controller="Habitaciones" asp-action="Index" class="nav_link">
+                    <i class="bx bx-hotel nav_icon"></i>
+                    <span class="nav_name">Habitaciones</span>
+                </a>
+                <a asp-controller="Servicios" asp-action="Index" class="nav_link">
+                    <i class="bx bx-wrench nav_icon"></i>
+                    <span class="nav_name">Servicios</span>
+                </a>
+                <a asp-controller="Paquetes" asp-action="Index" class="nav_link">
+                    <i class="bx bx-package nav_icon"></i>
+                    <span class="nav_name">Paquetes</span>
+                </a>
+                <a asp-controller="Huespedes" asp-action="Index" class="nav_link">
+                    <i class="bx bx-user nav_icon"></i>
+                    <span class="nav_name">Huéspedes</span>
+                </a>
+                <a asp-controller="Reservas" asp-action="Index" class="nav_link">
+                    <i class="bx bx-calendar nav_icon"></i>
+                    <span class="nav_name">Reservas</span>
+                </a>
             </div>
         </nav>
-    </header>
+    </div>
+
+    <!-- Contenido Principal -->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://ajax.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

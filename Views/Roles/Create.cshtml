@@ -1,28 +1,31 @@
 ﻿@model NewDawn.Models.Rol
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Rol";
     var Permisos = ViewBag.Permisos as List<NewDawn.Models.Permiso> ?? new List<NewDawn.Models.Permiso>();
 }
 
-<h1>Crear Rol</h1>
-<hr />
+<head>
+    <link rel="stylesheet" href="~/css/roles/create.css" />
+</head>
 
-<div class="row">
-    <div class="col-md-6">
+<body>
+    <div class="form-container">
+        <h1 class="form-title">CREAR ROL</h1>
+        <p class="form-subtitle">Completa los datos para registrar un nuevo rol.</p>
+
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <div class="form-group">
-                <label asp-for="NombreRol" class="control-label"></label>
-                <input asp-for="NombreRol" class="form-control" />
+                <label asp-for="NombreRol" class="form-label"></label>
+                <input asp-for="NombreRol" class="form-input" />
                 <span asp-validation-for="NombreRol" class="text-danger"></span>
             </div>
 
-
             <div class="form-group">
-                <label class="control-label">Permisos</label>
-                <div>
+                <label class="form-label">Permisos</label>
+                <div class="form-checkbox-group">
                     @foreach (var permiso in Permisos)
                     {
                         <div class="form-check">
@@ -33,13 +36,13 @@
                 </div>
             </div>
 
-            <div class="form-group mt-3">
-                <input type="submit" value="Crear" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger">CREAR</button>
+                <a asp-action="Index" class="btn btn-cancel">CANCELAR</a>
             </div>
         </form>
     </div>
-</div>
+</body>
 
 @section Scripts {
     @{
