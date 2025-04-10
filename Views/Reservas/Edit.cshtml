@@ -53,70 +53,102 @@
                  "-- Seleccione un paquete --",
                  new { @class = "form-control", id = "idPaquete" }
                  )
-    </div>
+        <div class="form-group">
+            <label class="control-label">Seleccionar Habitaciones</label>
+            <div class="form-group">
+                <label class="control-label">Seleccionar Habitaciones</label>
+                <div class="d-flex">
+                    <select id="selectorHabitacion" class="form-control">
+                        <option value="">-- Seleccionar habitación --</option>
+                        @{
+                            var habitacionesUnicas = habitaciones?
+                            .Where(h => h.Idhabitacion != 0)
+                            .GroupBy(h => h.TipoHabitacion)
+                            .Select(g => g.First())
+                            .OrderBy(h => h.TipoHabitacion)
+                            .ToList();
+                        }
+                        @if (habitacionesUnicas != null && habitacionesUnicas.Any())
+                        {
+                            @foreach (var h in habitacionesUnicas)
+                            {
+                                <option value="@h.Idhabitacion"
+                                        data-precio="@h.PrecioNoche"
+                                        data-capacidad="@h.Capacidad"
+                                        data-tipo="@h.TipoHabitacion">
+                                    @h.TipoHabitacion - $@h.PrecioNoche (Capacidad: @h.Capacidad)
+                                </option>
+                            }
+                        }
+                    </select>
+                    <button type="button" id="agregarHabitacion" class="btn btn-primary ms-2">
+                        <i class="fas fa-plus"></i> Agregar
+                    </button>
+                </div>
+            </div>
 
-    <div class="form-group">
-        <label>Habitaciones</label>
-        <div class="row" id="habitaciones-container">
-            @if (habitaciones != null && habitaciones.Any())
-            {
-                foreach (var hab in habitaciones)
+            <div class="table-responsive mt-3">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo</th>
+                            <th>Capacidad</th>
+                            <th>Precio/Noche</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaHabitaciones">
+                        <!-- Las habitaciones seleccionadas aparecerán aquí -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                            <td id="totalHabitaciones">$0.00</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <!-- Plantilla para las filas de la tabla (usada por JavaScript) -->
+            <template id="plantillaHabitacion">
+                <tr data-idhabitacion="">
+                    <td class="align-middle"></td>
+                    <td class="align-middle"></td>
+                    <td class="align-middle"></td>
+                    <td class="align-middle"></td>
+                    <td class="align-middle">
+                        <button class="btn btn-sm btn-danger btn-eliminar">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </template>
+            <div class="form-group">
+                <label>Servicios</label>
+                @foreach (var serv in servicios)
                 {
-                    <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="form-check">
-                                    <input type="checkbox"
-                                           class="form-check-input"
-                                           name="habitacionesSeleccionadas"
-                                           value="@hab.Idhabitacion"
-                                           id="habitacion_@hab.Idhabitacion"
-                                           data-precio="@hab.PrecioNoche"
-                                    @(Model.HabitacionReservas.Any(hr => hr.Idhabitacion == hab.Idhabitacion) ? "checked" : "") />
-                                    <label class="form-check-label" for="habitacion_@hab.Idhabitacion">
-                                        <strong>@hab.TipoHabitacion</strong><br />
-                                        Precio: $@hab.PrecioNoche/noche<br />
-                                        Capacidad: @hab.Capacidad personas
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="serviciosSeleccionados"
+                               value="@serv.Idservicio"
+                               id="servicio_@serv.Idservicio"
+                        @(Model.ReservaServicios.Any(rs => rs.Idservicio == serv.Idservicio) ? "checked" : "") />
+                        <label class="form-check-label" for="servicio_@serv.Idservicio">@serv.NombreServicio</label>
                     </div>
                 }
-            }
-            else
-            {
-                <div class="col-12">
-                    <div class="alert alert-warning">No hay habitaciones disponibles</div>
-                </div>
-            }
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Servicios</label>
-        @foreach (var serv in servicios)
-        {
-            <div class="form-check">
-                <input class="form-check-input"
-                       type="checkbox"
-                       name="serviciosSeleccionados"
-                       value="@serv.Idservicio"
-                       id="servicio_@serv.Idservicio"
-                @(Model.ReservaServicios.Any(rs => rs.Idservicio == serv.Idservicio) ? "checked" : "") />
-                <label class="form-check-label" for="servicio_@serv.Idservicio">@serv.NombreServicio</label>
             </div>
-        }
-    </div>
 
-    <div class="form-group">
-        <label asp-for="ValorTotal" class="control-label">Valor Total (estimado)</label>
-        <input asp-for="ValorTotal" class="form-control" readonly />
-        <input type="hidden" asp-for="ValorTotal" />
-    </div>
+            <div class="form-group">
+                <label asp-for="ValorTotal" class="control-label">Valor Total (estimado)</label>
+                <input asp-for="ValorTotal" class="form-control" readonly />
+                <input type="hidden" asp-for="ValorTotal" />
+            </div>
 
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>
 
 @section Scripts {
@@ -218,7 +250,7 @@
                             habitaciones.forEach(h => {
                                 if (h.idhabitacion === 0) return; // Excluir habitación con ID 0
 
-                                const habitacionHtml = `
+                                const habitacionHtml =
                                     <div class="col-md-4 mb-3">
                                         <div class="card">
                                             <div class="card-body">
@@ -238,15 +270,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>`;
+                                    </div>;
                                 container.append(habitacionHtml);
                             });
                         } else {
-                            container.append(`
+                            container.append(
                                 <div class="col-12">
                                     <div class="alert alert-warning">No hay habitaciones disponibles</div>
                                 </div>
-                            `);
+                            );
                         }
 
                         // Recalcular el total después de actualizar las habitaciones
