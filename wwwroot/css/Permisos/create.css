@@ -17,6 +17,7 @@ body {
     position: relative;
     top: 15vh;
     right: 5vh;
+    margin-bottom: 80px;
 }
 
 .formulario-header {

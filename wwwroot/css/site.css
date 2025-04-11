@@ -302,3 +302,38 @@ a {
         padding-left: calc(var(--nav-width) + 188px);
     }
 }
+
+/* =================================== */
+/*           FOOTER                    */
+/* =================================== */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    background-color: var(--sidebar-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: var(--first-color);
+    z-index: 999;
+    padding: 0;
+}
+
+    .footer .container {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+.footer-text {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 500;
+}
