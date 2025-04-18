@@ -4,74 +4,86 @@
     ViewData["Title"] = "Crear Paquete";
 }
 
-<h2>Crear Paquete</h2>
+<head>
+    <link rel="stylesheet" href="~/css/Paquetes/Create.css" />
+</head>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="NombrePaquete"></label>
-        <input asp-for="NombrePaquete" class="form-control" required />
+<div class="fondo-formulario">
+    <div class="tarjeta-crear-paquete">
+        <h2>Crear Paquete</h2>
+
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label asp-for="NombrePaquete"></label>
+                <input asp-for="NombrePaquete" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Descripcion"></label>
+                <textarea asp-for="Descripcion" class="form-control" required></textarea>
+            </div>
+
+            <h4>Habitaciones</h4>
+            <div class="form-group">
+                <select id="habitacion" class="form-control">
+                    <option value="">Seleccione una habitación</option>
+                    @foreach (var habitacion in (List<NewDawn.Models.Habitacion>)ViewBag.Habitaciones)
+                    {
+                        <option value="@habitacion.Idhabitacion">
+                            @habitacion.TipoHabitacion - Capacidad: @habitacion.Capacidad - Precio: @habitacion.PrecioNoche.ToString("C")
+                        </option>
+                    }
+                </select>
+            </div>
+            <button type="button" id="agregarHabitacion" class="btn btn-primary">Agregar Habitación</button>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="detallesHabitaciones"></tbody>
+            </table>
+
+            <h4>Servicios</h4>
+            <div class="form-group">
+                <select id="servicio" class="form-control">
+                    <option value="">Seleccione un servicio</option>
+                    @foreach (var servicio in (List<NewDawn.Models.Servicio>)ViewBag.Servicios)
+                    {
+                        <option value="@servicio.Idservicio">
+                            @servicio.NombreServicio - Precio: @servicio.ValorServicio.ToString("C")
+                        </option>
+                    }
+                </select>
+            </div>
+            <button type="button" id="agregarServicio" class="btn btn-primary">Agregar Servicio</button>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="detallesServicios"></tbody>
+            </table>
+
+            <div class="form-group">
+                <label asp-for="Precio">Precio del Paquete</label>
+                <input asp-for="Precio" type="number" class="form-control" step="0.01" min="0" required />
+            </div>
+
+            <button type="submit" class="btn btn-success">Guardar Paquete</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a asp-action="Index" class="btn btn-outline-dark volver-btn">Volver Atrás</a>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Descripcion"></label>
-        <textarea asp-for="Descripcion" class="form-control" required></textarea>
-    </div>
-
-    <h4>Habitaciones</h4>
-    <div class="form-group">
-        <select id="habitacion" class="form-control">
-            <option value="">Seleccione una habitación</option>
-            @foreach (var habitacion in (List<NewDawn.Models.Habitacion>)ViewBag.Habitaciones)
-            {
-                <option value="@habitacion.Idhabitacion">
-                    @habitacion.TipoHabitacion - Capacidad: @habitacion.Capacidad - Precio: @habitacion.PrecioNoche.ToString("C")
-                </option>
-            }
-        </select>
-    </div>
-    <button type="button" id="agregarHabitacion" class="btn btn-primary">Agregar Habitación</button>
-
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>Tipo</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="detallesHabitaciones"></tbody>
-    </table>
-
-    <h4>Servicios</h4>
-    <div class="form-group">
-        <select id="servicio" class="form-control">
-            <option value="">Seleccione un servicio</option>
-            @foreach (var servicio in (List<NewDawn.Models.Servicio>)ViewBag.Servicios)
-            {
-                <option value="@servicio.Idservicio">
-                    @servicio.NombreServicio - Precio: @servicio.ValorServicio.ToString("C")
-                </option>
-            }
-        </select>
-    </div>
-    <button type="button" id="agregarServicio" class="btn btn-primary">Agregar Servicio</button>
-
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="detallesServicios"></tbody>
-    </table>
-
-    <div class="form-group">
-        <label asp-for="Precio">Precio del Paquete</label>
-        <input asp-for="Precio" type="number" class="form-control" step="0.01" min="0" required />
-    </div>
-
-    <button type="submit" class="btn btn-success">Guardar Paquete</button>
-</form>
+</div>
 
 @section Scripts {
     <script>
@@ -88,7 +100,6 @@
                                 </td>
                                 <input type="hidden" name="HabitacionesSeleccionadas" value="${id}" />
                             </tr>`;
-
                 document.getElementById('detallesHabitaciones').insertAdjacentHTML('beforeend', fila);
             }
         });
@@ -106,7 +117,6 @@
                                 </td>
                                 <input type="hidden" name="ServiciosSeleccionados" value="${id}" />
                             </tr>`;
-
                 document.getElementById('detallesServicios').insertAdjacentHTML('beforeend', fila);
             }
         });

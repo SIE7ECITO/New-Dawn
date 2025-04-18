@@ -8,37 +8,37 @@
     <link href="~/css/Servicios/Details.css" rel="stylesheet" />
 </head>
 
-<div class="details-container">
-    <h2>Detalles del Servicio</h2>
-    <p class="subtext">Información completa del servicio registrado.</p>
+<div class="form-container">
+    <h2 class="form-title">Detalles del Servicio</h2>
+    <p class="form-subtitle">Información completa del servicio registrado.</p>
 
     <div class="form-group">
-        <label>NombreServicio</label>
-        <input type="text" value="@Model.NombreServicio" readonly />
+        <label class="form-label">Nombre del Servicio</label>
+        <div class="form-value">@Model.NombreServicio</div>
     </div>
 
     <div class="form-group">
-        <label>DescripcionServicio</label>
-        <textarea readonly>@Model.DescripcionServicio</textarea>
+        <label class="form-label">Descripción</label>
+        <div class="form-value">@Model.DescripcionServicio</div>
     </div>
 
     <div class="form-group">
-        <label>ValorServicio</label>
-        <input type="text" value="$@Model.ValorServicio" readonly />
+        <label class="form-label">Valor</label>
+        <div class="form-value">$@Model.ValorServicio</div>
     </div>
 
     <div class="form-group">
-        <label>FechaCreacion</label>
-        <input type="text" value="@Model.FechaCreacion.ToShortDateString()" readonly />
+        <label class="form-label">Fecha de Creación</label>
+        <div class="form-value">@Model.FechaCreacion.ToShortDateString()</div>
     </div>
 
     <div class="form-group">
-        <label>EstadoServicio</label>
-        <input type="text" value="@(Model.EstadoServicio ? "Activo" : "Inactivo")" readonly />
+        <label class="form-label">Estado</label>
+        <div class="form-value">@(Model.EstadoServicio ? "Activo" : "Inactivo")</div>
     </div>
 
-    <div class="button-group">
-        <a asp-action="Edit" asp-route-id="@Model?.Idservicio" class="btn-edit">EDITAR</a>
-        <a asp-action="Index" class="btn-cancel">VOLVER</a>
+    <div class="form-actions">
+        <a asp-action="Index" class="btn btn-cancel">VOLVER</a>
+        <a asp-action="Edit" asp-route-id="@Model?.Idservicio" class="btn btn-danger">EDITAR</a>
     </div>
 </div>

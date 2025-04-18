@@ -15,12 +15,17 @@
         : DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<h4>Reserva</h4>
-<hr />
+<head>
+    <link href="~/css/Reservas/Edit.css" rel="stylesheet"/>
+</head>
 
 <form asp-action="Edit" method="post">
+
+    <h1>@ViewData["Title"]</h1>
+
+    <h4>Reserva</h4>
+    <hr />
+
     <input type="hidden" asp-for="Idreserva" />
 
     <div class="form-group">
@@ -28,7 +33,6 @@
         <input asp-for="FechaComienzo"
                class="form-control"
                type="date"
-               value="@fechaInicioValue"
                min="@DateTime.Today.ToString("yyyy-MM-dd")"
                required />
         <span asp-validation-for="FechaComienzo" class="text-danger"></span>
@@ -39,7 +43,6 @@
         <input asp-for="FechaFin"
                class="form-control"
                type="date"
-               value="@fechaFinValue"
                min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")"
                required />
         <span asp-validation-for="FechaFin" class="text-danger"></span>

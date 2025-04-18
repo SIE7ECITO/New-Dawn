@@ -5,42 +5,53 @@
     var searchCc = Context.Request.Query["searchCc"];
 }
 
-<h1>Lista de Huéspedes</h1>
+<head>
+    <link rel="stylesheet" href="~/css/Huespedes/Index.css" />
+</head>
 
-<form method="get" class="mb-3">
-    <div class="input-group">
-        <input type="text" name="searchCc" class="form-control" placeholder="Buscar por CC" value="@searchCc" />
-        <button type="submit" class="btn btn-primary">Buscar</button>
-        <a asp-action="Index" class="btn btn-secondary">Limpiar</a>
+<div class="contenedor-principal">
+    <div class="encabezado">
+        <h2>Lista de Huéspedes</h2>
     </div>
-</form>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Crear Nuevo Huésped</a>
-</p>
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="searchCc" class="form-control" placeholder="Buscar por CC" value="@searchCc" />
+            <button type="submit" class="btn btn-outline-primary">Buscar</button>
+            <a asp-action="Index" class="btn btn-outline-secondary ms-2">Limpiar</a>
+        </div>
+    </form>
 
-<table class="table table-striped">
-    <thead class="table-dark">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Cchuesped)</th>
-            <th>@Html.DisplayNameFor(model => model.NombreHuesped)</th>
-            <th>@Html.DisplayNameFor(model => model.Correo)</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Cchuesped)</td>
-                <td>@Html.DisplayFor(modelItem => item.NombreHuesped)</td>
-                <td>@Html.DisplayFor(modelItem => item.Correo)</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Idhuesped" class="btn btn-warning btn-sm">Editar</a>
-                    <a asp-action="Details" asp-route-id="@item.Idhuesped" class="btn btn-info btn-sm">Detalles</a>
-                    <a asp-action="Delete" asp-route-id="@item.Idhuesped" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este huésped?');">Eliminar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="acciones">
+        <a asp-action="Create" class="btn-crear">Crear Nuevo Huésped</a>
+    </div>
+
+    <div class="tabla-contenedor">
+        <table class="tabla-estilizada">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Cchuesped)</th>
+                    <th>@Html.DisplayNameFor(model => model.NombreHuesped)</th>
+                    <th>@Html.DisplayNameFor(model => model.Correo)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Cchuesped)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NombreHuesped)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Idhuesped" class="btn-accion editar">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.Idhuesped" class="btn-accion detalles">Detalles</a>
+                            <a asp-action="Delete" asp-route-id="@item.Idhuesped" class="btn-accion eliminar"
+                               onclick="return confirm('¿Estás seguro de eliminar este huésped?');">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

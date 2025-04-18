@@ -1,36 +1,38 @@
 ﻿@model NewDawn.Models.Huesped
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del Huésped";
 }
 
-<h1>Details</h1>
+<head>
+    <link rel="stylesheet" href="~/css/Huespedes/Details.css" />
+</head>
 
-<div>
-    <h4>Huesped</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cchuesped)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cchuesped)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreHuesped)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreHuesped)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Correo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Correo)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Idhuesped">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="contenedor-formulario">
+    <div class="formulario-header">
+        <h2>Detalles del Huésped</h2>
+    </div>
+
+    <div class="grupo-formulario">
+        <label>CC:</label>
+        <div class="campo-detalle">@Model.Cchuesped</div>
+    </div>
+
+    <div class="grupo-formulario">
+        <label>Nombre:</label>
+        <div class="campo-detalle">@Model.NombreHuesped</div>
+    </div>
+
+    <div class="grupo-formulario">
+        <label>Correo:</label>
+        <div class="campo-detalle">@Model.Correo</div>
+    </div>
+
+    <div class="botonera">
+        <a asp-action="Edit" asp-route-id="@Model.Idhuesped" class="btn-formulario">Editar</a>
+    </div>
+
+    <div class="volver">
+        <a asp-action="Index">Volver a la lista</a>
+    </div>
 </div>

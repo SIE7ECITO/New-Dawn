@@ -1,43 +1,51 @@
 ﻿@model NewDawn.Models.Huesped
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Huésped";
 }
 
-<h1>Create</h1>
+<head>
+    <link rel="stylesheet" href="~/css/Huespedes/Create.css" />
+</head>
 
-<h4>Huesped</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Cchuesped" class="control-label"></label>
-                <input asp-for="Cchuesped" class="form-control" />
-                <span asp-validation-for="Cchuesped" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NombreHuesped" class="control-label"></label>
-                <input asp-for="NombreHuesped" class="form-control" />
-                <span asp-validation-for="NombreHuesped" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Correo" class="control-label"></label>
-                <input asp-for="Correo" class="form-control" />
-                <span asp-validation-for="Correo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="formulario-container">
+    <div class="formulario-header">
+        <h2>Registrar Huésped</h2>
+    </div>
+
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="error"></div>
+
+        <div class="campo-formulario">
+            <label asp-for="Cchuesped"></label>
+            <input asp-for="Cchuesped" class="input" />
+            <span asp-validation-for="Cchuesped" class="error"></span>
+        </div>
+
+        <div class="campo-formulario">
+            <label asp-for="NombreHuesped"></label>
+            <input asp-for="NombreHuesped" class="input" />
+            <span asp-validation-for="NombreHuesped" class="error"></span>
+        </div>
+
+        <div class="campo-formulario">
+            <label asp-for="Correo"></label>
+            <input asp-for="Correo" class="input" />
+            <span asp-validation-for="Correo" class="error"></span>
+        </div>
+
+        <div class="boton-container">
+            <input type="submit" value="Guardar Huésped" class="btn-principal" />
+        </div>
+    </form>
+
+    <div class="volver-atras">
+        <a asp-action="Index">Volver a la lista</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

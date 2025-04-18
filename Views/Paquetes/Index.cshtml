@@ -9,81 +9,91 @@
     string estado = query["estado"];
 }
 
-<h2 class="mb-4">Lista de Paquetes</h2>
+<head>
+    <link rel="stylesheet" href="~/css/Paquetes/Index.css">
+</head>
 
-<a asp-action="Create" class="btn btn-primary mb-3">Crear Nuevo Paquete</a>
+<div class="contenedor-principal">
+    <div class="encabezado">
+        <h2>Listado de Paquetes</h2>
+    </div>
 
-<form method="get" class="row g-3 mb-4">
-    <div class="col-md-3">
-        <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre"
-               value="@nombre" />
+    <div class="acciones">
+        <a asp-action="Create" class="btn-crear">Crear Nuevo</a>
     </div>
-    <div class="col-md-2">
-        <input type="number" step="0.01" name="precioMin" class="form-control" placeholder="Precio mínimo"
-               value="@precioMin" />
-    </div>
-    <div class="col-md-2">
-        <input type="number" step="0.01" name="precioMax" class="form-control" placeholder="Precio máximo"
-               value="@precioMax" />
-    </div>
-    <div class="col-md-2">
-        <select name="estado" class="form-select">
-            @foreach (var item in new[] { new { Value = "", Text = "Todos" }, new { Value = "true", Text = "Activo" }, new { Value = "false", Text = "Inactivo" } })
-            {
-                <option value="@item.Value" selected="@(estado == item.Value ? "selected" : null)">@item.Text</option>
-            }
-        </select>
 
-    </div>
-    <div class="col-md-3 d-flex">
-        <button type="submit" class="btn btn-outline-primary me-2">Filtrar</button>
-        <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a>
-    </div>
-</form>
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre" value="@nombre" />
+        </div>
 
-@if (!Model.Any())
-{
-    <div class="alert alert-info">No se encontraron paquetes con los filtros seleccionados.</div>
-}
-else
-{
-    <div class="table-responsive">
-        <table class="table table-striped table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Where(p => p.Idpaquete != 0))
+        <div class="col-md-2">
+            <input type="number" step="0.01" name="precioMin" class="form-control" placeholder="Precio mínimo" value="@precioMin" />
+        </div>
+
+        <div class="col-md-2">
+            <input type="number" step="0.01" name="precioMax" class="form-control" placeholder="Precio máximo" value="@precioMax" />
+        </div>
+
+        <div class="col-md-2">
+            <select name="estado" class="form-select">
+                @foreach (var item in new[] { new { Value = "", Text = "Todos" }, new { Value = "true", Text = "Activo" }, new { Value = "false", Text = "Inactivo" } })
                 {
-                    <tr>
-                        <td>@item.NombrePaquete</td>
-                        <td>@item.Descripcion</td>
-                        <td>@item.Precio.ToString("C")</td>
-                        <td>
-                            @if (item.EstadoPaquete)
-                            {
-                                <span class="badge bg-success">Activo</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-danger">Inactivo</span>
-                            }
-                        </td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.Idpaquete" class="btn btn-info btn-sm">Detalles</a>
-                            <a asp-action="Edit" asp-route-id="@item.Idpaquete" class="btn btn-warning btn-sm">Editar</a>
-                            <a asp-action="Delete" asp-route-id="@item.Idpaquete" class="btn btn-danger btn-sm"
-                               onclick="return confirm('¿Estás seguro de que deseas eliminar este paquete?');">Eliminar</a>
-                        </td>
-                    </tr>
+                    <option value="@item.Value" selected="@(estado == item.Value ? "selected" : null)">@item.Text</option>
                 }
-            </tbody>
-        </table>
-    </div>
-}
+            </select>
+        </div>
+
+        <div class="col-md-3 d-flex">
+            <button type="submit" class="btn btn-outline-primary me-2">Filtrar</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a>
+        </div>
+    </form>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">No se encontraron paquetes con los filtros seleccionados.</div>
+    }
+    else
+    {
+        <div class="tabla-contenedor">
+            <table class="tabla-estilizada">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Where(p => p.Idpaquete != 0))
+                    {
+                        <tr>
+                            <td>@item.NombrePaquete</td>
+                            <td>@item.Descripcion</td>
+                            <td>@item.Precio.ToString("C")</td>
+                            <td>
+                                @if (item.EstadoPaquete)
+                                {
+                                    <span class="badge bg-success">Activo</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Inactivo</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Idpaquete" class="btn-accion editar">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.Idpaquete" class="btn-accion detalles">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.Idpaquete" class="btn-accion eliminar"
+                                   onclick="return confirm('¿Estás seguro de que deseas eliminar este paquete?');">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

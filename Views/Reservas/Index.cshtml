@@ -4,18 +4,22 @@
     ViewData["Title"] = "Listado de Reservas";
 }
 
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Reservas</h3>
-        <div class="card-tools">
-            <!-- Botón de Crear reserva -->
-            <a asp-action="Create" class="btn btn-success">
-                <i class="fas fa-plus"></i> Crear Nueva Reserva
-            </a>
-        </div>
+<head>
+    <link href="./css/Reservas/Index.css" rel="stylesheet" />
+</head>
+
+<div class="contenedor-principal">
+    <div class="encabezado">
+        <h2>Listado de Reservas</h2>
     </div>
-    <div class="card-body">
-        <table class="table table-bordered">
+    <div class="acciones">
+        <a asp-action="Create" class="btn-crear">
+            Crear Nueva Reserva
+        </a>
+    </div>
+
+    <div class="tabla-contenedor">
+        <table class="tabla-estilizada">
             <thead>
                 <tr>
                     <th>#</th>
@@ -36,15 +40,9 @@
                         <td>@reserva.IdpaqueteNavigation?.NombrePaquete</td>
                         <td>@(reserva.EstadoReserva ? "Activa" : "Cancelada")</td>
                         <td>
-                            <a asp-action="Details" asp-route-id="@reserva.Idreserva" class="btn btn-info">
-                                <i class="fas fa-eye"></i> Ver
-                            </a>
-                            <a asp-action="Edit" asp-route-id="@reserva.Idreserva" class="btn btn-warning">
-                                <i class="fas fa-edit"></i> Editar
-                            </a>
-                            <a asp-action="Delete" asp-route-id="@reserva.Idreserva" class="btn btn-danger">
-                                <i class="fas fa-edit"></i> Eliminar
-                            </a>
+                            <a asp-action="Edit" asp-route-id="@reserva.Idreserva" class="btn-accion editar">Editar</a>
+                            <a asp-action="Details" asp-route-id="@reserva.Idreserva" class="btn-accion detalles">Detalles</a>
+                            <a asp-action="Delete" asp-route-id="@reserva.Idreserva" class="btn-accion eliminar">Eliminar</a>
                         </td>
                     </tr>
                 }

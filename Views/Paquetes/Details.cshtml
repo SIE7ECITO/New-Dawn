@@ -4,27 +4,61 @@
     ViewData["Title"] = "Detalles del Paquete";
 }
 
-<h2>Detalles del Paquete</h2>
+<!-- Enlace al CSS -->
+<head>
+    <link rel="stylesheet" href="~/css/Paquetes/Details.css" />
+</head>
 
-<p><strong>Nombre:</strong> @Model.NombrePaquete</p>
-<p><strong>Descripción:</strong> @Model.Descripcion</p>
-<p><strong>Precio:</strong> @Model.Precio.ToString("C")</p>
-<p><strong>Estado:</strong> @(Model.EstadoPaquete ? "Activo" : "Inactivo")</p>
+<div class="contenedor-formulario">
+    <div class="formulario-header">
+        <h2>Detalles del Paquete</h2>
+    </div>
 
-<h4>Habitaciones Incluidas</h4>
-<ul>
-    @foreach (var hab in Model.PaqueteHabitacions)
-    {
-        <li>@hab.IdhabitacionNavigation.TipoHabitacion - Capacidad: @hab.IdhabitacionNavigation.Capacidad</li>
-    }
-</ul>
+    <div class="grupo-formulario">
+        <label>Nombre:</label>
+        <div class="campo-detalle">@Model.NombrePaquete</div>
+    </div>
 
-<h4>Servicios Incluidos</h4>
-<ul>
-    @foreach (var serv in Model.ServicioPaquetes)
-    {
-        <li>@serv.IdservicioNavigation.NombreServicio - @serv.IdservicioNavigation.ValorServicio.ToString("C")</li>
-    }
-</ul>
+    <div class="grupo-formulario">
+        <label>Descripción:</label>
+        <div class="campo-detalle">@Model.Descripcion</div>
+    </div>
 
-<a asp-action="Index" class="btn btn-secondary">Volver</a>
+    <div class="grupo-formulario">
+        <label>Precio:</label>
+        <div class="campo-detalle">@Model.Precio.ToString("C")</div>
+    </div>
+
+    <div class="grupo-formulario">
+        <label>Estado:</label>
+        <div class="campo-detalle">@(Model.EstadoPaquete ? "Activo" : "Inactivo")</div>
+    </div>
+
+    <div class="grupo-formulario">
+        <label>Habitaciones Incluidas:</label>
+        <div class="campo-detalle">
+            <ul style="margin: 0; padding-left: 20px;">
+                @foreach (var hab in Model.PaqueteHabitacions)
+                {
+                    <li>@hab.IdhabitacionNavigation.TipoHabitacion - Capacidad: @hab.IdhabitacionNavigation.Capacidad</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="grupo-formulario">
+        <label>Servicios Incluidos:</label>
+        <div class="campo-detalle">
+            <ul style="margin: 0; padding-left: 20px;">
+                @foreach (var serv in Model.ServicioPaquetes)
+                {
+                    <li>@serv.IdservicioNavigation.NombreServicio - @serv.IdservicioNavigation.ValorServicio.ToString("C")</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="volver">
+        <a asp-action="Index" class="btn-formulario">Volver</a>
+    </div>
+</div>

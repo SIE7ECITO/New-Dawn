@@ -6,113 +6,126 @@
     var serviciosSeleccionados = ViewBag.ServiciosSeleccionados as List<int> ?? new List<int>();
 }
 
-<h2>Editar Paquete</h2>
+<head>
+    <link rel="stylesheet" href="~/css/Paquetes/Edit.css" />
+</head>
 
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Idpaquete" />
-
-    <div class="form-group">
-        <label asp-for="NombrePaquete"></label>
-        <input asp-for="NombrePaquete" class="form-control" required />
+<div class="contenedor-formulario">
+    <div class="formulario-header">
+        <h2>Editar Paquete</h2>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Descripcion"></label>
-        <textarea asp-for="Descripcion" class="form-control" required></textarea>
-    </div>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Idpaquete" />
 
-    <h4>Habitaciones</h4>
-    <div class="form-group">
-        <select id="habitacion" class="form-control">
-            <option value="">Seleccione una habitación</option>
-            @foreach (var habitacion in ViewBag.Habitaciones)
-            {
-                <option value="@habitacion.Idhabitacion">
-                    @habitacion.TipoHabitacion - Capacidad: @habitacion.Capacidad - Precio: @habitacion.PrecioNoche.ToString("C")
-                </option>
-            }
-        </select>
-    </div>
-    <button type="button" id="agregarHabitacion" class="btn btn-primary">Agregar Habitación</button>
+        <div class="grupo-formulario">
+            <label asp-for="NombrePaquete"></label>
+            <input asp-for="NombrePaquete" class="entrada" required />
+        </div>
 
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>Tipo</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="detallesHabitaciones">
-            @foreach (var hab in ViewBag.Habitaciones)
-            {
-                if (habitacionesSeleccionadas.Contains(hab.Idhabitacion))
+        <div class="grupo-formulario">
+            <label asp-for="Descripcion"></label>
+            <textarea asp-for="Descripcion" class="entrada" required></textarea>
+        </div>
+
+        <div class="grupo-formulario">
+            <label>Habitaciones</label>
+            <select id="habitacion" class="entrada">
+                <option value="">Seleccione una habitación</option>
+                @foreach (var habitacion in ViewBag.Habitaciones)
                 {
-                    <tr id="habitacion-@hab.Idhabitacion">
-                        <td>@hab.TipoHabitacion - Capacidad: @hab.Capacidad</td>
-                        <td>
-                            <button type="button" class="btn btn-danger btn-sm eliminarHabitacion" data-id="@hab.Idhabitacion">Eliminar</button>
-                        </td>
-                        <input type="hidden" name="HabitacionesSeleccionadas" value="@hab.Idhabitacion" />
-                    </tr>
+                    <option value="@habitacion.Idhabitacion">
+                        @habitacion.TipoHabitacion - Capacidad: @habitacion.Capacidad - Precio: @habitacion.PrecioNoche.ToString("C")
+                    </option>
                 }
-            }
-        </tbody>
-    </table>
+            </select>
+            <button type="button" id="agregarHabitacion" class="btn-formulario mt-2">Agregar Habitación</button>
+        </div>
 
-    <h4>Servicios</h4>
-    <div class="form-group">
-        <select id="servicio" class="form-control">
-            <option value="">Seleccione un servicio</option>
-            @foreach (var servicio in ViewBag.Servicios)
-            {
-                <option value="@servicio.Idservicio">
-                    @servicio.NombreServicio - Precio: @servicio.ValorServicio.ToString("C")
-                </option>
-            }
-        </select>
-    </div>
-    <button type="button" id="agregarServicio" class="btn btn-primary">Agregar Servicio</button>
-
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="detallesServicios">
-            @foreach (var serv in ViewBag.Servicios)
-            {
-                if (serviciosSeleccionados.Contains(serv.Idservicio))
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="detallesHabitaciones">
+                @foreach (var hab in ViewBag.Habitaciones)
                 {
-                    <tr id="servicio-@serv.Idservicio">
-                        <td>@serv.NombreServicio</td>
-                        <td>
-                            <button type="button" class="btn btn-danger btn-sm eliminarServicio" data-id="@serv.Idservicio">Eliminar</button>
-                        </td>
-                        <input type="hidden" name="ServiciosSeleccionados" value="@serv.Idservicio" />
-                    </tr>
+                    if (habitacionesSeleccionadas.Contains(hab.Idhabitacion))
+                    {
+                        <tr id="habitacion-@hab.Idhabitacion">
+                            <td>@hab.TipoHabitacion - Capacidad: @hab.Capacidad</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm eliminarHabitacion" data-id="@hab.Idhabitacion">Eliminar</button>
+                            </td>
+                            <input type="hidden" name="HabitacionesSeleccionadas" value="@hab.Idhabitacion" />
+                        </tr>
+                    }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <div class="form-group">
-        <label asp-for="Precio">Precio del Paquete</label>
-        <input asp-for="Precio" type="number" class="form-control" step="0.01" min="0" required />
-    </div>
+        <div class="grupo-formulario">
+            <label>Servicios</label>
+            <select id="servicio" class="entrada">
+                <option value="">Seleccione un servicio</option>
+                @foreach (var servicio in ViewBag.Servicios)
+                {
+                    <option value="@servicio.Idservicio">
+                        @servicio.NombreServicio - Precio: @servicio.ValorServicio.ToString("C")
+                    </option>
+                }
+            </select>
+            <button type="button" id="agregarServicio" class="btn-formulario mt-2">Agregar Servicio</button>
+        </div>
 
-    <div class="form-group">
-        <label>Estado</label>
-        <select asp-for="EstadoPaquete" class="form-control">
-            <option value="true" selected="@Model.EstadoPaquete">Activo</option>
-            <option value="false" selected="!@Model.EstadoPaquete">Inactivo</option>
-        </select>
-    </div>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="detallesServicios">
+                @foreach (var serv in ViewBag.Servicios)
+                {
+                    if (serviciosSeleccionados.Contains(serv.Idservicio))
+                    {
+                        <tr id="servicio-@serv.Idservicio">
+                            <td>@serv.NombreServicio</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm eliminarServicio" data-id="@serv.Idservicio">Eliminar</button>
+                            </td>
+                            <input type="hidden" name="ServiciosSeleccionados" value="@serv.Idservicio" />
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
 
-    <button type="submit" class="btn btn-success">Actualizar</button>
-    <a asp-action="Index" class="btn btn-secondary">Volver</a>
-</form>
+        <div class="grupo-formulario">
+            <label asp-for="Precio">Precio del Paquete</label>
+            <input asp-for="Precio" type="number" class="entrada" step="0.01" min="0" required />
+        </div>
+
+        <div class="grupo-formulario">
+            <label>Estado</label>
+            <select asp-for="EstadoPaquete" class="entrada">
+                <option value="true" selected="@Model.EstadoPaquete">Activo</option>
+                <option value="false" selected="!@Model.EstadoPaquete">Inactivo</option>
+            </select>
+        </div>
+
+        <div class="botonera">
+            <button type="submit" class="btn-formulario">Actualizar</button>
+        </div>
+
+        <div class="volver">
+            <a asp-action="Index">Volver</a>
+        </div>
+    </form>
+</div>
 
 @section Scripts {
     <script>
@@ -124,12 +137,9 @@
             if (id && !document.querySelector(`#habitacion-${id}`)) {
                 let fila = `<tr id="habitacion-${id}">
                                 <td>${nombre}</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger btn-sm eliminarHabitacion" data-id="${id}">Eliminar</button>
-                                </td>
+                                <td><button type="button" class="btn btn-danger btn-sm eliminarHabitacion" data-id="${id}">Eliminar</button></td>
                                 <input type="hidden" name="HabitacionesSeleccionadas" value="${id}" />
                             </tr>`;
-
                 document.getElementById('detallesHabitaciones').insertAdjacentHTML('beforeend', fila);
             }
         });
@@ -142,12 +152,9 @@
             if (id && !document.querySelector(`#servicio-${id}`)) {
                 let fila = `<tr id="servicio-${id}">
                                 <td>${nombre}</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger btn-sm eliminarServicio" data-id="${id}">Eliminar</button>
-                                </td>
+                                <td><button type="button" class="btn btn-danger btn-sm eliminarServicio" data-id="${id}">Eliminar</button></td>
                                 <input type="hidden" name="ServiciosSeleccionados" value="${id}" />
                             </tr>`;
-
                 document.getElementById('detallesServicios').insertAdjacentHTML('beforeend', fila);
             }
         });
@@ -156,7 +163,6 @@
             if (e.target.classList.contains('eliminarHabitacion')) {
                 e.target.closest('tr').remove();
             }
-
             if (e.target.classList.contains('eliminarServicio')) {
                 e.target.closest('tr').remove();
             }

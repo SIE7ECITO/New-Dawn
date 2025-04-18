@@ -240,7 +240,13 @@ namespace NewDawn.Controllers
             if (id == null)
                 return NotFound();
 
-            var paquete = await _context.Paquetes.FindAsync(id);
+            var paquete = await _context.Paquetes 
+                .Include(p => p.PaqueteHabitacions)
+                    .ThenInclude(ph => ph.IdhabitacionNavigation)
+                .Include(p => p.ServicioPaquetes)
+                    .ThenInclude(sp => sp.IdservicioNavigation)
+                .FirstOrDefaultAsync(p => p.Idpaquete == id);
+
             if (paquete == null)
                 return NotFound();
 

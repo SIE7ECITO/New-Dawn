@@ -17,14 +17,6 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     position: relative;
     right: 5vh;
-    width: 100%;
-    box-sizing: border-box;
-    resize: vertical;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    min-height: 60px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.95rem;
 }
 
 .form-title {
@@ -52,11 +44,13 @@ body {
     margin-bottom: 0.3rem;
 }
 
-.form-value {
-    background-color: #f9f9f9;
+.form-input {
+    width: 100%;
     padding: 0.6rem;
     border-radius: 8px;
     border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    font-size: 14px;
 }
 
 .form-actions {
@@ -77,14 +71,11 @@ body {
 }
 
 .btn-danger {
-    background-color: #007bff;
+    background-color: #d9534f;
     color: white;
 }
 
 .btn-cancel {
     background-color: #5a6268;
     color: white;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
 }

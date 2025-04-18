@@ -1,0 +1,84 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.contenedor-dentro {
+    position: relative;
+    bottom: 30px;
+}
+
+.contenedor-formulario {
+    background-color: #e2decc;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+    margin-top: 50px;
+    position: relative;
+    right: 10vh;
+    height: 83vh;
+    margin-bottom: 80px;
+}
+
+.formulario-header h2 {
+    color: #09384d;
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.grupo-formulario {
+    margin-bottom: 20px;
+}
+
+    .grupo-formulario label {
+        font-weight: 600;
+        color: #333;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+.campo-detalle {
+    background-color: #f4f4f4;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #333;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.botonera {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.btn-formulario {
+    background-color: #09384d;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+    .btn-formulario:hover {
+        background-color: #14506e;
+    }
+
+.volver {
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+    top: 10px;
+    color: white;
+}
+
+    .volver a {
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+    }

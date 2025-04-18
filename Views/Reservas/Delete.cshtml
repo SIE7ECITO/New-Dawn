@@ -5,49 +5,44 @@
     ViewData["Title"] = "Eliminar Reserva";
 }
 
-<h1>@ViewData["Title"]</h1>
+<head>
+    <link rel="stylesheet" href="~/css/Reservas/Delete.css" />
+</head>
 
-<h3>¿Está seguro que desea eliminar esta reserva?</h3>
-<div>
-    <h4>Reserva</h4>
+<div class="form-container">
+    <h1 class="form-title">@ViewData["Title"]</h1>
+    <p class="form-subtitle">¿Está seguro que desea eliminar esta reserva?</p>
+
     <input type="hidden" asp-for="Idreserva" />
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            Fecha de Comienzo
-        </dt>
-        <dd class="col-sm-10">
-            @Model.FechaComienzo
-        </dd>
-        <dt class="col-sm-2">
-            Fecha de Fin
-        </dt>
-        <dd class="col-sm-10">
-            @Model.FechaFin
-        </dd>
-        <dt class="col-sm-2">
-            Usuario
-        </dt>
-        <dd class="col-sm-10">
-            @Model.IdusuarioNavigation?.NombreUsuario ?? "Usuario no disponible"
-        </dd>
-        <dt class="col-sm-2">
-            Estado de la Reserva
-        </dt>
-        <dd class="col-sm-10">
-            @(Model.EstadoReserva ? "Activa" : "Cancelada")
-        </dd>
-        <dt class="col-sm-2">
-            Valor Total
-        </dt>
-        <dd class="col-sm-10">
-            @Model.ValorTotal.ToString("C")
-        </dd>
-    </dl>
 
-    <form asp-action="Delete" method="post">
+    <div class="form-group">
+        <label class="form-label">Fecha de Comienzo</label>
+        <div class="form-value">@Model.FechaComienzo</div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Fecha de Fin</label>
+        <div class="form-value">@Model.FechaFin</div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Usuario</label>
+        <div class="form-value">@Model.IdusuarioNavigation?.NombreUsuario ?? "Usuario no disponible"</div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Estado de la Reserva</label>
+        <div class="form-value">@(Model.EstadoReserva ? "Activa" : "Cancelada")</div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Valor Total</label>
+        <div class="form-value">@Model.ValorTotal.ToString("C")</div>
+    </div>
+
+    <form asp-action="Delete" method="post" class="form-actions">
         <input type="hidden" asp-for="Idreserva" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-cancel">Cancelar</a>
     </form>
 </div>

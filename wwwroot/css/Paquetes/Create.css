@@ -1,0 +1,76 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    background: linear-gradient(to right, #eef1f6, #c3dafe);
+    font-family: 'Poppins', sans-serif;
+}
+
+.fondo-formulario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.tarjeta-crear-paquete {
+    background-color: #e7e0cc;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    max-width: 600px;
+    margin-bottom: 80px;
+}
+
+    .tarjeta-crear-paquete h2 {
+        text-align: center;
+        color: #113b4c;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+.btn-primary, .btn-success {
+    background-color: #113b4c;
+    border: none;
+    font-weight: bold;
+}
+
+.btn-success {
+    text-align: center;
+    margin-top: 10px;
+    
+}
+
+    .btn-primary:hover, .btn-success:hover {
+        background-color: #0e2f3a;
+    }
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input.form-control, textarea.form-control, select.form-control {
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.volver-btn {
+    margin-top: 20px;
+    color: #113b4c;
+    font-weight: bold;
+    border: 2px solid #113b4c;
+    border-radius: 10px;
+}
+
+    .volver-btn:hover {
+        background-color: #113b4c;
+        color: #fff;
+    }
+
+
+.error {
+    color: #e74a3b;
+    font-size: 12px;
+    margin-top: 10px;
+}

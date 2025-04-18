@@ -17,15 +17,15 @@
         <h2>Listado de Servicios</h2>
     </div>
 
-    <!-- Botón para crear nuevo servicio, alineado a la derecha como en la imagen -->
-    <div class="text-end mb-3">
-        <a asp-action="Create" class="btn btn-success btn-crear">Crear Nuevo</a>
+    <!-- Botón para crear nuevo servicio -->
+    <div class="acciones">
+        <a asp-action="Create" class="btn-crear">Crear Nuevo</a>
     </div>
 
-    <!-- Tabla estilizada como en la imagen -->
+    <!-- Tabla estilizada -->
     <div class="tabla-contenedor">
         <table class="tabla-estilizada">
-            <thead style="background-color: #113b4c; color: white;">
+            <thead>
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.NombreServicio)</th>
                     <th>@Html.DisplayNameFor(model => model.DescripcionServicio)</th>
@@ -40,18 +40,18 @@
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.NombreServicio)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DescripcionServicio)</td>
+                        <td class="descripcion">@Html.DisplayFor(modelItem => item.DescripcionServicio)</td>
                         <td>@Html.DisplayFor(modelItem => item.ValorServicio)</td>
                         <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
                         <td>
-                            <!-- Checkbox como estado, igual a la imagen -->
                             <input type="checkbox" class="estado-checkbox" disabled @(item.EstadoServicio ? "checked" : "") />
                         </td>
-                        <td class="acciones">
-                            <!-- Botones con estilos de colores como en la imagen -->
-                            <a asp-action="Edit" asp-route-id="@item.Idservicio" class="btn btn-sm btn-primary">Editar</a>
-                            <a asp-action="Details" asp-route-id="@item.Idservicio" class="btn btn-sm btn-info text-white">Detalles</a>
-                            <a asp-action="Delete" asp-route-id="@item.Idservicio" class="btn btn-sm btn-danger">Eliminar</a>
+                        <td>
+                            <div class="acciones-btn">
+                                <a asp-action="Edit" asp-route-id="@item.Idservicio" class="btn-accion editar">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.Idservicio" class="btn-accion detalles">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.Idservicio" class="btn-accion eliminar">Eliminar</a>
+                            </div>
                         </td>
                     </tr>
                 }

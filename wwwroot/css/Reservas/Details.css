@@ -1,0 +1,102 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #eef1f6, #c3dafe);
+}
+
+.contenedor-principal {
+    max-width: 700px;
+    margin: 50px auto;
+    background-color: #e5e1cf;
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.encabezado h2 {
+    font-size: 24px;
+    color: #0b3c52;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Acomoda los labels y valores como bloques */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+dt, dd {
+    width: 100%;
+    margin: 0;
+}
+
+dt {
+    font-weight: 600;
+    color: #0b3c52;
+    margin-bottom: 5px;
+}
+
+dd {
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+/* Ajustes para listas */
+h5 {
+    margin-top: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.list-group {
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.list-group-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    padding: 10px 15px;
+    list-style: none;
+}
+
+/* Botones */
+.text-right {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.btn-volver,
+.btn-editar {
+    background-color: #0b3c52;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+    .btn-editar{
+        background-color: dodgerblue;
+    }
+
+    .btn-volver:hover,
+    .btn-editar:hover {
+        background-color: #164b68;
+    }

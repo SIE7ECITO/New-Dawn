@@ -1,0 +1,73 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    font-family: 'Poppins', sans-serif;
+}
+
+.contenedor-formulario {
+    max-width: 600px;
+    margin: 60px auto;
+    background-color: #e5e1cf;
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.formulario-header h2 {
+    text-align: center;
+    color: #0b3c52;
+    margin-bottom: 25px;
+}
+
+.grupo-formulario {
+    margin-bottom: 20px;
+}
+
+    .grupo-formulario label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: #444;
+    }
+
+.entrada {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.botonera {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-formulario {
+    background-color: #0b3c52;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-formulario:hover {
+        background-color: #164b68;
+    }
+
+.volver {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .volver a {
+        text-decoration: none;
+        color: #0b3c52;
+        font-weight: 500;
+    }

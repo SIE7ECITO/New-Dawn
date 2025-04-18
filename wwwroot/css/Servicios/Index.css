@@ -1,4 +1,6 @@
-﻿body {
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
@@ -9,9 +11,9 @@
     min-height: 100vh;
 }
 
-/* Contenedor principal centrado vertical y horizontalmente */
+/* Contenedor principal */
 .contenedor-principal {
-    width: 100%;
+    width: 95%;
     max-width: 1100px;
     background-color: #e5e1cf;
     border-radius: 25px;
@@ -19,16 +21,21 @@
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-/* Título */
+/* Encabezado */
 .encabezado h2 {
     font-weight: bold;
     color: #113b4c;
     text-align: center;
-    position: relative;
-    bottom: 5vh;
+    margin-bottom: 30px;
 }
 
-/* Botón Crear Nuevo */
+/* Botón Crear */
+.acciones {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
 .btn-crear {
     background-color: #113b4c;
     color: white;
@@ -36,32 +43,28 @@
     border-radius: 10px;
     padding: 10px 20px;
     border: none;
-    position: relative;
-    bottom: 4vh;
+    text-decoration: none;
 }
 
     .btn-crear:hover {
         background-color: #0d2e3b;
     }
 
-.text-end{
-    display: flex;
-    justify-content: end;
-}
-
-/* Tabla estilizada */
+/* Tabla */
 .tabla-estilizada {
     width: 100%;
     border-collapse: collapse;
-    border-radius: 10px;
     overflow: hidden;
     background-color: white;
+    border-radius: 12px;
 }
 
-    .tabla-estilizada th, .tabla-estilizada td {
-        padding: 15px;
+    .tabla-estilizada th,
+    .tabla-estilizada td {
+        padding: 10px 12px;
         text-align: left;
         border-bottom: 1px solid #ddd;
+        vertical-align: middle;
     }
 
     .tabla-estilizada th {
@@ -69,43 +72,110 @@
         color: white;
     }
 
-/* Checkbox de estado */
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+/* Control de columnas */
+th:nth-child(1), td:nth-child(1) {
+    max-width: 140px;
+    word-break: break-word;
+}
+
+th:nth-child(2), td:nth-child(2) {
+    max-width: 200px;
+}
+
+/* Checkbox */
 .estado-checkbox {
     width: 20px;
     height: 20px;
 }
 
-/* Estilo para los botones de acciones */
-.acciones .btn {
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 8px;
+/* Botones de acción */
+.btn-accion {
+    text-decoration: none;
     padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
 }
 
-.acciones{
+    .btn-accion.editar {
+        background-color: #007bff;
+    }
+
+    .btn-accion.detalles {
+        background-color: #17a2b8;
+    }
+
+    .btn-accion.eliminar {
+        background-color: #dc3545;
+    }
+
+    .btn-accion:hover {
+        opacity: 0.9;
+    }
+
+/* Alinear botones horizontalmente sin romperse */
+.acciones-btn {
     display: flex;
-    gap: 5px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    min-width: 200px;
+    overflow-x: auto;
 }
 
-.acciones .btn-primary {
-    background-color: #007bff;
-    color: white;
-    border: none;
+/* Control de descripción para evitar desbordamiento */
+.descripcion {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.acciones .btn-info {
-    background-color: #00bcd4;
-    color: white;
-    border: none;
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+    .contenedor-principal {
+        padding: 20px;
+    }
+
+    .tabla-estilizada th, .tabla-estilizada td {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    .btn-accion {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .acciones-btn {
+        flex-wrap: wrap; /* Se permite bajar en móviles */
+        justify-content: flex-start;
+    }
 }
 
-.acciones .btn-danger {
-    background-color: #e53935;
-    color: white;
-    border: none;
-}
+@media (max-width: 480px) {
+    .acciones-btn {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-.acciones .btn:hover {
-    opacity: 0.9;
+    .btn-accion {
+        width: 100%;
+        text-align: center;
+    }
+
+    .tabla-estilizada th, .tabla-estilizada td {
+        font-size: 12px;
+    }
 }

@@ -3,57 +3,86 @@
 @{
     ViewData["Title"] = "Eliminar Paquete";
 }
-<h2>¿Estás seguro de que deseas eliminar este paquete?</h2>
 
-@if (Model != null)
-{
-    <div class="alert alert-danger">
-        <p><strong>Nombre:</strong> @Model.NombrePaquete</p>
-        <p><strong>Descripción:</strong> @Model.Descripcion</p>
-        <p><strong>Precio:</strong> @Model.Precio.ToString("C")</p>
-        <p><strong>Estado:</strong> @(Model.EstadoPaquete ? "Activo" : "Inactivo")</p>
+<head>
+    <link rel="stylesheet" href="~/css/Paquetes/Delete.css" />
+</head>
 
-        <h4>Habitaciones Incluidas</h4>
-        @if (Model.PaqueteHabitacions != null && Model.PaqueteHabitacions.Any())
-        {
-            <ul>
-                @foreach (var hab in Model.PaqueteHabitacions)
-                {
-                    <li>@hab.IdhabitacionNavigation?.TipoHabitacion - Capacidad: @hab.IdhabitacionNavigation?.Capacidad</li>
-                }
-            </ul>
-        }
-        else
-        {
-            <p>No hay habitaciones asociadas a este paquete.</p>
-        }
+<div class="form-container">
+    <h2 class="form-title">¿Estás seguro de eliminar este paquete?</h2>
+    <p class="form-subtitle">Esta acción no se puede deshacer.</p>
 
-        <h4>Servicios Incluidos</h4>
-        @if (Model.ServicioPaquetes != null && Model.ServicioPaquetes.Any())
-        {
-            <ul>
-                @foreach (var serv in Model.ServicioPaquetes)
-                {
-                    <li>@serv.IdservicioNavigation?.NombreServicio - @serv.IdservicioNavigation?.ValorServicio.ToString("C")</li>
-                }
-            </ul>
-        }
-        else
-        {
-            <p>No hay servicios asociados a este paquete.</p>
-        }
-    </div>
+    @if (Model != null)
+    {
+        <div class="form-group">
+            <label class="form-label">Nombre:</label>
+            <div class="form-input">@Model.NombrePaquete</div>
+        </div>
 
-    <form asp-action="Delete" method="post">
-        <input type="hidden" asp-for="Idpaquete" />
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-    </form>
-}
-else
-{
-    <div class="alert alert-warning">
-        <p>El paquete no fue encontrado. Es posible que ya haya sido eliminado.</p>
-        <a asp-action="Index" class="btn btn-primary">Volver a la lista</a>
-    </div>
-}
+        <div class="form-group">
+            <label class="form-label">Descripción:</label>
+            <div class="form-input">@Model.Descripcion</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Precio:</label>
+            <div class="form-input">@Model.Precio.ToString("C")</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Estado:</label>
+            <div class="form-input">@(Model.EstadoPaquete ? "Activo" : "Inactivo")</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Habitaciones Incluidas:</label>
+            @if (Model.PaqueteHabitacions != null && Model.PaqueteHabitacions.Any())
+            {
+                <ul>
+                    @foreach (var hab in Model.PaqueteHabitacions)
+                    {
+                        <li>@hab.IdhabitacionNavigation?.TipoHabitacion - Capacidad: @hab.IdhabitacionNavigation?.Capacidad</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No hay habitaciones asociadas.</p>
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Servicios Incluidos:</label>
+            @if (Model.ServicioPaquetes != null && Model.ServicioPaquetes.Any())
+            {
+                <ul>
+                    @foreach (var serv in Model.ServicioPaquetes)
+                    {
+                        <li>@serv.IdservicioNavigation?.NombreServicio - @serv.IdservicioNavigation?.ValorServicio.ToString("C")</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No hay servicios asociados.</p>
+            }
+        </div>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Idpaquete" />
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+                <a asp-action="Index" class="btn btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div class="form-group">
+            <p>El paquete no fue encontrado. Puede que ya haya sido eliminado.</p>
+            <div class="form-actions">
+                <a asp-action="Index" class="btn btn-cancel">Volver a la lista</a>
+            </div>
+        </div>
+    }
+</div>

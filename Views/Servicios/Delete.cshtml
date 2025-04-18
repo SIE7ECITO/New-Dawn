@@ -8,35 +8,35 @@
     <link href="~/css/Servicios/Delete.css" rel="stylesheet" />
 </head>
 
-<div class="delete-container">
-    <h2>Eliminar Servicio</h2>
-    <p class="subtext">¿Estás seguro de que deseas eliminar este servicio?</p>
+<div class="form-container">
+    <h2 class="form-title">Eliminar Servicio</h2>
+    <p class="form-subtitle">¿Estás seguro de que deseas eliminar este servicio?</p>
 
     <div class="form-group">
-        <label>NombrePermiso</label>
-        <input type="text" value="@Model.NombreServicio" readonly />
+        <label class="form-label">Nombre del Servicio</label>
+        <div class="form-value">@Model.NombreServicio</div>
     </div>
 
     <div class="form-group">
-        <label>DescripcionPermiso</label>
-        <textarea readonly>@Model.DescripcionServicio</textarea>
+        <label class="form-label">Descripción</label>
+        <div class="form-value">@Model.DescripcionServicio</div>
     </div>
 
     <div class="form-group">
-        <label>EstadoPermisos</label>
-        <input type="text" value="@(Model.EstadoServicio ? "Activo" : "Inactivo")" readonly />
+        <label class="form-label">Estado</label>
+        <div class="form-value">@(Model.EstadoServicio ? "Activo" : "Inactivo")</div>
     </div>
 
     <div class="form-group">
-        <label>FechaCambio</label>
-        <input type="text" value="@Model.FechaCreacion.ToShortDateString()" readonly />
+        <label class="form-label">Fecha de Creación</label>
+        <div class="form-value">@Model.FechaCreacion.ToString("dd/MM/yyyy")</div>
     </div>
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Idservicio" />
-        <div class="button-group">
-            <button type="submit" class="btn-delete">ELIMINAR</button>
-            <a asp-action="Index" class="btn-cancel">CANCELAR</a>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">ELIMINAR</button>
+            <a asp-action="Index" class="btn btn-cancel">CANCELAR</a>
         </div>
     </form>
 </div>

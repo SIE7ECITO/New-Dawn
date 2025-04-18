@@ -4,11 +4,15 @@
     ViewData["Title"] = "Detalles de la Reserva";
 }
 
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Detalles de la Reserva</h3>
+<head>
+    <link href="~/css/Reservas/Details.css" rel="stylesheet" />
+</head>
+
+<div class="contenedor-principal">
+    <div class="encabezado">
+        <h2>Detalles de la Reserva</h2>
     </div>
-    <div class="card-body">
+    <div>
         <dl class="row">
             <dt class="col-sm-3">Fecha de Comienzo</dt>
             <dd class="col-sm-9">@Model.FechaComienzo?.ToString("dd/MM/yyyy")</dd>
@@ -24,9 +28,6 @@
             {
                 <dd class="col-sm-9">@huespedReserva.Idhuesped</dd>
             }
-
-
-
 
             <dt class="col-sm-3">Estado de la Reserva</dt>
             <dd class="col-sm-9">@Model.EstadoReserva ? "Activa" : "Cancelada"</dd>
@@ -45,7 +46,7 @@
             }
         </ul>
 
-        <h5>Paquete Seleccionado</h5>
+        <h5 class="mt-4">Paquete Seleccionado</h5>
         @if (Model.IdpaqueteNavigation != null)
         {
             <p>@Model.IdpaqueteNavigation.NombrePaquete - $@Model.IdpaqueteNavigation.Precio</p>
@@ -55,7 +56,7 @@
             <p>No se seleccionó ningún paquete.</p>
         }
 
-        <h5>Servicios Adicionales</h5>
+        <h5 class="mt-4">Servicios Adicionales</h5>
         <ul class="list-group">
             @foreach (var reservaServicio in Model.ReservaServicios)
             {
@@ -65,11 +66,11 @@
             }
         </ul>
 
-        <div class="text-right mt-3">
-            <a asp-action="Edit" asp-route-id="@Model.Idreserva" class="btn btn-primary">
+        <div class="text-right mt-4">
+            <a asp-action="Edit" asp-route-id="@Model.Idreserva" class="btn-editar">
                 <i class="fas fa-edit"></i> Editar
             </a>
-            <a asp-action="Index" class="btn btn-secondary">
+            <a asp-action="Index" class="btn-volver">
                 <i class="fas fa-arrow-left"></i> Volver al listado
             </a>
         </div>
