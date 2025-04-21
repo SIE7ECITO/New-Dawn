@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Scripting;
@@ -243,20 +246,37 @@ namespace NewDawn.Controllers
                 return View();
             }
 
-            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Correo == correo);
+            var usuario = await _context.Usuarios
+         .Include(u => u.IdrolNavigation)
+         .ThenInclude(r => r.RolPermisos) // Incluir los permisos del rol
+         .FirstOrDefaultAsync(u => u.Correo == correo);
 
-            // 🔹 Verificar que el usuario existe y que la contraseña coincide (sin encriptación)
+            // Verificar que el usuario existe y que la contraseña coincide
             if (usuario == null || usuario.ContraseñaUsuario != contraseña)
             {
                 ViewData["ErrorMessage"] = "Correo o contraseña incorrectos.";
                 return View();
             }
 
-            // 🔹 Guardar sesión del usuario
-            HttpContext.Session.SetInt32("UserId", usuario.Idusuario);
-            HttpContext.Session.SetString("UserName", usuario.NombreUsuario);
+            var claims = new List<Claim>
+            {   
+                 new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+                new Claim(ClaimTypes.Email, usuario.Correo),
+            };
 
-            // 🔹 Redirigir al home o dashboard
+            // Agregar permisos como Claims
+            foreach (var permiso in usuario.IdrolNavigation.RolPermisos)
+            {
+                claims.Add(new Claim("Permission", permiso.IdpermisosNavigation.NombrePermiso));
+            }
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            // Autenticar al usuario
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            // Redirigir al home o dashboard
             return RedirectToAction("Index", "Home");
         }
 

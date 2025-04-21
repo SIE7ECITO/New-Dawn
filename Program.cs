@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using NewDawn.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace NewDawn
 {
@@ -15,7 +16,18 @@ namespace NewDawn
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Usuarios/Login"; // Ruta al login
+                    options.AccessDeniedPath = "/Usuarios/AccessDenied"; // Ruta de acceso denegado
+                });
 
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CanAccessHabitaciones", policy =>
+                    policy.RequireClaim("Permission","AccesoTotal"));
+            });
             // 🔹 Agregar soporte para sesiones
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
@@ -41,6 +53,7 @@ namespace NewDawn
             // 🔹 Activar middleware de sesión
             app.UseSession();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
