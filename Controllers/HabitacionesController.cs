@@ -1,4 +1,4 @@
-﻿ using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NewDawn.Models;
 using System.Collections.Generic;
@@ -145,6 +145,7 @@ namespace NewDawn.Controllers
             if (habitacionExistente == null)
                 return NotFound();
 
+            // Actualizar los datos de la habitación
             habitacionExistente.TipoHabitacion = habitacion.TipoHabitacion;
             habitacionExistente.EstadoHabitacion = habitacion.EstadoHabitacion;
             habitacionExistente.PrecioNoche = habitacion.PrecioNoche;
@@ -153,33 +154,47 @@ namespace NewDawn.Controllers
             bool estabaEnPaquete = habitacionExistente.EnPaquete;
             habitacionExistente.EnPaquete = habitacion.EnPaquete;
 
-            // Eliminar y volver a agregar comodidades
-            _context.HabitacionComodidades.RemoveRange(habitacionExistente.HabitacionComodidades);
-            await _context.SaveChangesAsync();
-
+            // Actualizar las comodidades
             if (ComodidadesSeleccionadas?.Any() == true)
             {
-                var comodidades = ComodidadesSeleccionadas.Select(idComodidad => new HabitacionComodidade
-                {
-                    IdHabitacion = habitacion.Idhabitacion,
-                    IdComodidades = idComodidad
-                });
-                _context.HabitacionComodidades.AddRange(comodidades);
+                // Eliminar solo las comodidades que ya no están seleccionadas
+                var comodidadesAEliminar = habitacionExistente.HabitacionComodidades
+                    .Where(hc => !ComodidadesSeleccionadas.Contains(hc.IdComodidades))
+                    .ToList();
+
+                _context.HabitacionComodidades.RemoveRange(comodidadesAEliminar);
+
+                // Agregar nuevas comodidades seleccionadas
+                var comodidadesExistentes = habitacionExistente.HabitacionComodidades
+                    .Select(hc => hc.IdComodidades)
+                    .ToList();
+
+                var comodidadesAAgregar = ComodidadesSeleccionadas
+                    .Where(idComodidad => !comodidadesExistentes.Contains(idComodidad))
+                    .Select(idComodidad => new HabitacionComodidade
+                    {
+                        IdHabitacion = habitacion.Idhabitacion,
+                        IdComodidades = idComodidad
+                    });
+
+                _context.HabitacionComodidades.AddRange(comodidadesAAgregar);
+            }
+            else
+            {
+                // Si no hay comodidades seleccionadas, eliminar todas
+                _context.HabitacionComodidades.RemoveRange(habitacionExistente.HabitacionComodidades);
             }
 
-            // Si EnPaquete fue desactivado, eliminar relación con paquetes
+            // Manejo de paquetes
             if (!habitacion.EnPaquete && estabaEnPaquete)
             {
-                // Obtener IDs de los paquetes relacionados
                 var paquetesRelacionados = habitacionExistente.PaqueteHabitacions
                     .Select(ph => ph.Idpaquete)
                     .Distinct()
                     .ToList();
 
-                // Eliminar relaciones con PaqueteHabitacion
                 _context.PaqueteHabitacions.RemoveRange(habitacionExistente.PaqueteHabitacions);
 
-                // Verificar y eliminar paquetes que se quedan sin habitaciones
                 foreach (var idPaquete in paquetesRelacionados)
                 {
                     var otrasHabitaciones = await _context.PaqueteHabitacions
@@ -188,13 +203,11 @@ namespace NewDawn.Controllers
 
                     if (!otrasHabitaciones.Any())
                     {
-                        // Eliminar también relaciones con servicios
                         var servicios = await _context.ServicioPaquetes
                             .Where(sp => sp.Idpaquete == idPaquete)
                             .ToListAsync();
                         _context.ServicioPaquetes.RemoveRange(servicios);
 
-                        // Eliminar el paquete
                         var paquete = await _context.Paquetes.FindAsync(idPaquete);
                         if (paquete != null)
                         {

@@ -58,11 +58,11 @@
                 <div class="border p-3 rounded">
                     @foreach (var comodidad in ViewBag.Comodidades)
                     {
-                        bool isChecked = Model.HabitacionComodidades.Any(hc => hc.IdComodidades == comodidad.IdComodidades);
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" name="selectedComodidades" value="@comodidad.IdComodidades" @(isChecked ? "checked" : "") />
-                            <label class="form-check-label">@comodidad.DescripcionComodidad</label>
-                        </div>
+                        <label>
+                            <input type="checkbox" name="ComodidadesSeleccionadas" value="@comodidad.IdComodidades"
+                            @(ViewBag.ComodidadesSeleccionadas.Contains(comodidad.IdComodidades) ? "checked" : "") />
+                            @comodidad.NombreComodidades
+                        </label>
                     }
                 </div>
             </div>
