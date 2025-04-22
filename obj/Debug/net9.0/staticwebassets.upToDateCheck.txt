@@ -98,6 +98,12 @@ wwwroot\Images\banner.jpg
 wwwroot\Images\banner2.jpg
 wwwroot\Images\banner3.jpg
 wwwroot\Images\banner4.jpg
+wwwroot\Images\buceo.jpg
+wwwroot\Images\habitacion1.jpg
+wwwroot\Images\habitacion2.jpg
+wwwroot\Images\habitacion3.jpg
+wwwroot\Images\paquete1.jpg
+wwwroot\Images\paquete2.png
 wwwroot\Images\piscina.jpg
 wwwroot\Images\restaurante.jpg
 wwwroot\Images\spa.jpg

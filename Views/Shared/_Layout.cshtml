@@ -67,7 +67,7 @@
                         <i class="bx bx-group nav_icon"></i>
                         <span class="nav_name">Usuarios</span>
                     </a>
-
+                }
                 <!-- Opciones para otros roles -->
                     @if (User.IsInRole("empleado") || User.IsInRole("admin"))
                     {
@@ -93,15 +93,15 @@
                         </a>
                     }
 
-            
-                    @if (User.Identity?.IsAuthenticated ?? false)
+
+                    @if (User.IsInRole("admin") || User.IsInRole("empleado") || User.IsInRole("usuario"))
                     {
                         <a asp-controller="Reservas" asp-action="Index" class="nav_link">
                             <i class="bx bx-calendar nav_icon"></i>
                             <span class="nav_name">Reservas</span>
                         </a>
                     }
-                }
+                
 
             </div>
         </nav>
