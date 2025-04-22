@@ -13,34 +13,42 @@
         <div class="form crear">
             <form asp-action="RegisterUser" method="post">
                 <h2>REGISTRARSE</h2>
-                <div class="form-group">
-                    <input asp-for="Ccusuario" class="form-control" placeholder="Cédula">
-                </div>
-                <div class="form-group">
-                    <input asp-for="NombreUsuario" class="form-control" placeholder="Nombre">
-                </div>
-                <div class="form-group">
-                    <input asp-for="Apellido" class="form-control" placeholder="Apellido">
-                </div>
-                <div class="form-group">
-                    <input asp-for="Correo" class="form-control" type="email" placeholder="Correo" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input asp-for="NumeroTelUsuario" name="NumeroTelUsuario" class="form-control" type="tel" placeholder="Número de Teléfono">
-                </div>
-                <div class="form-group">
-                    <input asp-for="ContraseñaUsuario" class="form-control" type="password" placeholder="Contraseña" autocomplete="off">
 
+                @* Muestra errores generales *@
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <input asp-for="Ccusuario" class="form-control" placeholder="Cédula" />
+                    <span asp-validation-for="Ccusuario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="NombreUsuario" class="form-control" placeholder="Nombre" />
+                    <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Apellido" class="form-control" placeholder="Apellido" />
+                    <span asp-validation-for="Apellido" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Correo" class="form-control" type="email" placeholder="Correo" autocomplete="off" />
+                    <span asp-validation-for="Correo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="NumeroTelUsuario" class="form-control" type="tel" placeholder="Número de Teléfono" />
+                    <span asp-validation-for="NumeroTelUsuario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="ContraseñaUsuario" class="form-control" type="password" placeholder="Contraseña" autocomplete="off" />
+                    <span asp-validation-for="ContraseñaUsuario" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input id="ConfirmarContraseña" name="ConfirmarContraseña" class="form-control" type="password" placeholder="Confirme su contraseña" autocomplete="off" />
-                    <span class="text-danger"></span>
+                    <span class="text-danger"></span> @* Aquí podrías hacer validación de coincidencia si lo deseas con JS *@
                 </div>
 
-                <div class="form-group select">
-                    <select asp-for="Idrol" class="form-control" asp-items="ViewBag.Idrol"></select>
-                </div>
                 <button type="submit" class="registro" style="border-radius: 10px; padding: 10px;">Registrarse</button>
+
+                @* Mensaje de error general, si lo usas en el controlador con ViewData *@
                 @if (ViewData["ErrorMessage"] != null)
                 {
                     <div class="alert alert-danger" style="color: red;">@ViewData["ErrorMessage"]</div>
