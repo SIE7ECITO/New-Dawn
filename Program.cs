@@ -25,19 +25,27 @@ namespace NewDawn
 
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy("CanAccessHabitaciones", policy =>
-                    policy.RequireClaim("Permission","AccesoTotal"));
+               
             });
             // 🔹 Agregar soporte para sesiones
             builder.Services.AddDistributedMemoryCache();
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                // Expira al cerrar el navegador
+                options.ExpireTimeSpan = TimeSpan.Zero; // Sin duración explícita
+                options.SlidingExpiration = false; // Desactiva la renovación automática
+                options.Cookie.HttpOnly = true; // Mejora la seguridad
+                options.Cookie.IsEssential = true; // Necesario para funcionar incluso con consentimiento de cookies
+            });
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30); // Expira en 30 minutos
+                options.IdleTimeout = TimeSpan.Zero; // Expira en 30 minutos
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
 
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

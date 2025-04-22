@@ -246,10 +246,8 @@ namespace NewDawn.Controllers
                 return View();
             }
 
-            var usuario = await _context.Usuarios
-         .Include(u => u.IdrolNavigation)
-         .ThenInclude(r => r.RolPermisos) // Incluir los permisos del rol
-         .FirstOrDefaultAsync(u => u.Correo == correo);
+            var usuario = await _context.Usuarios.Include(u => u.IdrolNavigation)
+                                                 .FirstOrDefaultAsync(u => u.Correo == correo);
 
             // Verificar que el usuario existe y que la contraseña coincide
             if (usuario == null || usuario.ContraseñaUsuario != contraseña)
@@ -258,17 +256,13 @@ namespace NewDawn.Controllers
                 return View();
             }
 
+            // Crear Claims para el usuario
             var claims = new List<Claim>
-            {   
-                 new Claim(ClaimTypes.Name, usuario.NombreUsuario),
-                new Claim(ClaimTypes.Email, usuario.Correo),
-            };
-
-            // Agregar permisos como Claims
-            foreach (var permiso in usuario.IdrolNavigation.RolPermisos)
             {
-                claims.Add(new Claim("Permission", permiso.IdpermisosNavigation.NombrePermiso));
-            }
+                new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+                new Claim(ClaimTypes.Email, usuario.Correo),
+                new Claim(ClaimTypes.Role, usuario.IdrolNavigation.NombreRol) // Rol del usuario
+            };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);

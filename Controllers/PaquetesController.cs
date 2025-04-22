@@ -10,7 +10,7 @@ using NewDawn.Models;
 
 namespace NewDawn.Controllers
 {
-    [Authorize (Permiso = "AccesoTotal")]
+    [Authorize(Roles = "admin")]
     public class PaquetesController : Controller
     {
         private readonly NewDawnContext _context;
