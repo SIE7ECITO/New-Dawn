@@ -261,7 +261,9 @@ namespace NewDawn.Controllers
                 if (reserva.Idpaquete != 0)
                 {
                     var paquete = await _context.Paquetes
+                        .Include(p => p.ServicioPaquetes)
                         .Include(p => p.PaqueteHabitacions)
+                            .ThenInclude(hp => hp.IdpaqueteHabitacion)
                         .FirstOrDefaultAsync(p => p.Idpaquete == reserva.Idpaquete);
 
                     foreach (var hp in paquete.PaqueteHabitacions)
@@ -284,10 +286,8 @@ namespace NewDawn.Controllers
                             ModelState.AddModelError("", $"La habitación del paquete con ID {idHabitacion} ya está reservada en las fechas seleccionadas.");
                         }
                     }
-                
 
-
-                if (!ModelState.IsValid)
+                    if (!ModelState.IsValid)
                     {
                         await transaction.RollbackAsync();
                         await CargarDatosReservaAsync();
@@ -365,7 +365,6 @@ namespace NewDawn.Controllers
                 return View(reserva);
             }
         }
-
 
 
         // GET: Reservas/Edit/5
