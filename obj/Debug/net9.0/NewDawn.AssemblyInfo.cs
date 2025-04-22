@@ -15,7 +15,19 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NewDawn")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aebf80e3817ad0cb88e7490fc772284b961e4653")]
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+038874b6e226d85a4b4f20943845df4018e77a06")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea703bea2f756c10c59dafedd6d70389bf3c2805")]
+>>>>>>> Reservas de nuevo
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca206b528e12a00765bc90cfb5bc0566f86bd0d7")]
+>>>>>>> si
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a92583f41bccf29f33644f571d899d995f3b0b6")]
+>>>>>>> Ahora si
 [assembly: System.Reflection.AssemblyProductAttribute("NewDawn")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NewDawn")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
