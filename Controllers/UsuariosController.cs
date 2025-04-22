@@ -273,6 +273,15 @@ namespace NewDawn.Controllers
             // Redirigir al home o dashboard
             return RedirectToAction("Index", "Home");
         }
+        // GET: Usuarios/Logout
+        public async Task<IActionResult> Logout()
+        {
+            // Cerrar sesión del usuario autenticado
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Redirigir a la página de inicio de sesión o al inicio
+            return RedirectToAction("Login", "Usuarios");
+        }
 
         // GET: Usuarios/RegisterUser
         public IActionResult RegisterUser()
