@@ -32,8 +32,11 @@
             <!-- Mostrar opciones según el estado del usuario -->
             @if (User.Identity?.IsAuthenticated ?? false)
             {
-                <span class="welcome-message">Bienvenido, @User.Identity.Name</span>
-                <a asp-controller="Usuarios" asp-action="Logout" class="btn-logout">Cerrar Sesión</a>
+                
+                <form asp-action="Logout" asp-controller="Usuarios" method="post">
+                    <span class="welcome-message">Bienvenido, @User.Identity.Name</span>
+                    <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+                </form>
             }
             else
             {

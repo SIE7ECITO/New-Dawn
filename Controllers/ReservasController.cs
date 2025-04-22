@@ -19,9 +19,37 @@ namespace NewDawn.Controllers
             _context = context;
         }
         // GET: Reservas
+       
         public async Task<IActionResult> Index()
         {
-            var reservas = await _context.Reservas
+            // Obtener el ID del usuario autenticado desde los claims
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                // Si no hay usuario autenticado, redirigir al login
+                return RedirectToAction("Login", "Usuarios");
+            }
+
+            // Convertir el ID del usuario a entero
+            if (!int.TryParse(userIdClaim, out int userId))
+            {
+                ModelState.AddModelError("", "Error al obtener el ID del usuario autenticado.");
+                return RedirectToAction("Login", "Usuarios");
+            }
+
+            // Obtener el rol del usuario autenticado desde los claims
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+            if (string.IsNullOrEmpty(userRole))
+            {
+                ModelState.AddModelError("", "Error al obtener el rol del usuario autenticado.");
+                return RedirectToAction("Login", "Usuarios");
+            }
+
+            // Consultar las reservas
+            IEnumerable<Reserva> reservas;
+            if (userRole.ToLower() == "admin") // Mostrar todas las reservas si el usuario es administrador
+            {
+                reservas = await _context.Reservas
                 .Include(r => r.IdusuarioNavigation)    // Incluimos el usuario relacionado
                 .Include(r => r.IdpaqueteNavigation)    // Incluimos el paquete relacionado
                 .Include(r => r.HabitacionReservas)    // Incluimos las habitaciones relacionadas
@@ -29,11 +57,23 @@ namespace NewDawn.Controllers
                 .Include(r => r.ReservaServicios)      // Incluimos los servicios relacionados
                     .ThenInclude(rs => rs.IdservicioNavigation)  // Servicios asociados
                 .ToListAsync();
+            }
+            else // Mostrar solo las reservas del usuario autenticado
+            {
+                reservas = await _context.Reservas
+                .Include(r => r.IdusuarioNavigation)    // Incluimos el usuario relacionado
+                .Include(r => r.IdpaqueteNavigation)    // Incluimos el paquete relacionado
+                .Include(r => r.HabitacionReservas)    // Incluimos las habitaciones relacionadas
+                    .ThenInclude(hr => hr.IdhabitacionNavigation) // Habitaciones reservadas
+                .Include(r => r.ReservaServicios)      // Incluimos los servicios relacionados
+                    .ThenInclude(rs => rs.IdservicioNavigation)  // Servicios asociados
+                .ToListAsync();
+            }
 
             return View(reservas);
         }
         // Acción para ver los detalles de una reserva
-       
+
         public async Task<IActionResult> Details(int id)
         {
             if (id == 0)
