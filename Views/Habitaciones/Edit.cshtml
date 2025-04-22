@@ -4,23 +4,27 @@
     ViewData["Title"] = "Editar Habitación";
 }
 
-<h1>Editar Habitación</h1>
+<head>
+    <link href="~/css/Habitaciones/Edit.css" rel="stylesheet" />
+</head>
 
-<h4>Detalles de la Habitación</h4>
-<hr />
-<div class="row">
-    <div class="col-md-6">
+<body>
+    <div class="contenedor-formulario">
+        <div class="formulario-header">
+            <h2>Editar Habitación</h2>
+        </div>
+
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="texto-error"></div>
             <input type="hidden" asp-for="Idhabitacion" />
 
-            <div class="form-group">
-                <label asp-for="TipoHabitacion" class="control-label"></label>
-                <input asp-for="TipoHabitacion" class="form-control" />
-                <span asp-validation-for="TipoHabitacion" class="text-danger"></span>
+            <div class="grupo-formulario">
+                <label asp-for="TipoHabitacion"></label>
+                <input asp-for="TipoHabitacion" class="entrada" />
+                <span asp-validation-for="TipoHabitacion" class="texto-error"></span>
             </div>
 
-            <div class="form-group">
+            <div class="grupo-formulario">
                 <label class="control-label">Estado</label>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" asp-for="EstadoHabitacion" />
@@ -30,13 +34,13 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label asp-for="PrecioNoche" class="control-label"></label>
-                <input asp-for="PrecioNoche" class="form-control" type="number" step="0.01" min="0" />
-                <span asp-validation-for="PrecioNoche" class="text-danger"></span>
+            <div class="grupo-formulario">
+                <label asp-for="PrecioNoche"></label>
+                <input asp-for="PrecioNoche" class="entrada" type="number" step="0.01" min="0" />
+                <span asp-validation-for="PrecioNoche" class="texto-error"></span>
             </div>
 
-            <div class="form-group">
+            <div class="grupo-formulario">
                 <label class="control-label">Incluye en Paquete</label>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" asp-for="EnPaquete" />
@@ -46,16 +50,16 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Capacidad" class="control-label"></label>
-                <input asp-for="Capacidad" class="form-control" type="number" min="1" />
-                <span asp-validation-for="Capacidad" class="text-danger"></span>
+            <div class="grupo-formulario">
+                <label asp-for="Capacidad"></label>
+                <input asp-for="Capacidad" class="entrada" type="number" min="1" />
+                <span asp-validation-for="Capacidad" class="texto-error"></span>
             </div>
 
-            <!-- Sección de Comodidades -->
-            <div class="form-group">
+            <!-- Comodidades -->
+            <div class="grupo-formulario">
                 <label class="control-label">Comodidades</label>
-                <div class="border p-3 rounded">
+                <div class="border p-3 rounded" style="background-color: #f9f9f9;">
                     @foreach (var comodidad in ViewBag.Comodidades)
                     {
                         bool isChecked = Model.HabitacionComodidades.Any(hc => hc.IdComodidades == comodidad.IdComodidades);
@@ -67,13 +71,16 @@
                 </div>
             </div>
 
-            <div class="form-group mt-3">
-                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            <div class="botonera">
+                <button type="submit" class="btn-formulario">Guardar Cambios</button>
+            </div>
+
+            <div class="volver">
+                <a asp-action="Index">← Cancelar</a>
             </div>
         </form>
     </div>
-</div>
+</body>
 
 @section Scripts {
     @{

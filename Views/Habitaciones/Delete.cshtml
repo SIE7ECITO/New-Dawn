@@ -4,69 +4,77 @@
     ViewData["Title"] = "Eliminar Habitación";
 }
 
-<h1 class="text-uppercase text-danger">Eliminar Habitación</h1>
+<head>
+    <link rel="stylesheet" href="~/css/Habitaciones/Delete.css" rel="stylesheet"/>
+</head>
 
-@if (Model == null)
-{
-    <div class="alert alert-danger">
-        No se encontró la habitación o ya fue eliminada.
-    </div>
-    <a asp-action="Index" class="btn btn-primary">Volver a la lista</a>
-}
-else
-{
-    @if (ViewBag.ErrorMessage != null)
-    {
-        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
-        <a asp-action="Index" class="btn btn-primary">Volver a la lista</a>
-    }
-    else
-    {
-        <h3 class="text-warning">¿Está seguro de que desea eliminar esta habitación?</h3>
+<body>
+    <div class="container">
+        <h1 class="text-uppercase text-danger">Eliminar Habitación</h1>
 
-        <div class="card p-3 shadow-sm">
-            <h4>Detalles de la Habitación</h4>
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-3 font-weight-bold">Tipo de Habitación</dt>
-                <dd class="col-sm-9">@Model.TipoHabitacion</dd>
+        @if (Model == null)
+        {
+            <div class="alert alert-danger">
+                No se encontró la habitación o ya fue eliminada.
+            </div>
+            <a asp-action="Index" class="btn btn-primary">Volver a la lista</a>
+        }
+        else
+        {
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+                <a asp-action="Index" class="btn btn-primary">Volver a la lista</a>
+            }
+            else
+            {
+                <h3 class="text-warning">¿Está seguro de que desea eliminar esta habitación?</h3>
 
-                <dt class="col-sm-3 font-weight-bold">Estado</dt>
-                <dd class="col-sm-9">@(Model.EstadoHabitacion ? "Activo" : "Inactivo")</dd>
+                <div class="card p-3 shadow-sm">
+                    <h4>Detalles de la Habitación</h4>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-3 font-weight-bold">Tipo de Habitación</dt>
+                        <dd class="col-sm-9">@Model.TipoHabitacion</dd>
 
-                <dt class="col-sm-3 font-weight-bold">Precio por Noche</dt>
-                <dd class="col-sm-9">$@Model.PrecioNoche</dd>
+                        <dt class="col-sm-3 font-weight-bold">Estado</dt>
+                        <dd class="col-sm-9">@(Model.EstadoHabitacion ? "Activo" : "Inactivo")</dd>
 
-                <dt class="col-sm-3 font-weight-bold">Incluida en Paquete</dt>
-                <dd class="col-sm-9">@(Model.EnPaquete ? "Sí" : "No")</dd>
+                        <dt class="col-sm-3 font-weight-bold">Precio por Noche</dt>
+                        <dd class="col-sm-9">$@Model.PrecioNoche</dd>
 
-                <dt class="col-sm-3 font-weight-bold">Capacidad</dt>
-                <dd class="col-sm-9">@Model.Capacidad personas</dd>
+                        <dt class="col-sm-3 font-weight-bold">Incluida en Paquete</dt>
+                        <dd class="col-sm-9">@(Model.EnPaquete ? "Sí" : "No")</dd>
 
-                <!-- Sección de Comodidades -->
-                <dt class="col-sm-3 font-weight-bold">Comodidades</dt>
-                <dd class="col-sm-9">
-                    @if (Model.HabitacionComodidades != null && Model.HabitacionComodidades.Any())
-                    {
-                        <ul>
-                            @foreach (var item in Model.HabitacionComodidades)
+                        <dt class="col-sm-3 font-weight-bold">Capacidad</dt>
+                        <dd class="col-sm-9">@Model.Capacidad personas</dd>
+
+                        <!-- Sección de Comodidades -->
+                        <dt class="col-sm-3 font-weight-bold">Comodidades</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.HabitacionComodidades != null && Model.HabitacionComodidades.Any())
                             {
-                                <li>@(item.IdComodidadesNavigation?.NombreComodidades ?? "Comodidad no disponible")</li>
+                                <ul>
+                                    @foreach (var item in Model.HabitacionComodidades)
+                                    {
+                                        <li>@(item.IdComodidadesNavigation?.NombreComodidades ?? "Comodidad no disponible")</li>
+                                    }
+                                </ul>
                             }
-                        </ul>
-                    }
-                    else
-                    {
-                        <span>No hay comodidades asociadas.</span>
-                    }
-                </dd>
-            </dl>
+                            else
+                            {
+                                <span>No hay comodidades asociadas.</span>
+                            }
+                        </dd>
+                    </dl>
 
-            <form asp-action="Delete">
-                <input type="hidden" asp-for="Idhabitacion" />
-                <button type="submit" class="btn btn-danger">Eliminar</button>
-                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-            </form>
-        </div>
-    }
-}
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Idhabitacion" />
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            }
+        }
+    </div>
+</body>

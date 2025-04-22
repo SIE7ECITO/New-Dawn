@@ -219,16 +219,24 @@
             }
 
             // Agregar habitación desde el selector
-        $('#agregarHabitacion').on('click', function () {
+                $(document).on('click', '#agregarHabitacion', function () {
             let select = $('#selectorHabitacion');
             let option = select.find(':selected');
 
-            if (!option.val()) return;
+            if (!option.val()) {
+                alert('Por favor, selecciona una habitación válida.');
+                return;
+            }
 
             let id = option.val();
             let text = option.text();
             let precio = parseFloat(option.data('precio')) || 0;
             let capacidad = option.data('capacidad');
+
+            if (!capacidad || isNaN(precio)) {
+                alert('Los datos de la habitación seleccionada son inválidos.');
+                return;
+            }
 
             if (!$('#habitacion-' + id).length) {
                 let fila = $(`
@@ -245,6 +253,8 @@
                 `);
                 $('#tablaHabitaciones').append(fila);
                 calcularTotal();
+            } else {
+                alert('Esta habitación ya ha sido agregada.');
             }
         });
     </script>

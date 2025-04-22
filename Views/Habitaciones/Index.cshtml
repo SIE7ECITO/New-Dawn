@@ -4,127 +4,135 @@
     var comodidadesDisponibles = ViewData["Comodidades"] as List<NewDawn.Models.Comodidades>;
 }
 
-<h1 class="mb-4">Gestión de Habitaciones</h1>
+<head>
+    <link href="~/css/Habitaciones/Index.css" rel="stylesheet" />
+</head>
 
-<p>
-    <a asp-action="Create" class="btn btn-success"><i class="fas fa-plus"></i> Agregar Nueva Habitación</a>
-</p>
-
-<!-- Filtro de búsqueda -->
-<form method="get" class="mb-4 border p-3 rounded bg-light">
-    <div class="row g-2 align-items-end">
-        <div class="col-md-3">
-            <label for="capacidad" class="form-label">Capacidad mínima</label>
-            <input type="number" name="capacidad" class="form-control" value="@Context.Request.Query["capacidad"]"
-                   ["capacidad"]" />
-        </div>
-        <div class="col-md-3">
-            <label for="precioMin" class="form-label">Precio mínimo</label>
-            <input type="number" step="0.01" name="precioMin" class="form-control" value="@Context.Request.Query["capacidad"]"
-                   ["precioMin"]" />
-        </div>
-        <div class="col-md-3">
-            <label for="precioMax" class="form-label">Precio máximo</label>
-            <input type="number" step="0.01" name="precioMax" class="form-control" value="value=" @Context.Request.Query["capacidad"]"
-                   ["precioMax"]" />
-        </div>
-        <div class="col-md-3 text-end">
-            <button type="submit" class="btn btn-primary w-100"><i class="fas fa-search"></i> Buscar</button>
-        </div>
+<div class="contenedor-principal">
+    <div class="encabezado">
+        <h2>Gestión de Habitaciones</h2>
     </div>
 
-    <div class="mt-3">
-        <label class="form-label">Comodidades:</label>
-        <div class="row">
-            @if (comodidadesDisponibles != null)
-            {
-                foreach (var comodidad in comodidadesDisponibles)
+    <div class="acciones">
+        <a asp-action="Create" class="btn-crear"><i class="fas fa-plus"></i> Agregar Nueva Habitación</a>
+    </div>
+
+    <!-- Filtro de búsqueda -->
+    <form method="get" class="mb-4">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-3">
+                <label for="capacidad" class="form-label">Capacidad mínima</label>
+                <input type="number" name="capacidad" class="form-control" value="@Context.Request.Query["capacidad"]" />
+            </div>
+            <div class="col-md-3">
+                <label for="precioMin" class="form-label">Precio mínimo</label>
+                <input type="number" step="0.01" name="precioMin" class="form-control" value="@Context.Request.Query["precioMin"]" />
+            </div>
+            <div class="col-md-3">
+                <label for="precioMax" class="form-label">Precio máximo</label>
+                <input type="number" step="0.01" name="precioMax" class="form-control" value="@Context.Request.Query["precioMax"]" />
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn-crear w-100"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <label class="form-label">Comodidades:</label>
+            <div class="row">
+                @if (comodidadesDisponibles != null)
                 {
-                    <div class="col-md-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="comodidadesSeleccionadas" value="@comodidad.IdComodidades"
-                                   value="@Context.Request.Query["capacidad"]"
-                                   ["comodidadesSeleccionadas"].Contains(comodidad.IdComodidades.ToString()) ? "checked" : "" ) />
-                            <label class="form-check-label">@comodidad.NombreComodidades</label>
+                    foreach (var comodidad in comodidadesDisponibles)
+                    {
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="comodidadesSeleccionadas" value="@comodidad.IdComodidades"
+                                @(Context.Request.Query["comodidadesSeleccionadas"].Contains(comodidad.IdComodidades.ToString()) ? "checked" : "") />
+                                <label class="form-check-label">@comodidad.NombreComodidades</label>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
-            }
+            </div>
         </div>
-    </div>
-</form>
+    </form>
 
-<!-- Tabla de habitaciones -->
-<div class="table-responsive">
-    <table class="table table-striped table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.TipoHabitacion)</th>
-                <th>@Html.DisplayNameFor(model => model.EstadoHabitacion)</th>
-                <th>@Html.DisplayNameFor(model => model.PrecioNoche)</th>
-                <th>@Html.DisplayNameFor(model => model.EnPaquete)</th>
-                <th>@Html.DisplayNameFor(model => model.Capacidad)</th>
-                <th>Comodidades</th>
-                <th class="text-center">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Where(h => h.Idhabitacion != 0))
-            {
+    <!-- Tabla de habitaciones -->
+    <div class="tabla-contenedor">
+        <table class="tabla-estilizada">
+            <thead>
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.TipoHabitacion)</td>
-                    <td>
-                        @if (item.EstadoHabitacion)
-                        {
-                            <span class="badge bg-success">Disponible</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-danger">No Disponible</span>
-                        }
-                    </td>
-                    <td>$@item.PrecioNoche.ToString("N2")</td>
-                    <td>
-                        @if (item.EnPaquete)
-                        {
-                            <span class="badge bg-info">Incluido</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">No Incluido</span>
-                        }
-                    </td>
-                    <td>@item.Capacidad personas</td>
-                    <td>
-                        @if (item.HabitacionComodidades != null && item.HabitacionComodidades.Any())
-                        {
-                            <ul class="list-unstyled mb-0">
-                                @foreach (var comodidad in item.HabitacionComodidades)
-                                {
-                                    <li><i class="fas fa-check-circle text-success"></i> @comodidad.IdComodidadesNavigation.DescripcionComodidad</li>
-                                }
-                            </ul>
-                        }
-                        else
-                        {
-                            <span class="text-muted">Sin comodidades</span>
-                        }
-                    </td>
-                    <td class="text-center">
-                        <div class="btn-group" role="group">
-                            <a asp-action="Edit" asp-route-id="@item.Idhabitacion" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-edit"></i></a>
-                            <a asp-action="Details" asp-route-id="@item.Idhabitacion" class="btn btn-info btn-sm" title="Detalles"><i class="fas fa-eye"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.Idhabitacion" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta habitación?');">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                        </div>
-                    </td>
+                    <th>@Html.DisplayNameFor(model => model.TipoHabitacion)</th>
+                    <th>@Html.DisplayNameFor(model => model.EstadoHabitacion)</th>
+                    <th>@Html.DisplayNameFor(model => model.PrecioNoche)</th>
+                    <th>@Html.DisplayNameFor(model => model.EnPaquete)</th>
+                    <th>@Html.DisplayNameFor(model => model.Capacidad)</th>
+                    <th>Comodidades</th>
+                    <th class="text-center">Acciones</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(h => h.Idhabitacion != 0))
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.TipoHabitacion)</td>
+                        <td>
+                            @if (item.EstadoHabitacion)
+                            {
+                                <span class="badge bg-success">Disponible</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">No Disponible</span>
+                            }
+                        </td>
+                        <td>$@item.PrecioNoche.ToString("N2")</td>
+                        <td>
+                            @if (item.EnPaquete)
+                            {
+                                <span class="badge bg-info">Incluido</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">No Incluido</span>
+                            }
+                        </td>
+                        <td>@item.Capacidad personas</td>
+                        <td>
+                            @if (item.HabitacionComodidades != null && item.HabitacionComodidades.Any())
+                            {
+                                <ul class="list-unstyled mb-0">
+                                    @foreach (var comodidad in item.HabitacionComodidades)
+                                    {
+                                        <li><i class="fas fa-check-circle text-success"></i> @comodidad.IdComodidadesNavigation.DescripcionComodidad</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Sin comodidades</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center">
+                                <a asp-action="Edit" asp-route-id="@item.Idhabitacion" class="btn-accion editar" title="Editar">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Idhabitacion" class="btn-accion detalles" title="Detalles">
+                                    <i class="fas fa-eye"></i> Detalles
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Idhabitacion" class="btn-accion eliminar" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta habitación?');">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 @section Scripts {
-    <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 }

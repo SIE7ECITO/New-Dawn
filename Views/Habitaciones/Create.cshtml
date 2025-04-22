@@ -4,61 +4,72 @@
     ViewData["Title"] = "Crear Habitación";
 }
 
-<h1>Crear Habitación</h1>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<head>
+    <link rel="stylesheet" href="~/css/Habitaciones/Create.css" />
+</head>
 
-            <div class="form-group">
-                <label asp-for="TipoHabitacion" class="control-label"></label>
-                <input asp-for="TipoHabitacion" class="form-control" />
-                <span asp-validation-for="TipoHabitacion" class="text-danger"></span>
-            </div>
+<div class="formulario-container">
+    <div class="formulario-header">
+        <h2>Crear Habitación</h2>
+    </div>
 
-            <div class="form-group form-check">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="error"></div>
+
+        <div class="campo-formulario">
+            <label asp-for="TipoHabitacion"></label>
+            <input asp-for="TipoHabitacion" class="input" />
+            <span asp-validation-for="TipoHabitacion" class="error"></span>
+        </div>
+
+        <div class="campo-formulario">
+            <div class="form-check">
                 <input class="form-check-input" asp-for="EstadoHabitacion" />
                 <label class="form-check-label" asp-for="EstadoHabitacion"></label>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="PrecioNoche" class="control-label"></label>
-                <input asp-for="PrecioNoche" class="form-control" type="number" step="0.01" />
-                <span asp-validation-for="PrecioNoche" class="text-danger"></span>
-            </div>
+        <div class="campo-formulario">
+            <label asp-for="PrecioNoche"></label>
+            <input asp-for="PrecioNoche" class="input" type="number" step="0.01" />
+            <span asp-validation-for="PrecioNoche" class="error"></span>
+        </div>
 
-            <div class="form-group form-check">
+        <div class="campo-formulario">
+            <div class="form-check">
                 <input class="form-check-input" asp-for="EnPaquete" />
                 <label class="form-check-label" asp-for="EnPaquete"></label>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="Capacidad" class="control-label"></label>
-                <input asp-for="Capacidad" class="form-control" type="number" />
-                <span asp-validation-for="Capacidad" class="text-danger"></span>
-            </div>
+        <div class="campo-formulario">
+            <label asp-for="Capacidad"></label>
+            <input asp-for="Capacidad" class="input" type="number" />
+            <span asp-validation-for="Capacidad" class="error"></span>
+        </div>
 
-            <!-- Sección de Comodidades -->
-            <div class="form-group">
-                <label class="control-label">Comodidades</label>
-                <div>
-                    @foreach (var comodidad in ViewBag.Comodidades)
-                    {
-                        <div class="form-check">
-                            <input type="checkbox" name="ComodidadesSeleccionadas" value="@comodidad.IdComodidades" class="form-check-input" id="comodidad_@comodidad.IdComodidades">
-                            <label class="form-check-label" for="comodidad_@comodidad.IdComodidades">@comodidad.NombreComodidades</label>
-                        </div>
-                    }
-                </div>
+        <!-- Sección de Comodidades -->
+        <div class="campo-formulario">
+            <label class="control-label">Comodidades</label>
+            <div>
+                @foreach (var comodidad in ViewBag.Comodidades)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" name="ComodidadesSeleccionadas" value="@comodidad.IdComodidades" class="form-check-input" id="comodidad_@comodidad.IdComodidades">
+                        <label class="form-check-label" for="comodidad_@comodidad.IdComodidades">@comodidad.NombreComodidades</label>
+                    </div>
+                }
             </div>
+        </div>
 
-            <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary">Crear</button>
-                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-            </div>
-        </form>
-    </div>
+        <div class="boton-container">
+            <button type="submit" class="btn-principal">Crear</button>
+        </div>
+
+        <div class="volver-atras">
+            <a asp-action="Index">← Cancelar</a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
