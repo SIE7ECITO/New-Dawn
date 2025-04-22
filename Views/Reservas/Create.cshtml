@@ -53,24 +53,40 @@
 
             <div class="form-group">
                 <label class="control-label">Seleccionar Habitaciones</label>
-                <select id="selectorHabitacion" class="form-control">
-                    <option value="">-- Seleccionar habitación --</option>
-                    @{
-                        var habitacionesUnicas = habitaciones
-                        .GroupBy(h => h.TipoHabitacion)
-                        .Select(g => g.First())
-                        .Where(h => h.Idhabitacion != 0)
-                        .ToList();
-                    }
-                    @foreach (var h in habitacionesUnicas)
+                <div class="row">
+                    @if (habitaciones.Any())
                     {
-                        <option value="@h.Idhabitacion" data-precio="@h.PrecioNoche" data-capacidad="@h.Capacidad">
-                            ID: @h.Idhabitacion - @h.TipoHabitacion - Capacidad: @h.Capacidad - $@h.PrecioNoche
-                        </option>
+                        foreach (var h in habitaciones)
+                        {
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-check">
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   name="habitacionesSeleccionadas"
+                                                   value="@h.Idhabitacion"
+                                                   id="habitacion_@h.Idhabitacion" />
+                                            <label class="form-check-label" for="habitacion_@h.Idhabitacion">
+                                                <strong>@h.TipoHabitacion</strong><br>
+                                                Precio: $@h.PrecioNoche/noche<br>
+                                                Capacidad: @h.Capacidad personas
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     }
-                </select>
-                <button type="button" id="agregarHabitacion" class="btn btn-primary mt-2">Agregar Habitación</button>
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-warning">No hay habitaciones disponibles</div>
+                        </div>
+                    }
+                </div>
             </div>
+
 
             <table class="table mt-3">
                 <thead>
@@ -136,8 +152,7 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="ValorTotal" class="control-label">Valor Total (estimado)</label>
-                <input asp-for="ValorTotal" class="form-control" readonly />
+                
                 <input type="hidden" asp-for="ValorTotal" />
             </div>
 

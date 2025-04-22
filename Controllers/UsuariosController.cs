@@ -259,10 +259,11 @@ namespace NewDawn.Controllers
             // Crear Claims para el usuario
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, usuario.NombreUsuario),
-                new Claim(ClaimTypes.Email, usuario.Correo),
-                new Claim(ClaimTypes.Role, usuario.IdrolNavigation.NombreRol) // Rol del usuario
-            };
+                new Claim(ClaimTypes.NameIdentifier, usuario.Idusuario.ToString()), // ID del Usuario
+                new Claim(ClaimTypes.Name, usuario.NombreUsuario),                  // Nombre del Usuario
+                new Claim(ClaimTypes.Email, usuario.Correo),                        // Correo del Usuario
+                new Claim(ClaimTypes.Role, usuario.IdrolNavigation.NombreRol)       // Rol del usuario
+             };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
@@ -272,15 +273,6 @@ namespace NewDawn.Controllers
 
             // Redirigir al home o dashboard
             return RedirectToAction("Index", "Home");
-        }
-        // GET: Usuarios/Logout
-        public async Task<IActionResult> Logout()
-        {
-            // Cerrar sesión del usuario autenticado
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            // Redirigir a la página de inicio de sesión o al inicio
-            return RedirectToAction("Login", "Usuarios");
         }
 
         // GET: Usuarios/RegisterUser

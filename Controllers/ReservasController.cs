@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -145,11 +146,12 @@ namespace NewDawn.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            Reserva reserva,
-            List<int>? habitacionesSeleccionadas,
-            int? idPaquete,
-            List<int>? serviciosSeleccionados)
+    Reserva reserva,
+    List<int>? habitacionesSeleccionadas,
+    int? idPaquete,
+    List<int>? serviciosSeleccionados)
         {
+            // Validar si las fechas son válidas
             if (reserva.FechaComienzo == null || reserva.FechaFin == null)
             {
                 ModelState.AddModelError("", "Las fechas son requeridas");
@@ -165,42 +167,51 @@ namespace NewDawn.Controllers
                 return View(reserva);
             }
 
-            reserva.FechaReserva = DateOnly.FromDateTime(DateTime.Today);
-            reserva.Idpaquete = idPaquete ?? 0;
-            reserva.EstadoReserva = true;
-
-            var usuario = await _context.Usuarios.FindAsync(1); // Temporal
-            if (usuario == null)
+            // Obtener el usuario autenticado
+            var usuarioIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(usuarioIdClaim))
             {
-                ModelState.AddModelError("", "No se encontró el usuario");
+                ModelState.AddModelError("", "No se encontró el usuario autenticado.");
                 await CargarDatosReservaAsync();
                 return View(reserva);
             }
+
+            var usuario = await _context.Usuarios.FindAsync(int.Parse(usuarioIdClaim)); // Buscar usuario por ID
+            if (usuario == null)
+            {
+                ModelState.AddModelError("", "No se encontró el usuario en la base de datos.");
+                await CargarDatosReservaAsync();
+                return View(reserva);
+            }
+
+            // Asignar valores relacionados con el usuario
+            reserva.FechaReserva = DateOnly.FromDateTime(DateTime.Today);
+            reserva.Idpaquete = idPaquete ?? 0;
+            reserva.EstadoReserva = true;
             reserva.Idusuario = usuario.Idusuario;
             reserva.IdusuarioNavigation = usuario;
 
-            int cantidadDias = 0;
-            if (reserva.FechaComienzo != null && reserva.FechaFin != null)
-            {
-                var fechaInicio = reserva.FechaComienzo.Value.ToDateTime(TimeOnly.MinValue);
-                var fechaFin = reserva.FechaFin.Value.ToDateTime(TimeOnly.MinValue);
-                cantidadDias = (fechaFin - fechaInicio).Days;
-            }
-            else
+            // Calcular cantidad de días
+            int cantidadDias = (reserva.FechaFin.Value.ToDateTime(TimeOnly.MinValue)
+                                - reserva.FechaComienzo.Value.ToDateTime(TimeOnly.MinValue)).Days;
+
+            if (cantidadDias <= 0)
             {
                 ModelState.AddModelError("", "Las fechas no son válidas.");
                 await CargarDatosReservaAsync();
                 return View(reserva);
             }
 
+            // Inicializar variables
             decimal total = 0;
 
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
+                // Crear el pago inicial
                 var pago = new Pago
                 {
-                    CantidadPago = 0, // Se actualiza luego
+                    CantidadPago = 0, // Se actualizará más adelante
                     CantidadAbono = 0,
                     FechaPago = DateOnly.FromDateTime(DateTime.Now),
                     EstadoPago = true,
@@ -209,67 +220,25 @@ namespace NewDawn.Controllers
                 _context.Pagos.Add(pago);
                 await _context.SaveChangesAsync();
 
+                // Asignar el pago a la reserva
                 reserva.Idpago = pago.Idpago;
                 reserva.Idhabitacion = 0; // Inicial
                 _context.Reservas.Add(reserva);
                 await _context.SaveChangesAsync();
 
-                if (reserva.Idpaquete == 0)
+                // Procesar habitaciones seleccionadas
+                if (reserva.Idpaquete == 0 && habitacionesSeleccionadas != null && habitacionesSeleccionadas.Any())
                 {
-                    if (habitacionesSeleccionadas != null && habitacionesSeleccionadas.Any())
+                    foreach (var idHabitacion in habitacionesSeleccionadas)
                     {
-                        foreach (var idHabitacion in habitacionesSeleccionadas)
+                        var habitacion = await _context.Habitacions.FindAsync(idHabitacion);
+                        if (habitacion == null || !habitacion.EstadoHabitacion)
                         {
-                            var habitacion = await _context.Habitacions.FindAsync(idHabitacion);
-                            if (habitacion == null || !habitacion.EstadoHabitacion)
-                            {
-                                ModelState.AddModelError("", $"Habitación {idHabitacion} no disponible");
-                                continue;
-                            }
-
-                            // Validar solapamiento de fechas
-                            var conflictos = await _context.HabitacionReservas
-                                .Where(hr => hr.Idhabitacion == idHabitacion)
-                                .Include(hr => hr.IdreservaNavigation)
-                                .Where(hr =>
-                                    hr.IdreservaNavigation != null &&
-                                    hr.IdreservaNavigation.EstadoReserva &&
-                                    hr.IdreservaNavigation.FechaFin > reserva.FechaComienzo &&
-                                    hr.IdreservaNavigation.FechaComienzo < reserva.FechaFin
-                                )
-                                .ToListAsync();
-
-                            if (conflictos.Any())
-                            {
-                                ModelState.AddModelError("", $"La habitación {idHabitacion} ya está reservada en las fechas seleccionadas.");
-                                continue;
-                            }
-
-                            total += habitacion.PrecioNoche * cantidadDias;
-                            _context.HabitacionReservas.Add(new HabitacionReserva
-                            {
-                                Idhabitacion = idHabitacion,
-                                Idreserva = reserva.Idreserva
-                            });
+                            ModelState.AddModelError("", $"Habitación {idHabitacion} no disponible.");
+                            continue;
                         }
 
-                        reserva.Idhabitacion = habitacionesSeleccionadas.FirstOrDefault();
-                    }
-
-                }
-
-                if (reserva.Idpaquete != 0)
-                {
-                    var paquete = await _context.Paquetes
-                        .Include(p => p.ServicioPaquetes)
-                        .Include(p => p.PaqueteHabitacions)
-                            .ThenInclude(hp => hp.IdpaqueteHabitacion)
-                        .FirstOrDefaultAsync(p => p.Idpaquete == reserva.Idpaquete);
-
-                    foreach (var hp in paquete.PaqueteHabitacions)
-                    {
-                        var idHabitacion = hp.Idhabitacion;
-
+                        // Verificar solapamiento de fechas
                         var conflictos = await _context.HabitacionReservas
                             .Where(hr => hr.Idhabitacion == idHabitacion)
                             .Include(hr => hr.IdreservaNavigation)
@@ -277,40 +246,53 @@ namespace NewDawn.Controllers
                                 hr.IdreservaNavigation != null &&
                                 hr.IdreservaNavigation.EstadoReserva &&
                                 hr.IdreservaNavigation.FechaFin > reserva.FechaComienzo &&
-                                hr.IdreservaNavigation.FechaComienzo < reserva.FechaFin
-                            )
+                                hr.IdreservaNavigation.FechaComienzo < reserva.FechaFin)
                             .ToListAsync();
 
                         if (conflictos.Any())
                         {
-                            ModelState.AddModelError("", $"La habitación del paquete con ID {idHabitacion} ya está reservada en las fechas seleccionadas.");
+                            ModelState.AddModelError("", $"La habitación {idHabitacion} ya está reservada en las fechas seleccionadas.");
+                            continue;
                         }
-                    }
 
-                    if (!ModelState.IsValid)
-                    {
-                        await transaction.RollbackAsync();
-                        await CargarDatosReservaAsync();
-                        return View(reserva);
-                    }
-
-                    total += paquete.Precio * cantidadDias;
-
-                    foreach (var sp in paquete.ServicioPaquetes)
-                    {
-                        // Verificar si ya existe en el contexto
-                        if (!_context.ReservaServicios.Local.Any(rs => rs.Idreserva == reserva.Idreserva && rs.Idservicio == sp.Idservicio))
+                        total += habitacion.PrecioNoche * cantidadDias;
+                        _context.HabitacionReservas.Add(new HabitacionReserva
                         {
-                            _context.ReservaServicios.Add(new ReservaServicio
-                            {
-                                Idservicio = sp.Idservicio,
-                                Idreserva = reserva.Idreserva
-                            });
+                            Idhabitacion = idHabitacion,
+                            Idreserva = reserva.Idreserva
+                        });
+                    }
+
+                    reserva.Idhabitacion = habitacionesSeleccionadas.FirstOrDefault();
+                }
+
+                // Procesar paquete seleccionado
+                if (reserva.Idpaquete != 0)
+                {
+                    var paquete = await _context.Paquetes
+                        .Include(p => p.PaqueteHabitacions)
+                        .FirstOrDefaultAsync(p => p.Idpaquete == reserva.Idpaquete);
+
+                    foreach (var hp in paquete.PaqueteHabitacions)
+                    {
+                        var conflictos = await _context.HabitacionReservas
+                            .Where(hr => hr.Idhabitacion == hp.Idhabitacion)
+                            .Include(hr => hr.IdreservaNavigation)
+                            .Where(hr =>
+                                hr.IdreservaNavigation != null &&
+                                hr.IdreservaNavigation.EstadoReserva &&
+                                hr.IdreservaNavigation.FechaFin > reserva.FechaComienzo &&
+                                hr.IdreservaNavigation.FechaComienzo < reserva.FechaFin)
+                            .ToListAsync();
+
+                        if (conflictos.Any())
+                        {
+                            ModelState.AddModelError("", $"La habitación del paquete con ID {hp.Idhabitacion} ya está reservada en las fechas seleccionadas.");
                         }
                     }
                 }
 
-
+                // Procesar servicios seleccionados
                 if (serviciosSeleccionados != null)
                 {
                     foreach (var idServicio in serviciosSeleccionados)
@@ -318,13 +300,11 @@ namespace NewDawn.Controllers
                         var servicio = await _context.Servicios.FindAsync(idServicio);
                         if (servicio == null || !servicio.EstadoServicio)
                         {
-                            ModelState.AddModelError("", $"Servicio {idServicio} no disponible");
+                            ModelState.AddModelError("", $"Servicio {idServicio} no disponible.");
                             continue;
                         }
 
                         total += servicio.ValorServicio;
-
-                        // Verificar si ya existe en el contexto
                         if (!_context.ReservaServicios.Local.Any(rs => rs.Idreserva == reserva.Idreserva && rs.Idservicio == idServicio))
                         {
                             _context.ReservaServicios.Add(new ReservaServicio
@@ -336,7 +316,7 @@ namespace NewDawn.Controllers
                     }
                 }
 
-
+                // Validar estado del modelo
                 if (!ModelState.IsValid)
                 {
                     await transaction.RollbackAsync();
@@ -344,6 +324,7 @@ namespace NewDawn.Controllers
                     return View(reserva);
                 }
 
+                // Actualizar valores totales
                 reserva.ValorTotal = (double)total;
                 _context.Update(reserva);
 
@@ -358,9 +339,7 @@ namespace NewDawn.Controllers
             catch (Exception ex)
             {
                 await transaction.RollbackAsync();
-                var mensajeError = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                ModelState.AddModelError("", $"Error al guardar: {mensajeError}");
-
+                ModelState.AddModelError("", $"Error al guardar: {ex.Message}");
                 await CargarDatosReservaAsync();
                 return View(reserva);
             }
