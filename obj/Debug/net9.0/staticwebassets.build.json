@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "p7AjI/pFUiB7b5J42YYyRJnJFNYgDEEZzIBjD9ioCuU=",
+  "Hash": "p2LUIWcwOyMncXVPmqdtNyqTqQxIL5KG8cfumBrCads=",
   "Source": "NewDawn",
   "BasePath": "_content/NewDawn",
   "Mode": "Default",
@@ -2199,6 +2199,132 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\banner4.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\buceo.jpg",
+      "SourceId": "NewDawn",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\",
+      "BasePath": "_content/NewDawn",
+      "RelativePath": "Images/buceo#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "87shqkudh1",
+      "Integrity": "/AziWCdn3cTpra3oGFaBpwE0pD+SJsrdvuabZCUqtck=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\buceo.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion1.jpg",
+      "SourceId": "NewDawn",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\",
+      "BasePath": "_content/NewDawn",
+      "RelativePath": "Images/habitacion1#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "zmorh2nas0",
+      "Integrity": "e55hkBlkW/ZZ9XzLGiJ0CFF8j5RurU9va5hkYT0uPi0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\habitacion1.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion2.jpg",
+      "SourceId": "NewDawn",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\",
+      "BasePath": "_content/NewDawn",
+      "RelativePath": "Images/habitacion2#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "vkka0n7khf",
+      "Integrity": "UU0AEHeotx34lQi9ia3UjlsQgYC6dVyeI+F3fDvMus8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\habitacion2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion3.jpg",
+      "SourceId": "NewDawn",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\",
+      "BasePath": "_content/NewDawn",
+      "RelativePath": "Images/habitacion3#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "elj20vrc3g",
+      "Integrity": "TqQfIN8CB/TNv84NRdxyD8kGjtpiIx8EWZKeaDnUUvY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\habitacion3.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\paquete1.jpg",
+      "SourceId": "NewDawn",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\",
+      "BasePath": "_content/NewDawn",
+      "RelativePath": "Images/paquete1#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ag1y5wulpx",
+      "Integrity": "2gBZp7jp1WBJdOKkncGYkG0xr0wIASx5QHVGG2FRXnI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\paquete1.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\paquete2.png",
+      "SourceId": "NewDawn",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\",
+      "BasePath": "_content/NewDawn",
+      "RelativePath": "Images/paquete2#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kgx48vm6wq",
+      "Integrity": "ZEbDIAvgCh41JPheV7KbDqpkWcIYoVSRAmwH3xVXjiA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\paquete2.png"
     },
     {
       "Identity": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\piscina.jpg",
@@ -9235,6 +9361,498 @@
         {
           "Name": "integrity",
           "Value": "sha256-VUnRuXEfIEntWDh0bLTGW6Y6OwI5Yu0ANa/r3vZerU0="
+        }
+      ]
+    },
+    {
+      "Route": "Images/buceo.87shqkudh1.jpg",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\buceo.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "36866"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/AziWCdn3cTpra3oGFaBpwE0pD+SJsrdvuabZCUqtck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "87shqkudh1"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/buceo.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/AziWCdn3cTpra3oGFaBpwE0pD+SJsrdvuabZCUqtck="
+        }
+      ]
+    },
+    {
+      "Route": "Images/buceo.jpg",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\buceo.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "36866"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/AziWCdn3cTpra3oGFaBpwE0pD+SJsrdvuabZCUqtck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/AziWCdn3cTpra3oGFaBpwE0pD+SJsrdvuabZCUqtck="
+        }
+      ]
+    },
+    {
+      "Route": "Images/habitacion1.jpg",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "24931"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"e55hkBlkW/ZZ9XzLGiJ0CFF8j5RurU9va5hkYT0uPi0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-e55hkBlkW/ZZ9XzLGiJ0CFF8j5RurU9va5hkYT0uPi0="
+        }
+      ]
+    },
+    {
+      "Route": "Images/habitacion1.zmorh2nas0.jpg",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "24931"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"e55hkBlkW/ZZ9XzLGiJ0CFF8j5RurU9va5hkYT0uPi0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zmorh2nas0"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/habitacion1.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-e55hkBlkW/ZZ9XzLGiJ0CFF8j5RurU9va5hkYT0uPi0="
+        }
+      ]
+    },
+    {
+      "Route": "Images/habitacion2.jpg",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "80097"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UU0AEHeotx34lQi9ia3UjlsQgYC6dVyeI+F3fDvMus8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UU0AEHeotx34lQi9ia3UjlsQgYC6dVyeI+F3fDvMus8="
+        }
+      ]
+    },
+    {
+      "Route": "Images/habitacion2.vkka0n7khf.jpg",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "80097"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UU0AEHeotx34lQi9ia3UjlsQgYC6dVyeI+F3fDvMus8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vkka0n7khf"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/habitacion2.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UU0AEHeotx34lQi9ia3UjlsQgYC6dVyeI+F3fDvMus8="
+        }
+      ]
+    },
+    {
+      "Route": "Images/habitacion3.elj20vrc3g.jpg",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion3.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "44348"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TqQfIN8CB/TNv84NRdxyD8kGjtpiIx8EWZKeaDnUUvY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "elj20vrc3g"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/habitacion3.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-TqQfIN8CB/TNv84NRdxyD8kGjtpiIx8EWZKeaDnUUvY="
+        }
+      ]
+    },
+    {
+      "Route": "Images/habitacion3.jpg",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion3.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "44348"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TqQfIN8CB/TNv84NRdxyD8kGjtpiIx8EWZKeaDnUUvY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-TqQfIN8CB/TNv84NRdxyD8kGjtpiIx8EWZKeaDnUUvY="
+        }
+      ]
+    },
+    {
+      "Route": "Images/paquete1.ag1y5wulpx.jpg",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\paquete1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "45778"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2gBZp7jp1WBJdOKkncGYkG0xr0wIASx5QHVGG2FRXnI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ag1y5wulpx"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/paquete1.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2gBZp7jp1WBJdOKkncGYkG0xr0wIASx5QHVGG2FRXnI="
+        }
+      ]
+    },
+    {
+      "Route": "Images/paquete1.jpg",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\paquete1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "45778"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2gBZp7jp1WBJdOKkncGYkG0xr0wIASx5QHVGG2FRXnI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2gBZp7jp1WBJdOKkncGYkG0xr0wIASx5QHVGG2FRXnI="
+        }
+      ]
+    },
+    {
+      "Route": "Images/paquete2.kgx48vm6wq.png",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\paquete2.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1542611"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZEbDIAvgCh41JPheV7KbDqpkWcIYoVSRAmwH3xVXjiA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kgx48vm6wq"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/paquete2.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZEbDIAvgCh41JPheV7KbDqpkWcIYoVSRAmwH3xVXjiA="
+        }
+      ]
+    },
+    {
+      "Route": "Images/paquete2.png",
+      "AssetFile": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\paquete2.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1542611"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZEbDIAvgCh41JPheV7KbDqpkWcIYoVSRAmwH3xVXjiA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 22 Apr 2025 03:41:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZEbDIAvgCh41JPheV7KbDqpkWcIYoVSRAmwH3xVXjiA="
         }
       ]
     },

@@ -21,6 +21,30 @@
       "PackagePath": "staticwebassets\\Images\\banner4.jpg"
     },
     {
+      "Id": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\buceo.jpg",
+      "PackagePath": "staticwebassets\\Images\\buceo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion1.jpg",
+      "PackagePath": "staticwebassets\\Images\\habitacion1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion2.jpg",
+      "PackagePath": "staticwebassets\\Images\\habitacion2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\habitacion3.jpg",
+      "PackagePath": "staticwebassets\\Images\\habitacion3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\paquete1.jpg",
+      "PackagePath": "staticwebassets\\Images\\paquete1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\paquete2.png",
+      "PackagePath": "staticwebassets\\Images\\paquete2.png"
+    },
+    {
       "Id": "C:\\Users\\usuario\\Source\\Repos\\New-Dawn\\wwwroot\\Images\\piscina.jpg",
       "PackagePath": "staticwebassets\\Images\\piscina.jpg"
     },
