@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace NewDawn.Controllers
 {
-    [Authorize(Roles = "admin,empleado")]
+    
     public class UsuariosController : Controller
     {
         private readonly NewDawnContext _context;
