@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NewDawn.Models;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace NewDawn.Controllers
 {
+    [Authorize(Roles = "admin,empleado")]
     public class HabitacionesController : Controller
     {
         private readonly NewDawnContext _context;

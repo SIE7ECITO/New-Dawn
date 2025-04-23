@@ -10,9 +10,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
 using NewDawn.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NewDawn.Controllers
 {
+    [Authorize(Roles = "admin,empleado")]
     public class UsuariosController : Controller
     {
         private readonly NewDawnContext _context;
@@ -112,7 +114,7 @@ namespace NewDawn.Controllers
 
 
 
-
+        [Authorize(Roles = "admin")]
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -130,6 +132,7 @@ namespace NewDawn.Controllers
             return View(usuario);
         }
 
+        [Authorize(Roles = "admin")]
         // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -165,7 +168,7 @@ namespace NewDawn.Controllers
             ViewData["Idrol"] = new SelectList(_context.Rols, "Idrol", "Idrol", usuario.Idrol);
             return View(usuario);
         }
-
+        [Authorize(Roles = "admin")]
         // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -184,7 +187,7 @@ namespace NewDawn.Controllers
 
             return View(usuario);
         }
-
+        [Authorize(Roles = "admin")]
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

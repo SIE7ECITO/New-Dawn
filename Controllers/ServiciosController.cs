@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NewDawn.Models;
 
 namespace NewDawn.Controllers
 {
+    [Authorize(Roles = "admin,empleado")]
     public class ServiciosController : Controller
     {
         private readonly NewDawnContext _context;
