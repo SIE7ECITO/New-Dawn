@@ -10,58 +10,62 @@
 
 <div class="contenedor-principal">
 
-    <div class="encabezado-formulario">
-        <h1 class="titulo-formulario">Lista de Usuarios</h1>
-    </div>
-
-    <div class="formulario-campo mb-3">
-        <a asp-action="Create" class="boton boton-azul">Crear Nuevo Usuario</a>
-    </div>
-
-    <form asp-action="Index" method="get" class="mb-3">
-        <div class="formulario-campo">
-            <input type="text" name="searchCc" value="@ViewData["CurrentFilter"]" placeholder="Buscar por cédula..." />
+    <div class="container">
+        <div class="encabezado-formulario">
+            <h1 class="titulo-formulario">Lista de Usuarios</h1>
         </div>
-        <div class="formulario-campo">
-            <button type="submit" class="boton boton-azul">Buscar</button>
-            <a asp-action="Index" class="boton boton-gris">Limpiar</a>
-        </div>
-    </form>
 
-    <div class="tabla-permisos tabla-blanca">
-        <table>
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Ccusuario)</th>
-                    <th>@Html.DisplayNameFor(model => model.NombreUsuario)</th>
-                    <th>@Html.DisplayNameFor(model => model.Apellido)</th>
-                    <th>@Html.DisplayNameFor(model => model.Correo)</th>
-                    <th>@Html.DisplayNameFor(model => model.NumeroTelUsuario)</th>
-                    <th>@Html.DisplayNameFor(model => model.EstadoUsuario)</th>
-                    <th>@Html.DisplayNameFor(model => model.IdrolNavigation.NombreRol)</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <div class="formulario-campo mb-3">
+            <a asp-action="Create" class="boton boton-azul">Crear Nuevo Usuario</a>
+        </div>
+
+        <form asp-action="Index" method="get" class="mb-3">
+            <div class="formulario-campo">
+                <input type="text" name="searchCc" value="@ViewData["CurrentFilter"]" placeholder="Buscar por cédula..." />
+            </div>
+            <div class="formulario-campo">
+                <button type="submit" class="boton boton-azul">Buscar</button>
+                <a asp-action="Index" class="boton boton-gris">Limpiar</a>
+            </div>
+        </form>
+
+        <div class="tabla-permisos tabla-blanca">
+            <table>
+                <thead>
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Ccusuario)</td>
-                        <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Correo)</td>
-                        <td>@Html.DisplayFor(modelItem => item.NumeroTelUsuario)</td>
-                        <td>@Html.DisplayFor(modelItem => item.EstadoUsuario)</td>
-                        <td>@Html.DisplayFor(modelItem => item.IdrolNavigation.NombreRol)</td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Idusuario" class="boton boton-azul">Editar</a>
-                            <a asp-action="Details" asp-route-id="@item.Idusuario" class="boton boton-gris">Detalles</a>
-                            <a asp-action="Delete" asp-route-id="@item.Idusuario" class="boton boton-rojo">Eliminar</a>
-                        </td>
+                        <th>@Html.DisplayNameFor(model => model.Ccusuario)</th>
+                        <th>@Html.DisplayNameFor(model => model.NombreUsuario)</th>
+                        <th>@Html.DisplayNameFor(model => model.Apellido)</th>
+                        <th>@Html.DisplayNameFor(model => model.Correo)</th>
+                        <th>@Html.DisplayNameFor(model => model.NumeroTelUsuario)</th>
+                        <th>@Html.DisplayNameFor(model => model.EstadoUsuario)</th>
+                        <th>@Html.DisplayNameFor(model => model.IdrolNavigation.NombreRol)</th>
+                        <th>Acciones</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Ccusuario)</td>
+                            <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.NumeroTelUsuario)</td>
+                            <td>@Html.DisplayFor(modelItem => item.EstadoUsuario)</td>
+                            <td>@Html.DisplayFor(modelItem => item.IdrolNavigation.NombreRol)</td>
+                            <td>
+                                <div class="contenedor-botones">
+                                    <a asp-action="Edit" asp-route-id="@item.Idusuario" class="boton boton-azul">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.Idusuario" class="boton boton-gris">Detalles</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Idusuario" class="boton boton-rojo">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </div>

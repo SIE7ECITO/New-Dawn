@@ -85,10 +85,12 @@
                                 }
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.Idpaquete" class="btn-accion editar">Editar</a>
-                                <a asp-action="Details" asp-route-id="@item.Idpaquete" class="btn-accion detalles">Detalles</a>
-                                <a asp-action="Delete" asp-route-id="@item.Idpaquete" class="btn-accion eliminar"
-                                   onclick="return confirm('¿Estás seguro de que deseas eliminar este paquete?');">Eliminar</a>
+                                <div class="acciones-botones">
+                                    <a asp-action="Edit" asp-route-id="@item.Idpaquete" class="btn-accion editar">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.Idpaquete" class="btn-accion detalles">Detalles</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Idpaquete" class="btn-accion eliminar"
+                                       onclick="return confirm('¿Estás seguro de que deseas eliminar este paquete?');">Eliminar</a>
+                                </div>
                             </td>
                         </tr>
                     }

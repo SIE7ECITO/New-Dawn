@@ -1,26 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* ? altura completa de la pantalla */
+    display: flex;
+    justify-content: center; /* ? centro horizontal */
+    align-items: center; /* ? centro vertical */
     background: linear-gradient(to right, #e2e2e2, #c9d6ff);
     font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    padding: 40px 10px;
 }
 
 .contenedor-principal {
+    max-width: 1000px;
+    margin: 60px auto; /* ? Centra horizontalmente con margen arriba */
     background-color: #D9D6C3;
-    border-radius: 20px;
-    padding: 30px;
-    width: 100%;
-    max-width: 900px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
 .encabezado-formulario {

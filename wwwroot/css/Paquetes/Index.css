@@ -34,6 +34,12 @@ body {
     margin-bottom: 20px;
 }
 
+.acciones-botones {
+    display: flex;
+    gap: 8px; /* espacio entre botones */
+    flex-wrap: nowrap; /* evita que salten de línea */
+}
+
 .btn-crear {
     background-color: #0b3c52;
     color: white;
@@ -49,41 +55,50 @@ body {
         background-color: #164b68;
     }
 
+
+/* Tabla */
+.tabla-estilizada {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 12px;
+}
+
+    .tabla-estilizada th,
+    .tabla-estilizada td {
+        padding: 5px 5px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 400px; /* Agregado */
+
+    }
+
+    .tabla-estilizada th {
+        background-color: #113b4c;
+        color: white;
+    }
+
 .tabla-contenedor {
     overflow-x: auto;
 }
 
-.tabla-estilizada {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-    .tabla-estilizada th, .tabla-estilizada td {
-        padding: 15px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 200px;
-    }
-
-    .tabla-estilizada th {
-        background-color: #164b68;
-        color: white;
-    }
-
 .btn-accion {
     text-decoration: none;
-    padding: 6px 12px;
-    margin: 0 3px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    margin: 0 4px;
+    border-radius: 12px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    display: inline-block;
 }
 
     .btn-accion.editar {
@@ -100,4 +115,5 @@ body {
 
     .btn-accion:hover {
         opacity: 0.9;
+        transform: scale(1.05);
     }

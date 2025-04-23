@@ -1,28 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     background: linear-gradient(to right, #e2e2e2, #c9d6ff);
     font-family: 'Poppins', sans-serif;
     display: flex;
-    justify-content: center;
-    padding: 40px 10px;
-    position: relative;
-    bottom: 5vh;
+    width: 100%;
+    height: 150vh;
 }
 
 .contenedor-principal {
     background-color: #D9D6C3;
     border-radius: 20px;
-    padding: 30px;
     width: 100%;
-    max-width: 900px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    height: 90vh;
+}
+
+.container {
+    width: 100%;
 }
 
 .encabezado-formulario {
@@ -76,6 +71,13 @@ body {
     transition: 0.3s;
     text-decoration: none;
     text-align: center;
+}
+
+.contenedor-botones {
+    display: flex;
+    flex-direction: row;
+    gap: 8px; /* espacio entre botones */
+    align-items: center; /* opcional para alinear a la izquierda */
 }
 
 .boton-azul {
