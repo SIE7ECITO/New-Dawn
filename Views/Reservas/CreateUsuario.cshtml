@@ -5,6 +5,7 @@
 
     var habitaciones = ViewBag.HabitacionesDisponibles as List<NewDawn.Models.Habitacion> ?? new List<NewDawn.Models.Habitacion>();
     var paquetes = ViewBag.PaquetesDisponibles as List<NewDawn.Models.Paquete> ?? new List<NewDawn.Models.Paquete>();
+    var servicios = ViewBag.ServiciosDisponibles as List<NewDawn.Models.Servicio> ?? new List<NewDawn.Models.Servicio>();
 
     string fechaInicioValue = Model?.FechaComienzo != null
         ? Model.FechaComienzo.Value.ToString("yyyy-MM-dd")
@@ -41,28 +42,117 @@
                 </div>
             </div>
 
+            <!-- Habitaciones -->
             <div class="form-group">
-                <label class="control-label">Seleccionar Habitaciones</label>
-                <select class="form-control" name="habitacionesSeleccionadas">
-                    <option value="">-- Seleccionar habitación --</option>
-                    @foreach (var habitacion in habitaciones)
+                <h4>Seleccionar Habitaciones</h4>
+                <div class="row">
+                    @if (habitaciones.Any())
                     {
-                        <option value="@habitacion.Idhabitacion">
-                            @habitacion.TipoHabitacion - Capacidad: @habitacion.Capacidad - Precio/Noche: $@habitacion.PrecioNoche
-                        </option>
+                        foreach (var habitacion in habitaciones)
+                        {
+                            // Asignar imagen en función del tipo de habitación
+                            var imagen = habitacion.TipoHabitacion.ToLower() switch
+                            {
+                                "1" => "habitacion3.jpg",
+                                "2" => "habitacion2.jpg",
+                                "3" => "habitacion1.jpg",
+                                _ => "habitacion_default.jpg" // Imagen por defecto
+                            };
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/Images/@imagen" class="card-img-top" alt="Habitación @habitacion.TipoHabitacion" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Habitación @habitacion.TipoHabitacion</h5>
+                                        <p class="card-text">
+                                            Capacidad: @habitacion.Capacidad personas<br />
+                                            Precio/Noche: $@habitacion.PrecioNoche
+                                        </p>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="habitacionesSeleccionadas" value="@habitacion.Idhabitacion" id="habitacion_@habitacion.Idhabitacion" />
+                                            <label class="form-check-label" for="habitacion_@habitacion.Idhabitacion">Seleccionar</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     }
-                </select>
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-warning">No hay habitaciones disponibles</div>
+                        </div>
+                    }
+                </div>
             </div>
 
+            <!-- Paquetes -->
             <div class="form-group">
-                <label class="control-label">Seleccionar Paquete (Opcional)</label>
-                <select class="form-control" name="idPaquete">
-                    <option value="">-- Sin Paquete --</option>
-                    @foreach (var paquete in paquetes)
+                <h4>Seleccionar Paquete (Opcional)</h4>
+                <div class="row">
+                    @if (paquetes.Any())
                     {
-                        <option value="@paquete.Idpaquete">@paquete.NombrePaquete - $@paquete.Precio</option>
+                        foreach (var paquete in paquetes)
+                        {
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/wwwroot/Images/paquete.jpg" class="card-img-top" alt="Paquete @paquete.NombrePaquete" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">@paquete.NombrePaquete</h5>
+                                        <p class="card-text">
+                                            Precio: $@paquete.Precio<br />
+                                            Incluye: @string.Join(", ", paquete.ServicioPaquetes?.Select(sp => sp.IdservicioNavigation?.NombreServicio) ?? new List<string>())
+                                        </p>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="idPaquete" value="@paquete.Idpaquete" id="paquete_@paquete.Idpaquete" />
+                                            <label class="form-check-label" for="paquete_@paquete.Idpaquete">Seleccionar</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     }
-                </select>
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-warning">No hay paquetes disponibles</div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Servicios -->
+            <div class="form-group">
+                <h4>Seleccionar Servicios Adicionales</h4>
+                <div class="row">
+                    @if (servicios.Any())
+                    {
+                        foreach (var servicio in servicios)
+                        {
+                            <div class="col-md-3 mb-3">
+                                <div class="card">
+                                    <img src="~/wwwroot/Images/servicio.jpg" class="card-img-top" alt="Servicio @servicio.NombreServicio" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">@servicio.NombreServicio</h5>
+                                        <p class="card-text">
+                                            Precio: $@servicio.ValorServicio
+                                        </p>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="serviciosSeleccionados" value="@servicio.Idservicio" id="servicio_@servicio.Idservicio" />
+                                            <label class="form-check-label" for="servicio_@servicio.Idservicio">Seleccionar</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-warning">No hay servicios adicionales disponibles</div>
+                        </div>
+                    }
+                </div>
             </div>
 
             <div class="form-group text-right">

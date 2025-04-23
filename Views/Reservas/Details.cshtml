@@ -19,18 +19,24 @@
             <dt class="col-sm-3">Usuario</dt>
             <dd class="col-sm-9">@Model.IdusuarioNavigation?.NombreUsuario @Model.IdusuarioNavigation?.Apellido</dd>
 
-            <dt class="col-sm-3">Huésped</dt>
-            @foreach (var huespedReserva in Model.HuespedReservas)
-            {
-                <dd class="col-sm-9">@huespedReserva.Idhuesped</dd>
-            }
-
-
-
-
-            <dt class="col-sm-3">Estado de la Reserva</dt>
-            <dd class="col-sm-9">@Model.EstadoReserva ? "Activa" : "Cancelada"</dd>
-
+            <dt class="col-sm-3">Huéspedes</dt>
+            <dd class="col-sm-9">
+                @if (Model.HuespedReservas != null && Model.HuespedReservas.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var huespedReserva in Model.HuespedReservas)
+                        {
+                            <li class="list-group-item">
+                                Huésped ID: @huespedReserva.Idhuesped
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No se asignaron huéspedes a esta reserva.</p>
+                }
+            </dd>
             <dt class="col-sm-3">Valor Total</dt>
             <dd class="col-sm-9">$@Model.ValorTotal</dd>
         </dl>

@@ -1,4 +1,5 @@
 ﻿@model NewDawn.Models.Reserva
+
 @{
     ViewData["Title"] = "Crear Reserva";
 
@@ -87,20 +88,6 @@
                 </div>
             </div>
 
-
-            <table class="table mt-3">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tipo</th>
-                        <th>Capacidad</th>
-                        <th>Precio/Noche</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaHabitaciones"></tbody>
-            </table>
-
             <div class="form-group">
                 <label class="control-label">Seleccionar Paquete (Opcional)</label>
                 <select class="form-control" name="idPaquete">
@@ -152,7 +139,6 @@
             </div>
 
             <div class="form-group">
-                
                 <input type="hidden" asp-for="ValorTotal" />
             </div>
 
@@ -175,136 +161,7 @@
 
     <script>
         $(document).ready(function () {
-            function formatDate(date) {
-                return date.toISOString().split('T')[0];
-            }
-
-            $('input[name="FechaComienzo"]').change(function () {
-                var startDate = new Date(this.value);
-                if (isNaN(startDate.getTime())) return;
-
-                var minEndDate = new Date(startDate);
-                minEndDate.setDate(minEndDate.getDate() + 1);
-
-                var endDateInput = $('input[name="FechaFin"]');
-                endDateInput.attr('min', formatDate(minEndDate));
-
-                var currentEndDate = new Date(endDateInput.val());
-                if (isNaN(currentEndDate.getTime())) {
-                    endDateInput.val(formatDate(minEndDate));
-                } else if (currentEndDate <= startDate) {
-                    endDateInput.val(formatDate(minEndDate));
-                }
-
-                actualizarHabitaciones();
-            });
-
-            $('input[name="FechaFin"]').change(function () {
-                actualizarHabitaciones();
-            });
-
-            function calcularTotal() {
-                let total = 0;
-
-                let fechaInicio = new Date($('input[name="FechaComienzo"]').val());
-                let fechaFin = new Date($('input[name="FechaFin"]').val());
-
-                let cantidadDias = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24));
-                if (isNaN(cantidadDias) || cantidadDias <= 0) cantidadDias = 1;
-
-                // Habitaciones seleccionadas
-                $('#tablaHabitaciones input[name="habitacionesSeleccionadas"]').each(function () {
-                    let id = $(this).val();
-                    let precio = parseFloat($('#selectorHabitacion option[value="' + id + '"]').data('precio')) || 0;
-                    total += precio * cantidadDias;
-                });
-
-                // Paquete
-                let paquete = $('select[name="idPaquete"] option:selected');
-                let precioPaquete = parseFloat(paquete.data('precio')) || 0;
-                if (precioPaquete > 0) {
-                    total += precioPaquete;
-                }
-
-                // Servicios
-                $('input[name="serviciosSeleccionados"]:checked').each(function () {
-                    total += parseFloat($(this).data('precio')) || 0;
-                });
-
-                $('input[name="ValorTotal"]').val(total.toFixed(2));
-            }
-
-            $('input[name="FechaComienzo"], input[name="FechaFin"], input[name="serviciosSeleccionados"], select[name="idPaquete"]').on('change', calcularTotal);
-            $(document).on('change', 'input[name="habitacionesSeleccionadas"]', calcularTotal);
-
-            function actualizarHabitaciones() {
-                const fechaInicio = $('input[name="FechaComienzo"]').val();
-                const fechaFin = $('input[name="FechaFin"]').val();
-
-                if (!fechaInicio || !fechaFin) return;
-
-                $.ajax({
-                    url: '@Url.Action("FiltrarHabitaciones", "Reservas")',
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ fechaInicio, fechaFin }),
-                    success: function (habitaciones) {
-                        const selector = $('#selectorHabitacion');
-                        selector.empty().append('<option value="">-- Seleccionar habitación --</option>');
-
-                        let tiposIncluidos = [];
-
-                        habitaciones.forEach(h => {
-                            if (h.idhabitacion === 0) return;
-
-                            if (!tiposIncluidos.includes(h.tipoHabitacion)) {
-                                tiposIncluidos.push(h.tipoHabitacion);
-
-                                selector.append(
-                                    <option value="${h.idhabitacion}" data-precio="${h.precioNoche}" data-capacidad="${h.capacidad}">
-                                        ID: ${h.idhabitacion} - ${h.tipoHabitacion} - Capacidad: ${h.capacidad} - $${h.precioNoche}
-                                    </option>);
-                            }
-                        });
-                    },
-                    error: function () {
-                        alert('Error al cargar habitaciones disponibles.');
-                    }
-                });
-            }
-
-            // Agregar habitación desde el selector
-            $('#agregarHabitacion').on('click', function () {
-                let select = $('#selectorHabitacion');
-                let id = select.val();
-                let nombre = select.find(':selected').text();
-                let precio = parseFloat(select.find(':selected').data('precio')) || 0;
-                let capacidad = select.find(':selected').data('capacidad');
-
-                if (id && !$('#habitacion-' + id).length) {
-                    let fila =
-                        <tr id="habitacion-${id}">
-                            <td>${id}</td>
-                            <td>${nombre.split(' - ')[1]}</td>
-                            <td>${capacidad}</td>
-                            <td>$${precio.toFixed(2)}</td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm eliminarHabitacion" data-id="${id}">Eliminar</button>
-                            </td>
-                            <input type="hidden" name="habitacionesSeleccionadas" value="${id}" />
-                        </tr>;
-                    $('#tablaHabitaciones').append(fila);
-                    calcularTotal();
-                }
-            });
-
-            $(document).on('click', '.eliminarHabitacion', function () {
-                $(this).closest('tr').remove();
-                calcularTotal();
-            });
-
-            actualizarHabitaciones();
-            calcularTotal();
+            // Tu código para el manejo de eventos y lógica de la página
         });
     </script>
 }

@@ -47,7 +47,7 @@ namespace NewDawn.Controllers
 
             // Consultar las reservas
             IEnumerable<Reserva> reservas;
-            if (userRole.ToLower() == "admin") // Mostrar todas las reservas si el usuario es administrador
+            if (userRole.ToLower() == "admin" || userRole.ToLower() == "empleado") // Mostrar todas las reservas si el usuario es administrador
             {
                 reservas = await _context.Reservas
                     .Include(r => r.IdusuarioNavigation)    // Incluimos el usuario relacionado
@@ -180,13 +180,13 @@ namespace NewDawn.Controllers
 
             // Obtener el rol del usuario autenticado
             var userRole = User.FindFirstValue(ClaimTypes.Role);
-            if (userRole?.ToLower() == "admin")
+            if (userRole?.ToLower() == "admin" || userRole?.ToLower() == "empleado")
             {
-                return View(reserva); // Renderizar la vista estándar (admin)
+                return View(reserva); 
             }
             else
             {
-                return View("CreateUsuario", reserva); // Renderizar la vista personalizada para usuarios
+                return View("CreateUsuario", reserva); 
             }
         }
 
