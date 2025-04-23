@@ -122,11 +122,11 @@ namespace NewDawn.Controllers
         private async Task CargarDatosReservaAsync()
         {
             ViewBag.HabitacionesDisponibles = await _context.Habitacions
-                .Where(h => h.EstadoHabitacion && !h.EnPaquete && h.Idhabitacion != 0)
+                .Where(h => h.EstadoHabitacion && h.Idhabitacion != 0) // Excluir habitación con ID 0
                 .ToListAsync();
 
             ViewBag.PaquetesDisponibles = await _context.Paquetes
-                .Where(p => p.EstadoPaquete && p.Idpaquete != 0)
+                .Where(p => p.EstadoPaquete && p.Idpaquete != 0) // Excluir paquetes con ID 0 si aplica
                 .ToListAsync();
 
             ViewBag.ServiciosDisponibles = await _context.Servicios
@@ -398,7 +398,6 @@ namespace NewDawn.Controllers
 
 
         // GET: Reservas/Edit/5
-
         public async Task<IActionResult> Edit(int id)
         {
             var reserva = await _context.Reservas
@@ -411,10 +410,18 @@ namespace NewDawn.Controllers
                 return NotFound();
             }
 
-            // Cargar listas para los dropdowns y checkboxes
-            ViewBag.Paquetes = new SelectList(await _context.Paquetes.ToListAsync(), "Idpaquete", "NombrePaquete");
-            ViewBag.Habitaciones = await _context.Habitacions.Where(h => h.EstadoHabitacion).ToListAsync();
-            ViewBag.Servicios = await _context.Servicios.Where(s => s.EstadoServicio).ToListAsync();
+            // Cargar datos para habitaciones, paquetes y servicios
+            ViewBag.Habitaciones = await _context.Habitacions
+                .Where(h => h.EstadoHabitacion && h.Idhabitacion != 0) // Excluir habitación con ID 0
+                .ToListAsync();
+
+            ViewBag.PaquetesDisponibles = await _context.Paquetes
+                .Where(p => p.EstadoPaquete && p.Idpaquete != 0) // Excluir paquetes inválidos
+                .ToListAsync();
+
+            ViewBag.ServiciosDisponibles = await _context.Servicios
+                .Where(s => s.EstadoServicio)
+                .ToListAsync();
 
             return View(reserva);
         }
@@ -521,8 +528,9 @@ namespace NewDawn.Controllers
                 }
             }
 
-            // Servicios logic
-            _context.ReservaServicios.RemoveRange(existingReserva.ReservaServicios); // Limpia las asociaciones de servicios existentes
+            /// Servicios logic
+            var reservaServiciosCopia = existingReserva.ReservaServicios.ToList(); // Crear una copia para evitar modificar la colección durante la iteración
+            _context.ReservaServicios.RemoveRange(reservaServiciosCopia); // Limpia las asociaciones de servicios existentes
 
             if (serviciosSeleccionados != null && serviciosSeleccionados.Any())
             {
@@ -531,7 +539,7 @@ namespace NewDawn.Controllers
                     var servicio = await _context.Servicios.FindAsync(idServicio);
                     if (servicio == null || !servicio.EstadoServicio)
                     {
-                        ModelState.AddModelError("", $"Servicio {idServicio} no disponible");
+                        ModelState.AddModelError("", $"Servicio {idServicio} no disponible.");
                         continue;
                     }
 
