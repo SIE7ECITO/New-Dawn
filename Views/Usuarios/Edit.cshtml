@@ -4,71 +4,83 @@
     ViewData["Title"] = "Editar Usuario";
 }
 
-<h1>Editar Usuario</h1>
+<head>
+    <link rel="stylesheet" href="~/css/Usuarios/edit.css">
+</head>
 
-<h4>Usuario</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Idusuario" />
+<body>
+    <div class="container">
+        <div class="container-dentro">
+            <div class="title">
+                <h1>Editar Usuario</h1>
 
-            <div class="form-group">
-                <label asp-for="Ccusuario" class="control-label"></label>
-                <input asp-for="Ccusuario" class="form-control" />
-                <span asp-validation-for="Ccusuario" class="text-danger"></span>
+                <h4>Usuario</h4>
             </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Idusuario" />
 
-            <div class="form-group">
-                <label asp-for="NombreUsuario" class="control-label"></label>
-                <input asp-for="NombreUsuario" class="form-control" />
-                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
-            </div>
+                        <div class="form-group">
+                            <label asp-for="Ccusuario" class="control-label"></label>
+                            <input asp-for="Ccusuario" class="form-control" />
+                            <span asp-validation-for="Ccusuario" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="Apellido" class="control-label"></label>
-                <input asp-for="Apellido" class="form-control" />
-                <span asp-validation-for="Apellido" class="text-danger"></span>
-            </div>
+                        <div class="form-group">
+                            <label asp-for="NombreUsuario" class="control-label"></label>
+                            <input asp-for="NombreUsuario" class="form-control" />
+                            <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="Correo" class="control-label"></label>
-                <input asp-for="Correo" class="form-control" type="email" />
-                <span asp-validation-for="Correo" class="text-danger"></span>
-            </div>
+                        <div class="form-group">
+                            <label asp-for="Apellido" class="control-label"></label>
+                            <input asp-for="Apellido" class="form-control" />
+                            <span asp-validation-for="Apellido" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="NumeroTelUsuario" class="control-label"></label>
-                <input asp-for="NumeroTelUsuario" class="form-control" type="tel" />
-                <span asp-validation-for="NumeroTelUsuario" class="text-danger"></span>
-            </div>
+                        <div class="form-group">
+                            <label asp-for="Correo" class="control-label"></label>
+                            <input asp-for="Correo" class="form-control" type="email" />
+                            <span asp-validation-for="Correo" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="ContraseñaUsuario" class="control-label"></label>
-                <input asp-for="ContraseñaUsuario" class="form-control" />
-                <span asp-validation-for="ContraseñaUsuario" class="text-danger"></span>
-            </div>
+                        <div class="form-group">
+                            <label asp-for="NumeroTelUsuario" class="control-label"></label>
+                            <input asp-for="NumeroTelUsuario" class="form-control" type="tel" />
+                            <span asp-validation-for="NumeroTelUsuario" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EstadoUsuario" /> @Html.DisplayNameFor(model => model.EstadoUsuario)
-                </label>
-            </div>
+                        <div class="form-group">
+                            <label asp-for="ContraseñaUsuario" class="control-label"></label>
+                            <input asp-for="ContraseñaUsuario" class="form-control" />
+                            <span asp-validation-for="ContraseñaUsuario" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="Idrol" class="control-label"></label>
-                <select asp-for="Idrol" class="form-control" asp-items="ViewBag.Idrol"></select>
-                <span asp-validation-for="Idrol" class="text-danger"></span>
-            </div>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="EstadoUsuario" /> @Html.DisplayNameFor(model => model.EstadoUsuario)
+                            </label>
+                        </div>
 
-            <div class="form-group mt-3">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+                        <div class="form-group">
+                            <label asp-for="Idrol" class="control-label"></label>
+                            <select asp-for="Idrol" class="form-control" asp-items="ViewBag.Idrol"></select>
+                            <span asp-validation-for="Idrol" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</body>
 
 @section Scripts {
     @{

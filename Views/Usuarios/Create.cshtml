@@ -1,74 +1,93 @@
-﻿@model NewDawn.Models.Usuario
+﻿@model NewDawn.Models.Usuario  // Indica que la vista está utilizando el modelo 'Usuario' de la carpeta Models.
 
 @{
-    ViewData["Title"] = "Crear Usuario";
+    ViewData["Title"] = "Crear Usuario";  // Establece el título de la página que se mostrará en el navegador.
 }
 
 <head>
+    <!-- Enlaza el archivo CSS específico para la página de creación de usuario -->
     <link rel="stylesheet" href="~/css/Usuarios/create.css">
 </head>
 
 <body>
     <div class="container">
+        <!-- Contenedor principal para la vista -->
         <div class="form crear">
+            <!-- Contenedor del formulario de creación -->
             <form asp-action="Create" method="post">
-                <h2>CREAR USUARIO</h2>
+                <!-- El formulario enviará los datos al servidor utilizando la acción 'Create' en el controlador (método POST) -->
+                <h2>CREAR USUARIO</h2>  <!-- Título del formulario -->
+                <!-- Sección para mostrar los errores de validación en el formulario -->
                 <div asp-validation-summary="All" class="text-danger"></div>
 
+                <!-- Campo de entrada para la cédula del usuario -->
                 <div class="form-group">
-                    <input asp-for="Ccusuario" placeholder="Cédula de Usuario" />
-                    <span asp-validation-for="Ccusuario" class="text-danger"></span>
+                    <input asp-for="Ccusuario" placeholder="Cédula de Usuario" />  <!-- Campo de texto para la cédula, vinculado al modelo 'Ccusuario' -->
+                    <span asp-validation-for="Ccusuario" class="text-danger"></span>  <!-- Mensajes de validación para 'Ccusuario' -->
                 </div>
 
+                <!-- Campo de entrada para el nombre del usuario -->
                 <div class="form-group">
-                    <input asp-for="NombreUsuario" placeholder="Nombre" />
-                    <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+                    <input asp-for="NombreUsuario" placeholder="Nombre" />  <!-- Campo de texto para el nombre del usuario -->
+                    <span asp-validation-for="NombreUsuario" class="text-danger"></span>  <!-- Mensajes de validación para 'NombreUsuario' -->
                 </div>
 
+                <!-- Campo de entrada para el apellido del usuario -->
                 <div class="form-group">
-                    <input asp-for="Apellido" placeholder="Apellido" />
-                    <span asp-validation-for="Apellido" class="text-danger"></span>
+                    <input asp-for="Apellido" placeholder="Apellido" />  <!-- Campo de texto para el apellido -->
+                    <span asp-validation-for="Apellido" class="text-danger"></span>  <!-- Mensajes de validación para 'Apellido' -->
                 </div>
 
+                <!-- Campo de entrada para el número de teléfono del usuario -->
                 <div class="form-group">
-                    <input asp-for="NumeroTelUsuario" placeholder="Teléfono" type="tel" />
-                    <span asp-validation-for="NumeroTelUsuario" class="text-danger"></span>
+                    <input asp-for="NumeroTelUsuario" placeholder="Teléfono" type="tel" />  <!-- Campo de texto para el teléfono (tipo 'tel' para formato específico) -->
+                    <span asp-validation-for="NumeroTelUsuario" class="text-danger"></span>  <!-- Mensajes de validación para 'NumeroTelUsuario' -->
                 </div>
 
+                <!-- Campo de entrada para el correo electrónico del usuario -->
                 <div class="form-group">
-                    <input asp-for="Correo" placeholder="Correo" type="email" />
-                    <span asp-validation-for="Correo" class="text-danger"></span>
+                    <input asp-for="Correo" placeholder="Correo" type="email" />  <!-- Campo de texto para el correo (tipo 'email' para validación automática) -->
+                    <span asp-validation-for="Correo" class="text-danger"></span>  <!-- Mensajes de validación para 'Correo' -->
                 </div>
 
+                <!-- Campo de entrada para la contraseña del usuario -->
                 <div class="form-group">
-                    <input asp-for="ContraseñaUsuario" placeholder="Contraseña" type="password" />
-                    <span asp-validation-for="ContraseñaUsuario" class="text-danger"></span>
+                    <input asp-for="ContraseñaUsuario" placeholder="Contraseña" type="password" />  <!-- Campo de texto para la contraseña (tipo 'password' para ocultar texto) -->
+                    <span asp-validation-for="ContraseñaUsuario" class="text-danger"></span>  <!-- Mensajes de validación para 'ContraseñaUsuario' -->
                 </div>
 
+                <!-- Desplegable para seleccionar el rol del usuario -->
                 <div class="form-group">
                     <select asp-for="Idrol" asp-items="ViewBag.Idrol">
-                        <option disabled selected>Selecciona un rol</option>
+                        <!-- Menú desplegable para seleccionar el rol, vinculando 'Idrol' al modelo -->
+                        <option disabled selected>Selecciona un rol</option>  <!-- Opción predeterminada para seleccionar un rol -->
                     </select>
-                    <span asp-validation-for="Idrol" class="text-danger"></span>
+                    <span asp-validation-for="Idrol" class="text-danger"></span>  <!-- Mensajes de validación para 'Idrol' -->
                 </div>
 
+                <!-- Botón para enviar el formulario -->
                 <button type="submit">Crear</button>
+
+                <!-- Enlace para volver a la lista de usuarios -->
                 <a asp-action="Index" class="registro">Volver a la lista</a>
             </form>
         </div>
 
+        <!-- Panel de bienvenida -->
         <div class="panel-container">
             <div class="panel">
                 <div class="panel-panel panel-right">
+                    <!-- Imagen representativa para la creación de un usuario -->
                     <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="User Illustration" />
-                    <h3>¡Bienvenido al sistema!</h3>
-                    <p>Llena el formulario para registrar un nuevo usuario.</p>
+                    <h3>¡Bienvenido al sistema!</h3>  <!-- Título de bienvenida -->
+                    <p>Llena el formulario para registrar un nuevo usuario.</p>  <!-- Descripción del formulario -->
                 </div>
             </div>
         </div>
     </div>
 </body>
 
+<!-- Sección para incluir los scripts de validación (JavaScript) -->
 @section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await Html.PartialAsync("_ValidationScriptsPartial")  <!-- Incluye la validación parcial, que asegura que el cliente valida los datos antes de enviarlos al servidor -->
 }

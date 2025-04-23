@@ -1,0 +1,84 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.container {
+    background-color: #e5ddc1;
+    max-width: 420px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    height: 90vh;
+}
+
+.row {
+    display: flex;
+    align-items: start;
+    width: 100%;
+    flex-direction: column
+}
+
+.form-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #0F3D52;
+    margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    padding: 0.6rem 1.5rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-danger {
+    background-color: #5a6268;
+    color: white;
+    padding: 0.6rem 1rem;
+}
+
+.btn-cancel {
+    background-color: #d9534f;
+    color: white;
+}
