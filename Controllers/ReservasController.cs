@@ -19,7 +19,7 @@ namespace NewDawn.Controllers
             _context = context;
         }
         // GET: Reservas
-       
+
         public async Task<IActionResult> Index()
         {
             // Obtener el ID del usuario autenticado desde los claims
@@ -50,27 +50,29 @@ namespace NewDawn.Controllers
             if (userRole.ToLower() == "admin") // Mostrar todas las reservas si el usuario es administrador
             {
                 reservas = await _context.Reservas
-                .Include(r => r.IdusuarioNavigation)    // Incluimos el usuario relacionado
-                .Include(r => r.IdpaqueteNavigation)    // Incluimos el paquete relacionado
-                .Include(r => r.HabitacionReservas)    // Incluimos las habitaciones relacionadas
-                    .ThenInclude(hr => hr.IdhabitacionNavigation) // Habitaciones reservadas
-                .Include(r => r.ReservaServicios)      // Incluimos los servicios relacionados
-                    .ThenInclude(rs => rs.IdservicioNavigation)  // Servicios asociados
-                .ToListAsync();
+                    .Include(r => r.IdusuarioNavigation)    // Incluimos el usuario relacionado
+                    .Include(r => r.IdpaqueteNavigation)    // Incluimos el paquete relacionado
+                    .Include(r => r.HabitacionReservas)    // Incluimos las habitaciones relacionadas
+                        .ThenInclude(hr => hr.IdhabitacionNavigation) // Habitaciones reservadas
+                    .Include(r => r.ReservaServicios)      // Incluimos los servicios relacionados
+                        .ThenInclude(rs => rs.IdservicioNavigation)  // Servicios asociados
+                    .ToListAsync();
+
+                return View(reservas); // Renderiza la vista para admin
             }
             else // Mostrar solo las reservas del usuario autenticado
             {
                 reservas = await _context.Reservas
-                .Include(r => r.IdusuarioNavigation)    // Incluimos el usuario relacionado
-                .Include(r => r.IdpaqueteNavigation)    // Incluimos el paquete relacionado
-                .Include(r => r.HabitacionReservas)    // Incluimos las habitaciones relacionadas
-                    .ThenInclude(hr => hr.IdhabitacionNavigation) // Habitaciones reservadas
-                .Include(r => r.ReservaServicios)      // Incluimos los servicios relacionados
-                    .ThenInclude(rs => rs.IdservicioNavigation)  // Servicios asociados
-                .ToListAsync();
-            }
+                    .Where(r => r.Idusuario == userId) // Filtrar por el ID del usuario autenticado
+                    .Include(r => r.IdpaqueteNavigation)    // Incluimos el paquete relacionado
+                    .Include(r => r.HabitacionReservas)    // Incluimos las habitaciones relacionadas
+                        .ThenInclude(hr => hr.IdhabitacionNavigation) // Habitaciones reservadas
+                    .Include(r => r.ReservaServicios)      // Incluimos los servicios relacionados
+                        .ThenInclude(rs => rs.IdservicioNavigation)  // Servicios asociados
+                    .ToListAsync();
 
-            return View(reservas);
+                return View("IndexUsuario", reservas); // Renderiza una vista diferente para usuarios normales
+            }
         }
         // Acción para ver los detalles de una reserva
 
@@ -165,10 +167,10 @@ namespace NewDawn.Controllers
         // GET: Create
         public async Task<IActionResult> Create()
         {
-            // Cargar datos para vista
+            // Cargar datos para la vista
             await CargarDatosReservaAsync();
 
-            // Inicializar reserva con valores por defecto
+            // Inicializar el modelo de reserva con valores predeterminados
             var reserva = new Reserva
             {
                 FechaComienzo = DateOnly.FromDateTime(DateTime.Today),
@@ -176,7 +178,16 @@ namespace NewDawn.Controllers
                 EstadoReserva = true
             };
 
-            return View(reserva);
+            // Obtener el rol del usuario autenticado
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+            if (userRole?.ToLower() == "admin")
+            {
+                return View(reserva); // Renderizar la vista estándar (admin)
+            }
+            else
+            {
+                return View("CreateUsuario", reserva); // Renderizar la vista personalizada para usuarios
+            }
         }
 
 

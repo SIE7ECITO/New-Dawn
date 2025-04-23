@@ -297,51 +297,35 @@ namespace NewDawn.Controllers
         // POST: Usuarios/RegisterUser
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterUser([Bind("Ccusuario,NombreUsuario,Apellido,Correo,ContraseñaUsuario,Idrol")] Usuario usuario)
+        public async Task<IActionResult> RegisterUser([Bind("Ccusuario,NombreUsuario,Apellido,NumeroTelUsuario,Correo,ContraseñaUsuario")] Usuario usuario)
         {
-            if (!ModelState.IsValid)
+            // Verificar si ya existe un usuario con el mismo correo
+            var correoExiste = await _context.Usuarios.AnyAsync(u => u.Correo == usuario.Correo);
+            if (correoExiste)
             {
-                ViewData["Idrol"] = new SelectList(_context.Rols, "Idrol", "NombreRol", usuario.Idrol);
-                return View(usuario);
+                ModelState.AddModelError("Correo", "Este correo ya está registrado.");
             }
 
-            // Validar si el correo ya está registrado
-            var usuarioExistente = await _context.Usuarios.FirstOrDefaultAsync(u => u.Correo == usuario.Correo);
-            if (usuarioExistente != null)
+            // Verificar si ya existe un usuario con la misma cédula
+            var ccExiste = await _context.Usuarios.AnyAsync(u => u.Ccusuario == usuario.Ccusuario);
+            if (ccExiste)
             {
-                ModelState.AddModelError("Correo", "El correo ya está registrado.");
-                ViewData["Idrol"] = new SelectList(_context.Rols, "Idrol", "NombreRol", usuario.Idrol);
-                return View(usuario);
+                ModelState.AddModelError("Ccusuario", "Esta cédula ya está registrada.");
             }
 
-            // Validar y encriptar la contraseña
-            if (string.IsNullOrWhiteSpace(usuario.ContraseñaUsuario))
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("ContraseñaUsuario", "La contraseña es obligatoria.");
-                ViewData["Idrol"] = new SelectList(_context.Rols, "Idrol", "NombreRol", usuario.Idrol);
-                return View(usuario);
-            }
-            usuario.ContraseñaUsuario = BCrypt.Net.BCrypt.HashPassword(usuario.ContraseñaUsuario);
+                // Sin encriptar la contraseña
+                usuario.EstadoUsuario = true;
+                usuario.Idrol = 4;
 
-            // Estado por defecto: Activo
-            usuario.EstadoUsuario = true;
-
-            try
-            {
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Login", "Usuarios");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al registrar usuario: {ex.Message}");
-                ModelState.AddModelError("", "Ocurrió un error al registrar el usuario.");
+                return RedirectToAction("Login");
             }
 
-            ViewData["Idrol"] = new SelectList(_context.Rols, "Idrol", "NombreRol", usuario.Idrol);
             return View(usuario);
         }
-
 
 
         // GET: Mostrar la vista de recuperación
